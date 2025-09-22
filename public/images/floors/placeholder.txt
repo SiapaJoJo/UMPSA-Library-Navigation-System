@@ -1,0 +1,21 @@
+# Floor Plan Images Directory
+
+This directory contains floor plan images for the library building.
+
+## Sample Images Needed:
+- ground-floor-plan.jpg
+- first-floor-plan.jpg  
+- second-floor-plan.jpg
+- third-floor-plan.jpg
+- fourth-floor-plan.jpg
+
+## Image Requirements:
+- Format: JPG, PNG, or WebP
+- Recommended size: 1200x800px or larger
+- Aspect ratio: 3:2 or 4:3
+- File size: Under 2MB per image
+
+## Usage:
+Upload your floor plan images here and update the Floor model records to reference the correct filenames.
+
+The carousel will automatically display these images when they are available.
