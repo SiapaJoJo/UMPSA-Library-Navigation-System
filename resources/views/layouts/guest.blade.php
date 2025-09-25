@@ -173,61 +173,69 @@
             <!-- Chatbot Toggle Button -->
             <button id="chatbot-toggle" 
                     onclick="toggleChatbot()"
-                    style="width: 56px; height: 56px; background: linear-gradient(to right, #2563eb, #1d4ed8); color: white; border-radius: 50%; border: none; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;"
-                    onmouseover="this.style.transform='scale(1.1)'" 
-                    onmouseout="this.style.transform='scale(1)'">
-                <svg id="chat-icon" style="width: 24px; height: 24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    class="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full border-none shadow-lg cursor-pointer flex items-center justify-center transition-all duration-300 hover:scale-110">
+                <svg id="chat-icon" class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
                 </svg>
-                <svg id="close-icon" style="width: 24px; height: 24px; display: none;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg id="close-icon" class="w-5 h-5 sm:w-6 sm:h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
 
             <!-- Chatbot Window -->
             <div id="chatbot-window" 
-                 style="position: absolute; bottom: 80px; right: 0; width: 420px; height: 520px; background: white; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); border: 1px solid #e5e7eb; overflow: hidden; display: none; z-index: 10000;">
+                 style="position: absolute; bottom: 80px; right: 0; width: 320px; height: 400px; background: white; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); border: 1px solid #e5e7eb; overflow: hidden; display: none; z-index: 10000;">
+                 
+                 <style>
+                 @media (min-width: 640px) {
+                     #chatbot-window {
+                         width: 420px !important;
+                         height: 520px !important;
+                     }
+                 }
+                 </style>
                 
                 <!-- Chat Header -->
-                <div style="background: linear-gradient(to right, #2563eb, #1d4ed8); padding: 12px 16px; display: flex; align-items: center; justify-content: flex-start;">
-                    <div style="display: flex; align-items: center;">
-                        <div style="width: 32px; height: 32px; background: rgba(255, 255, 255, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
-                            <svg style="width: 16px; height: 16px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-3 py-2 sm:px-4 sm:py-3 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-6 h-6 sm:w-8 sm:h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-2 sm:mr-3">
+                            <svg class="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                             </svg>
                         </div>
                         <div>
-                            <h3 style="color: white; font-weight: 600; font-size: 14px; margin: 0;">Library Assistant</h3>
-                            <p style="color: #dbeafe; font-size: 12px; margin: 0;">AI-powered help</p>
+                            <h3 class="text-white font-semibold text-xs sm:text-sm m-0">Library Assistant</h3>
+                            <p class="text-blue-100 text-xs m-0">AI-powered help</p>
                         </div>
                     </div>
+                    <!-- Close button removed as requested -->
                 </div>
 
                 <!-- Chat Messages -->
-                <div id="chat-messages" style="flex: 1; overflow-y: auto; padding: 20px; height: 360px;">
+                <div id="chat-messages" class="flex-1 overflow-y-auto p-3 sm:p-5 h-64 sm:h-80">
                     <!-- Welcome Message -->
-                    <div style="display: flex; align-items: flex-start; margin-bottom: 16px;">
-                        <div style="width: 24px; height: 24px; background: #dbeafe; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 8px; margin-top: 4px; flex-shrink: 0;">
-                            <svg style="width: 12px; height: 12px; color: #2563eb;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="flex items-start mb-3 sm:mb-4">
+                        <div class="w-5 h-5 sm:w-6 sm:h-6 bg-blue-100 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0">
+                            <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                             </svg>
                         </div>
-                        <div style="background: #f3f4f6; border-radius: 12px; padding: 16px; max-width: 85%;">
-                            <p style="margin: 0; font-size: 15px; color: #374151; line-height: 1.5;">Hello! I'm your Library Assistant. How can I help you today?</p>
+                        <div class="bg-gray-100 rounded-xl p-3 sm:p-4 max-w-[85%]">
+                            <p class="m-0 text-sm sm:text-base text-gray-700 leading-relaxed">Hello! I'm your Library Assistant. How can I help you today?</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Chat Input -->
-                <div style="border-top: 1px solid #e5e7eb; padding: 20px;">
-                    <div style="display: flex; gap: 12px;">
+                <div class="border-t border-gray-200 p-3 sm:p-5">
+                    <div class="flex gap-2 sm:gap-3">
                         <input type="text" 
                                id="chatbot-input"
                                placeholder="Type your message..."
-                               style="flex: 1; padding: 12px 16px; font-size: 15px; border: 1px solid #d1d5db; border-radius: 10px; outline: none; focus:border-blue-500;">
+                               class="flex-1 px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
                         <button id="chatbot-send" onclick="sendMessage()"
-                                style="padding: 12px 20px; background: #2563eb; color: white; font-size: 15px; font-weight: 500; border-radius: 10px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;">
-                            <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                class="px-3 py-2 sm:px-5 sm:py-3 bg-blue-600 text-white text-sm sm:text-base font-medium rounded-lg border-none cursor-pointer flex items-center justify-center hover:bg-blue-700 transition-colors">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                             </svg>
                         </button>
