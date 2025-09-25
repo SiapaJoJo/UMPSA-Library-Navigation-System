@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
 @section('header')
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('UMPSA Library - Admin Dashboard') }}
-    </h2>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('UMPSA Library - Admin Dashboard') }}
+        </h2>
 @endsection
 
 @section('content')

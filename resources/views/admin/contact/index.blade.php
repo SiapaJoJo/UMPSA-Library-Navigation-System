@@ -19,7 +19,7 @@
 
 @section('content')
 
-    @if(session('success'))
+            @if(session('success'))
         <div class="mb-6 bg-green-50 border-l-4 border-green-400 p-4 rounded-lg">
             <div class="flex">
                 <div class="flex-shrink-0">
@@ -31,8 +31,8 @@
                     <p class="text-sm text-green-700">{{ session('success') }}</p>
                 </div>
             </div>
-        </div>
-    @endif
+                </div>
+            @endif
 
     <!-- Messages Overview Cards -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
@@ -94,39 +94,39 @@
         </div>
     </div>
 
-    @if($messages->count() > 0)
+            @if($messages->count() > 0)
         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-200">
                 <h3 class="text-lg font-semibold text-gray-900">All Messages</h3>
             </div>
             <div class="divide-y divide-gray-200">
-                @foreach($messages as $message)
+                        @foreach($messages as $message)
                     <div class="p-4 md:p-6 hover:bg-gray-50 transition-colors duration-150">
                         <!-- Mobile Layout -->
                         <div class="md:hidden">
                             <div class="flex items-start space-x-3 mb-4">
                                 <!-- Avatar -->
-                                <div class="flex-shrink-0">
+                                            <div class="flex-shrink-0">
                                     <div class="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
                                         <span class="text-sm font-semibold text-white">
-                                            {{ strtoupper(substr($message->name, 0, 1)) }}
-                                        </span>
-                                    </div>
-                                </div>
+                                                        {{ strtoupper(substr($message->name, 0, 1)) }}
+                                                    </span>
+                                                </div>
+                                            </div>
                                 
                                 <!-- Content -->
-                                <div class="flex-1 min-w-0">
+                                            <div class="flex-1 min-w-0">
                                     <div class="flex items-center space-x-2 mb-1">
                                         <h4 class="text-base font-semibold text-gray-900">{{ $message->name }}</h4>
                                         <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium
-                                            @if($message->status === 'new') bg-red-100 text-red-800
-                                            @elseif($message->status === 'read') bg-yellow-100 text-yellow-800
+                                                        @if($message->status === 'new') bg-red-100 text-red-800
+                                                        @elseif($message->status === 'read') bg-yellow-100 text-yellow-800
                                             @elseif($message->status === 'replied') bg-green-100 text-green-800
-                                            @else bg-gray-100 text-gray-800
-                                            @endif">
-                                            {{ ucfirst($message->status) }}
-                                        </span>
-                                    </div>
+                                                        @else bg-gray-100 text-gray-800
+                                                        @endif">
+                                                        {{ ucfirst($message->status) }}
+                                                    </span>
+                                                </div>
                                     <p class="text-xs text-gray-500 mb-1">{{ $message->created_at->format('M d, Y H:i') }}</p>
                                     <p class="text-xs text-gray-600 mb-2">{{ $message->email }}</p>
                                     <h5 class="text-sm font-medium text-gray-900 mb-1">{{ $message->subject }}</h5>
@@ -190,7 +190,7 @@
                                         Delete
                                     </button>
                                 </form>
-                            </div>
+                                            </div>
                         </div>
                         
                         <!-- Desktop Layout -->
@@ -201,8 +201,8 @@
                                     <span class="text-lg font-semibold text-white">
                                         {{ strtoupper(substr($message->name, 0, 1)) }}
                                     </span>
-                                </div>
-                            </div>
+                                        </div>
+                                    </div>
                             
                             <!-- Content -->
                             <div class="flex-1 min-w-0">
@@ -234,7 +234,7 @@
                             <!-- Desktop Actions -->
                             <div class="flex-shrink-0">
                                 <div class="flex flex-col space-y-2">
-                                    <a href="{{ route('admin.contact-messages.show', $message) }}" 
+                                            <a href="{{ route('admin.contact-messages.show', $message) }}" 
                                        class="inline-flex items-center px-3 py-2 bg-blue-100 text-blue-700 text-sm font-medium rounded-lg hover:bg-blue-200 transition-colors">
                                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -242,9 +242,9 @@
                                         </svg>
                                         View
                                     </a>
-                                    
-                                    @if($message->status === 'new')
-                                        <form action="{{ route('admin.contact-messages.mark-read', $message) }}" method="POST" class="inline">
+                                            
+                                            @if($message->status === 'new')
+                                                <form action="{{ route('admin.contact-messages.mark-read', $message) }}" method="POST" class="inline">
                                             <button type="submit" class="inline-flex items-center px-3 py-2 bg-yellow-100 text-yellow-700 text-sm font-medium rounded-lg hover:bg-yellow-200 transition-colors w-full">
                                                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -252,54 +252,54 @@
                                                 </svg>
                                                 Mark Read
                                             </button>
-                                        </form>
-                                    @endif
-                                    
-                                    @if($message->status === 'read')
-                                        <form action="{{ route('admin.contact-messages.mark-replied', $message) }}" method="POST" class="inline">
+                                                </form>
+                                            @endif
+                                            
+                                            @if($message->status === 'read')
+                                                <form action="{{ route('admin.contact-messages.mark-replied', $message) }}" method="POST" class="inline">
                                             <button type="submit" class="inline-flex items-center px-3 py-2 bg-green-100 text-green-700 text-sm font-medium rounded-lg hover:bg-green-200 transition-colors w-full">
                                                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                                 </svg>
                                                 Mark Replied
                                             </button>
-                                        </form>
-                                    @endif
-                                    
-                                    @if($message->status === 'replied')
-                                        <form action="{{ route('admin.contact-messages.mark-closed', $message) }}" method="POST" class="inline">
+                                                </form>
+                                            @endif
+                                            
+                                            @if($message->status === 'replied')
+                                                <form action="{{ route('admin.contact-messages.mark-closed', $message) }}" method="POST" class="inline">
                                             <button type="submit" class="inline-flex items-center px-3 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors w-full">
                                                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                                 </svg>
                                                 Close
                                             </button>
-                                        </form>
-                                    @endif
-                                    
-                                    <form action="{{ route('admin.contact-messages.destroy', $message) }}" method="POST" class="inline">
-                                        @method('DELETE')
-                                        <button type="submit" 
-                                                onclick="return confirm('Are you sure you want to delete this message?')"
+                                                </form>
+                                            @endif
+                                            
+                                            <form action="{{ route('admin.contact-messages.destroy', $message) }}" method="POST" class="inline">
+                                                @method('DELETE')
+                                                <button type="submit" 
+                                                        onclick="return confirm('Are you sure you want to delete this message?')"
                                                 class="inline-flex items-center px-3 py-2 bg-red-100 text-red-700 text-sm font-medium rounded-lg hover:bg-red-200 transition-colors w-full">
                                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                             </svg>
                                             Delete
                                         </button>
-                                    </form>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
                     </div>
-                @endforeach
+                        @endforeach
             </div>
-        </div>
-    @else
+                </div>
+            @else
         <div class="bg-white rounded-lg shadow-lg p-12 text-center">
             <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-            </svg>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
             <h3 class="text-lg font-medium text-gray-900 mb-2">No messages found</h3>
             <p class="text-gray-500 mb-6">No contact messages have been received yet.</p>
             <a href="{{ route('guest.contact.index') }}" target="_blank" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-lg hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl">
@@ -308,8 +308,8 @@
                 </svg>
                 View Contact Form
             </a>
-        </div>
-    @endif
+                </div>
+            @endif
         </div>
     </div>
 @endsection

@@ -9,7 +9,7 @@
                 <div class="absolute top-10 left-10 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl"></div>
                 <div class="absolute bottom-10 right-10 w-96 h-96 bg-blue-300/20 rounded-full blur-3xl"></div>
             </div>
-        </div>
+                </div>
         
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <!-- Back to Virtual Tours Link -->
