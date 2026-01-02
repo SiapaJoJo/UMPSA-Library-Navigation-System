@@ -1,0 +1,39 @@
+@startuml UC003_E1_Resource_Load_Error
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC003 - Floor Directory: Exception Flow E1 - Resource Load Error
+
+actor "Student or Guest" as Guest
+boundary "resources/views/guest/floors/show.blade.php" as GuestFloorShow
+control "app/Http/Controllers/Guest/FloorController.php" as GuestFloorController
+entity "app/Models/Floor.php" as FloorModel
+database "floors" as FloorDB
+control "app/Exceptions/Handler.php" as ErrorHandler
+
+Guest -> GuestFloorShow: GET /guest/floors/{floor}
+GuestFloorShow -> GuestFloorController: show(Floor $floor)
+GuestFloorController -> FloorModel: Route model binding: $floor
+FloorModel -> FloorDB: SELECT * FROM floors WHERE id = ?
+
+alt Database Connection Error
+    FloorDB -> GuestFloorController: **Exception: DatabaseConnectionException**
+else Database Query Error
+    FloorDB -> GuestFloorController: **Exception: QueryException**
+else File System Error
+    GuestFloorController -> GuestFloorController: **Exception: FileNotFoundException**
+else Panorama Service Error
+    GuestFloorController -> GuestFloorController: **Exception: RuntimeException**
+end
+
+GuestFloorController -> ErrorHandler: ExceptionHandler::render()
+ErrorHandler -> ErrorHandler: Log::error($exception)
+ErrorHandler --> GuestFloorController: Response(500, "Directory content unavailable")
+
+GuestFloorController --> GuestFloorShow: HTTP 500 Error Response
+GuestFloorShow -> Guest: Display: "Directory content unavailable. Please try again later."
+
+@enduml

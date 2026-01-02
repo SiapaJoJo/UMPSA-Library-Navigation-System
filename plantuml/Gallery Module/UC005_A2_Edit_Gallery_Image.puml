@@ -1,0 +1,45 @@
+@startuml UC005_A2_Edit_Gallery_Image
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC005 - Gallery: Alternative Flow A2 - Edit Gallery Image
+
+actor Administrator
+boundary "resources/views/admin/galleries/edit.blade.php" as AdminGalleryView
+control "app/Http/Controllers/Admin/GalleryController.php" as AdminGalleryController
+entity "app/Models/Gallery.php" as GalleryModel
+database "galleries" as GalleryDB
+
+Administrator -> AdminGalleryView: GET /admin/galleries/{id}/edit
+AdminGalleryView -> AdminGalleryController: edit(Gallery $gallery)
+AdminGalleryController -> GalleryModel: Route model binding: $gallery
+GalleryModel -> GalleryDB: SELECT * FROM galleries WHERE id = ?
+AdminGalleryController --> AdminGalleryView: view('admin.galleries.edit', compact('gallery'))
+AdminGalleryView --> Administrator: Display edit form with gallery data
+
+Administrator -> AdminGalleryView: PUT /admin/galleries/{id} (updated metadata)
+AdminGalleryView -> AdminGalleryController: update(Request $request, Gallery $gallery)
+
+AdminGalleryController -> AdminGalleryController: $request->validate([...])
+
+alt Validation Passes
+    alt New Image Uploaded
+        AdminGalleryController -> AdminGalleryController: Delete old image
+        AdminGalleryController -> AdminGalleryController: $image->move(public_path('images/gallery'), $imageName)
+    end
+    
+    AdminGalleryController -> GalleryModel: $gallery->update($data)
+    GalleryModel -> GalleryDB: UPDATE galleries SET ... WHERE id = ?
+    GalleryDB --> GalleryModel: Record updated
+    
+    AdminGalleryController --> AdminGalleryView: redirect()->route('admin.galleries.index')->with('success')
+    AdminGalleryView -> Administrator: HTTP 302 Redirect to /admin/galleries
+else Validation Fails
+    AdminGalleryController --> AdminGalleryView: ValidationException with errors
+    AdminGalleryView -> Administrator: Display validation errors
+end
+
+@enduml

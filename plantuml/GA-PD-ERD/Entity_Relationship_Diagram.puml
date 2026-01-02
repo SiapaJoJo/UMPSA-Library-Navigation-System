@@ -1,0 +1,156 @@
+@startuml
+
+skinparam roundcorner 8
+skinparam linetype ortho
+skinparam handwritten false
+skinparam shadowing false
+
+skinparam entity {
+  BackgroundColor #FFFFFF
+  BorderColor #000000
+  FontName Arial
+  FontSize 11
+}
+
+hide circle
+
+title LibNav — Entity Relationship Diagram
+
+' --- Center user / admin table ---
+entity "users" as Users {
+  ==   PK   ==
+  --
+  PK | id : bigint
+  --
+  name : varchar
+  email : varchar <<unique>>
+  email_verified_at : timestamp
+  password : varchar
+  remember_token : varchar
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+' --- Sessions / Admin session (above Users) ---
+entity "sessions" as Sessions {
+  ==   PK   ==
+  --
+  PK | id : varchar
+  FK | user_id : bigint
+  --
+  ip_address : varchar(45)
+  user_agent : text
+  payload : longtext
+  last_activity : integer
+}
+
+' --- Library maps (below Users, left) ---
+entity "library_maps" as LibraryMaps {
+  ==   PK   ==
+  --
+  PK | id : bigint
+  --
+  name : varchar
+  mappedin_url : text
+  description : text
+  floor : varchar
+  section : varchar
+  is_active : boolean
+  is_default : boolean
+  sort_order : integer
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+' --- Floors (below Users, center) ---
+entity "floors" as Floors {
+  ==   PK   ==
+  --
+  PK | id : bigint
+  --
+  name : varchar
+  level : varchar
+  description : text
+  image : varchar
+  facilities : json
+  is_active : boolean
+  sort_order : integer
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+' --- Panoramas (below Floors) ---
+entity "panoramas" as Panoramas {
+  ==   PK   ==
+  --
+  PK | id : bigint
+  --
+  name : varchar
+  description : text
+  floor : varchar
+  display_image : varchar
+  folder : varchar
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+' --- Galleries (right of Users) ---
+entity "galleries" as Galleries {
+  ==   PK   ==
+  --
+  PK | id : bigint
+  --
+  title : varchar
+  description : text
+  image_path : varchar
+  alt_text : varchar
+  category : varchar
+  is_featured : boolean
+  is_active : boolean
+  sort_order : integer
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+' --- Contact messages (left of Users) ---
+entity "contact_messages" as ContactMessages {
+  ==   PK   ==
+  --
+  PK | id : bigint
+  --
+  name : varchar
+  email : varchar
+  phone : varchar
+  subject : varchar
+  message : text
+  status : enum('new','read','replied','closed')
+  admin_notes : text
+  read_at : timestamp
+  replied_at : timestamp
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+' --- Layout positioning hints (Users in center, others around) ---
+Users -[hidden]up- Sessions
+Users -[hidden]down- LibraryMaps
+Users -[hidden]down- Floors
+Users -[hidden]right- Galleries
+Users -[hidden]left- ContactMessages
+LibraryMaps -[hidden]right- Floors
+Floors -[hidden]down- Panoramas
+Panoramas -[hidden]left- Galleries
+
+' --- Relationships (crow's foot style) ---
+Users ||--o{ Sessions : "has\n(user_id)"
+Users ||--o{ LibraryMaps : "manages"
+Users ||--o{ Floors : "manages"
+Users ||--o{ Panoramas : "manages"
+Users ||--o{ Galleries : "manages"
+Users ||--o{ ContactMessages : "reviews"
+
+' --- Additional logical relationships ---
+Floors ||--o{ Panoramas : "contains"
+LibraryMaps }o--|| Floors : "located on"
+
+@enduml

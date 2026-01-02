@@ -1,7 +1,7 @@
 <x-admin-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
                 {{ __('Contact Message Details') }}
             </h2>
             <a href="{{ route('admin.contact-messages.index') }}" 
@@ -20,56 +20,56 @@
                 <!-- Message Details -->
                 <div class="lg:col-span-2 space-y-6">
                     <!-- Message Header -->
-                    <div class="bg-white shadow-sm rounded-lg p-6">
+                    <div class="bg-white dark:bg-gray-800 shadow-sm rounded-lg p-6">
                         <div class="flex items-start justify-between mb-4">
                             <div class="flex items-center space-x-4">
-                                <div class="h-12 w-12 rounded-full bg-gray-300 flex items-center justify-center">
-                                    <span class="text-lg font-medium text-gray-700">
+                                <div class="h-12 w-12 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
+                                    <span class="text-lg font-medium text-gray-700 dark:text-white">
                                         {{ strtoupper(substr($contactMessage->name, 0, 1)) }}
                                     </span>
                                 </div>
                                 <div>
-                                    <h3 class="text-lg font-semibold text-gray-900">{{ $contactMessage->name }}</h3>
-                                    <p class="text-sm text-gray-500">{{ $contactMessage->email }}</p>
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $contactMessage->name }}</h3>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ $contactMessage->email }}</p>
                                     @if($contactMessage->phone)
-                                        <p class="text-sm text-gray-500">{{ $contactMessage->phone }}</p>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ $contactMessage->phone }}</p>
                                     @endif
                                 </div>
                             </div>
                             <div class="text-right">
                                 <span class="px-3 py-1 text-sm rounded-full
-                                    @if($contactMessage->status === 'new') bg-red-100 text-red-800
-                                    @elseif($contactMessage->status === 'read') bg-yellow-100 text-yellow-800
-                                    @elseif($contactMessage->status === 'replied') bg-blue-100 text-blue-800
-                                    @else bg-gray-100 text-gray-800
+                                    @if($contactMessage->status === 'new') bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300
+                                    @elseif($contactMessage->status === 'read') bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300
+                                    @elseif($contactMessage->status === 'replied') bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300
+                                    @else bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300
                                     @endif">
                                     {{ ucfirst($contactMessage->status) }}
                                 </span>
-                                <p class="text-xs text-gray-500 mt-1">
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                     {{ $contactMessage->created_at->format('M d, Y H:i') }}
                                 </p>
                             </div>
                         </div>
                         
-                        <div class="border-t pt-4">
-                            <h4 class="text-lg font-medium text-gray-900 mb-2">{{ $contactMessage->subject }}</h4>
+                        <div class="border-t dark:border-gray-700 pt-4">
+                            <h4 class="text-lg font-medium text-gray-900 dark:text-white mb-2">{{ $contactMessage->subject }}</h4>
                             <div class="prose max-w-none">
-                                <p class="text-gray-700 whitespace-pre-wrap">{{ $contactMessage->message }}</p>
+                                <p class="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{{ $contactMessage->message }}</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Admin Notes -->
-                    <div class="bg-white shadow-sm rounded-lg p-6">
-                        <h4 class="text-lg font-medium text-gray-900 mb-4">Admin Notes</h4>
+                    <div class="bg-white dark:bg-gray-800 shadow-sm rounded-lg p-6">
+                        <h4 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Admin Notes</h4>
                         <form action="{{ route('admin.contact-messages.update', $contactMessage) }}" method="POST" class="space-y-4">
                             @method('PUT')
                             
                             <div>
-                                <label for="status" class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                                <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Status</label>
                                 <select id="status" 
                                         name="status" 
-                                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                     <option value="new" {{ $contactMessage->status === 'new' ? 'selected' : '' }}>New</option>
                                     <option value="read" {{ $contactMessage->status === 'read' ? 'selected' : '' }}>Read</option>
                                     <option value="replied" {{ $contactMessage->status === 'replied' ? 'selected' : '' }}>Replied</option>
@@ -78,11 +78,11 @@
                             </div>
                             
                             <div>
-                                <label for="admin_notes" class="block text-sm font-medium text-gray-700 mb-2">Admin Notes</label>
+                                <label for="admin_notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Admin Notes</label>
                                 <textarea id="admin_notes" 
                                           name="admin_notes" 
                                           rows="4"
-                                          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">{{ old('admin_notes', $contactMessage->admin_notes) }}</textarea>
+                                          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500">{{ old('admin_notes', $contactMessage->admin_notes) }}</textarea>
                             </div>
                             
                             <div class="flex justify-end">
@@ -98,8 +98,8 @@
                 <!-- Actions Sidebar -->
                 <div class="space-y-6">
                     <!-- Quick Actions -->
-                    <div class="bg-white shadow-sm rounded-lg p-6">
-                        <h4 class="text-lg font-medium text-gray-900 mb-4">Quick Actions</h4>
+                    <div class="bg-white dark:bg-gray-800 shadow-sm rounded-lg p-6">
+                        <h4 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Quick Actions</h4>
                         <div class="space-y-3">
                             @if($contactMessage->status === 'new')
                                 <form action="{{ route('admin.contact-messages.mark-read', $contactMessage) }}" method="POST" class="w-full">
@@ -140,23 +140,23 @@
                     </div>
 
                     <!-- Message Info -->
-                    <div class="bg-white shadow-sm rounded-lg p-6">
-                        <h4 class="text-lg font-medium text-gray-900 mb-4">Message Info</h4>
+                    <div class="bg-white dark:bg-gray-800 shadow-sm rounded-lg p-6">
+                        <h4 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Message Info</h4>
                         <dl class="space-y-3">
                             <div>
-                                <dt class="text-sm font-medium text-gray-500">Received</dt>
-                                <dd class="text-sm text-gray-900">{{ $contactMessage->created_at->format('M d, Y H:i') }}</dd>
+                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Received</dt>
+                                <dd class="text-sm text-gray-900 dark:text-white">{{ $contactMessage->created_at->format('M d, Y H:i') }}</dd>
                             </div>
                             @if($contactMessage->read_at)
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Read At</dt>
-                                    <dd class="text-sm text-gray-900">{{ $contactMessage->read_at->format('M d, Y H:i') }}</dd>
+                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Read At</dt>
+                                    <dd class="text-sm text-gray-900 dark:text-white">{{ $contactMessage->read_at->format('M d, Y H:i') }}</dd>
                                 </div>
                             @endif
                             @if($contactMessage->replied_at)
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Replied At</dt>
-                                    <dd class="text-sm text-gray-900">{{ $contactMessage->replied_at->format('M d, Y H:i') }}</dd>
+                                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Replied At</dt>
+                                    <dd class="text-sm text-gray-900 dark:text-white">{{ $contactMessage->replied_at->format('M d, Y H:i') }}</dd>
                                 </div>
                             @endif
                         </dl>

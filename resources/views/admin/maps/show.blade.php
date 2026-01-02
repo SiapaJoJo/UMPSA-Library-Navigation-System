@@ -1,7 +1,7 @@
 <x-admin-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
                 {{ __('View Library Map') }}
             </h2>
             <div class="flex space-x-2">
@@ -19,80 +19,80 @@
         <div class="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <!-- Map Information -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Map Information</h3>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Map Information</h3>
                         
                         <div class="space-y-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Map Name</label>
-                                <p class="mt-1 text-sm text-gray-900">{{ $map->name }}</p>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Map Name</label>
+                                <p class="mt-1 text-sm text-gray-900 dark:text-white">{{ $map->name }}</p>
                             </div>
 
                             @if($map->floor || $map->section)
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700">Location</label>
-                                    <p class="mt-1 text-sm text-gray-900">{{ $map->full_name }}</p>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Location</label>
+                                    <p class="mt-1 text-sm text-gray-900 dark:text-white">{{ $map->full_name }}</p>
                                 </div>
                             @endif
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">MappedIn URL</label>
-                                <p class="mt-1 text-sm text-gray-900 break-all">{{ $map->mappedin_url }}</p>
-                                <a href="{{ $map->mappedin_url }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">Open in new tab</a>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">MappedIn URL</label>
+                                <p class="mt-1 text-sm text-gray-900 dark:text-white break-all">{{ $map->mappedin_url }}</p>
+                                <a href="{{ $map->mappedin_url }}" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm">Open in new tab</a>
                             </div>
 
                             @if($map->description)
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700">Description</label>
-                                    <p class="mt-1 text-sm text-gray-900">{{ $map->description }}</p>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
+                                    <p class="mt-1 text-sm text-gray-900 dark:text-white">{{ $map->description }}</p>
                                 </div>
                             @endif
 
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700">Status</label>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
                                     @if($map->is_active)
-                                        <span class="inline-block mt-1 px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+                                        <span class="inline-block mt-1 px-2 py-1 text-xs font-semibold rounded-full bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300">Active</span>
                                     @else
-                                        <span class="inline-block mt-1 px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">Inactive</span>
+                                        <span class="inline-block mt-1 px-2 py-1 text-xs font-semibold rounded-full bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300">Inactive</span>
                                     @endif
                                 </div>
 
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700">Default Map</label>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Default Map</label>
                                     @if($map->is_default)
-                                        <span class="inline-block mt-1 px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">Yes</span>
+                                        <span class="inline-block mt-1 px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300">Yes</span>
                                     @else
-                                        <span class="inline-block mt-1 px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">No</span>
+                                        <span class="inline-block mt-1 px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300">No</span>
                                     @endif
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Sort Order</label>
-                                <p class="mt-1 text-sm text-gray-900">{{ $map->sort_order }}</p>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Sort Order</label>
+                                <p class="mt-1 text-sm text-gray-900 dark:text-white">{{ $map->sort_order }}</p>
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Created</label>
-                                <p class="mt-1 text-sm text-gray-900">{{ $map->created_at->format('M d, Y \a\t g:i A') }}</p>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Created</label>
+                                <p class="mt-1 text-sm text-gray-900 dark:text-white">{{ $map->created_at->format('M d, Y \a\t g:i A') }}</p>
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Last Updated</label>
-                                <p class="mt-1 text-sm text-gray-900">{{ $map->updated_at->format('M d, Y \a\t g:i A') }}</p>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Last Updated</label>
+                                <p class="mt-1 text-sm text-gray-900 dark:text-white">{{ $map->updated_at->format('M d, Y \a\t g:i A') }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Map Preview -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Map Preview</h3>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Map Preview</h3>
                         
-                        <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
                             <iframe 
                                 src="{{ $map->embed_url }}" 
                                 width="100%" 

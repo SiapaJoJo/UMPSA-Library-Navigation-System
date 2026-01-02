@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LibNav - Library Navigation System</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; }
+        .header { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 2rem; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .header p { font-size: 1.2rem; opacity: 0.9; }
+        .nav { background: #1f2937; padding: 1rem; display: flex; justify-content: center; gap: 2rem; }
+        .nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; }
+        .nav a:hover { background: #374151; }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+        .hero { text-align: center; padding: 3rem 0; }
+        .hero h2 { font-size: 2rem; color: #1f2937; margin-bottom: 1rem; }
+        .hero p { color: #6b7280; font-size: 1.1rem; margin-bottom: 2rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .card { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 12px rgba(0,0,0,0.15); }
+        .card-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .card h3 { color: #1f2937; margin-bottom: 0.5rem; font-size: 1.5rem; }
+        .card p { color: #6b7280; margin-bottom: 1rem; }
+        .btn { display: inline-block; padding: 0.75rem 1.5rem; background: #3b82f6; color: white; text-decoration: none; border-radius: 6px; }
+        .btn:hover { background: #2563eb; }
+        .footer { background: #1f2937; color: white; text-align: center; padding: 2rem; margin-top: 4rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>LibNav</h1>
+        <p>Library Navigation System - UMPSA Library</p>
+    </div>
+    
+    <div class="nav">
+        <a href="guest-dashboard.html">Home</a>
+        <a href="guest-maps-index.html">Maps</a>
+        <a href="guest-floors-index.html">Floors</a>
+        <a href="guest-galleries-index.html">Gallery</a>
+        <a href="guest-pano-index.html">Panoramas</a>
+        <a href="guest-contact-index.html">Contact</a>
+    </div>
+    
+    <div class="container">
+        <div class="hero">
+            <h2>Welcome to UMPSA Library</h2>
+            <p>Explore our library facilities, navigate through floors, and discover all available resources</p>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">🗺️</div>
+                <h3>Interactive Maps</h3>
+                <p>Explore our library with interactive maps showing all floors and sections</p>
+                <a href="guest-maps-index.html" class="btn">View Maps</a>
+            </div>
+            <div class="card">
+                <div class="card-icon">🏢</div>
+                <h3>Floor Directory</h3>
+                <p>Browse through different floors and discover facilities available on each level</p>
+                <a href="guest-floors-index.html" class="btn">Explore Floors</a>
+            </div>
+            <div class="card">
+                <div class="card-icon">📸</div>
+                <h3>Gallery</h3>
+                <p>View photos of our library facilities, events, and spaces</p>
+                <a href="guest-galleries-index.html" class="btn">View Gallery</a>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌐</div>
+                <h3>360° Panoramas</h3>
+                <p>Experience immersive 360-degree views of library spaces</p>
+                <a href="guest-pano-index.html" class="btn">View Panoramas</a>
+            </div>
+            <div class="card">
+                <div class="card-icon">💬</div>
+                <h3>Contact Us</h3>
+                <p>Have questions or feedback? Get in touch with us</p>
+                <a href="guest-contact-index.html" class="btn">Contact</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2024 UMPSA Library. All rights reserved.</p>
+    </div>
+</body>
+</html>
+

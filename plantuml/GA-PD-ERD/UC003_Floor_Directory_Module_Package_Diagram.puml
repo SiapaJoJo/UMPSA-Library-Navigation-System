@@ -1,0 +1,64 @@
+@startuml
+title UC003 - Floor Directory Module - Package Diagram
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam roundcorner 5
+
+package "resources" {
+    package "views" {
+        package "admin" {
+            package "floors" {
+                rectangle "index.blade.php" as AdminIndex
+                rectangle "create.blade.php" as AdminCreate
+                rectangle "edit.blade.php" as AdminEdit
+            }
+        }
+        package "guest" {
+            package "floors" {
+                rectangle "index.blade.php" as GuestIndex
+                rectangle "show.blade.php" as GuestShow
+            }
+        }
+    }
+}
+
+package "routes" {
+    rectangle "web.php" as WebRoutes
+}
+
+package "app" {
+    package "Http" {
+        package "Controllers" {
+            package "Admin" {
+                rectangle "FloorController" as AdminFloorController
+            }
+            package "Guest" {
+                rectangle "FloorController" as GuestFloorController
+            }
+        }
+    }
+    package "Models" {
+        rectangle "Floor" as FloorModel
+    }
+}
+
+package "database" {
+    package "migrations" {
+        rectangle "create_floors_table" as FloorsMigration
+    }
+}
+
+' Relationships
+AdminIndex --> WebRoutes
+AdminCreate --> WebRoutes
+AdminEdit --> WebRoutes
+GuestIndex --> WebRoutes
+GuestShow --> WebRoutes
+WebRoutes --> AdminFloorController
+WebRoutes --> GuestFloorController
+AdminFloorController --> FloorModel
+GuestFloorController --> FloorModel
+FloorModel --> FloorsMigration
+
+@enduml

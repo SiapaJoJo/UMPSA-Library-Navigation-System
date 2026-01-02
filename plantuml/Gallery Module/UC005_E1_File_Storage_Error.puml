@@ -1,0 +1,63 @@
+@startuml UC005_E1_File_Storage_Error
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC005 - Gallery: Exception Flow E1 - File Storage Error
+
+actor "Student or Guest" as Guest
+actor Administrator
+boundary "resources/views/guest/galleries/show.blade.php" as GuestGalleryShow
+boundary "resources/views/admin/galleries/create.blade.php" as AdminGalleryView
+control "app/Http/Controllers/Guest/GalleryController.php" as GuestGalleryController
+control "app/Http/Controllers/Admin/GalleryController.php" as AdminGalleryController
+entity "app/Models/Gallery.php" as GalleryModel
+database "galleries" as GalleryDB
+control "app/Exceptions/Handler.php" as ErrorHandler
+
+== Guest View Error ==
+
+Guest -> GuestGalleryShow: GET /guest/gallery/{gallery}
+GuestGalleryShow -> GuestGalleryController: show(Gallery $gallery)
+GuestGalleryController -> GalleryModel: Route model binding: $gallery
+GalleryModel -> GalleryDB: SELECT * FROM galleries WHERE id = ?
+
+alt Database Connection Error
+    GalleryDB -> GuestGalleryController: **Exception: DatabaseConnectionException**
+else Database Query Error
+    GalleryDB -> GuestGalleryController: **Exception: QueryException**
+else Image File Missing
+    GuestGalleryController -> GuestGalleryController: file_exists() returns false
+    GuestGalleryController -> GuestGalleryController: **Exception: FileNotFoundException**
+end
+
+GuestGalleryController -> ErrorHandler: ExceptionHandler::render()
+ErrorHandler -> ErrorHandler: Log::error($exception)
+ErrorHandler --> GuestGalleryController: Response(500, "Unable to load gallery image")
+
+GuestGalleryController --> GuestGalleryShow: HTTP 500 Error Response
+GuestGalleryShow -> Guest: Display: "Unable to load gallery image. Please try again later."
+
+== Admin Upload Error ==
+
+Administrator -> AdminGalleryView: POST /admin/galleries (image data)
+AdminGalleryView -> AdminGalleryController: store(Request $request)
+
+AdminGalleryController -> AdminGalleryController: $request->validate([...])
+
+alt Storage Failure
+    AdminGalleryController -> AdminGalleryController: $image->move() fails
+    AdminGalleryController -> AdminGalleryController: **Exception: FileSystemException**
+else Disk Full
+    AdminGalleryController -> AdminGalleryController: **Exception: RuntimeException**
+end
+
+AdminGalleryController -> ErrorHandler: ExceptionHandler::render()
+ErrorHandler --> AdminGalleryController: Response(500, "File storage error")
+
+AdminGalleryController --> AdminGalleryView: HTTP 500 Error Response
+AdminGalleryView -> Administrator: Display: "Unable to load gallery image. Please try again later."
+
+@enduml

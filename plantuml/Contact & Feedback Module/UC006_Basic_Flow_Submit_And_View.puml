@@ -1,0 +1,65 @@
+@startuml UC006_Basic_Flow_Submit_And_View
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC006 - Contact & Feedback: Basic Flow - Submit and View
+
+actor "Student or Guest" as Guest
+actor Administrator
+boundary "resources/views/guest/contact/index.blade.php" as ContactView
+boundary "resources/views/admin/contact/index.blade.php" as AdminContactView
+boundary "resources/views/admin/contact/show.blade.php" as AdminContactShow
+control "app/Http/Controllers/Guest/ContactController.php" as ContactController
+control "app/Http/Controllers/Admin/ContactMessageController.php" as AdminContactController
+entity "app/Models/ContactMessage.php" as ContactMessageModel
+database "contact_messages" as ContactDB
+
+== Guest Submission Flow ==
+
+Guest -> ContactView: GET /guest/contact
+ContactView --> Guest: Display contact form
+
+Guest -> ContactView: POST /guest/contact (form data)
+ContactView -> ContactController: store(Request $request)
+
+ContactController -> ContactController: $request->validate([...])
+
+alt Validation Passes
+    ContactController -> ContactMessageModel: create($request->all())
+    ContactMessageModel -> ContactDB: INSERT INTO contact_messages VALUES (...)
+    ContactDB --> ContactMessageModel: Return created record
+    
+    ContactController --> ContactView: redirect()->route('guest.contact.index')->with('success')
+    ContactView -> Guest: HTTP 302 Redirect with success message
+else Validation Fails
+    ContactController --> ContactView: ValidationException with errors
+    ContactView -> Guest: Display validation errors
+end
+
+== Admin View Flow ==
+
+Administrator -> AdminContactView: GET /admin/contact-messages
+AdminContactView -> AdminContactController: index()
+AdminContactController -> ContactMessageModel: recent()->get()
+ContactMessageModel -> ContactDB: SELECT * FROM contact_messages ORDER BY created_at DESC
+ContactDB --> ContactMessageModel: Return message records
+AdminContactController --> AdminContactView: view('admin.contact.index', compact('messages'))
+AdminContactView --> Administrator: Display list of messages
+
+Administrator -> AdminContactShow: GET /admin/contact-messages/{id}
+AdminContactShow -> AdminContactController: show(ContactMessage $contactMessage)
+AdminContactController -> ContactMessageModel: Route model binding: $contactMessage
+ContactMessageModel -> ContactDB: SELECT * FROM contact_messages WHERE id = ?
+
+alt Message Status is New
+    AdminContactController -> ContactMessageModel: $contactMessage->markAsRead()
+    ContactMessageModel -> ContactDB: UPDATE contact_messages SET status = 'read', read_at = ?
+end
+
+AdminContactController --> AdminContactShow: view('admin.contact.show', compact('contactMessage'))
+AdminContactShow --> Administrator: Display message details
+
+@enduml

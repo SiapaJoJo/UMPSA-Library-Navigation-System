@@ -1,0 +1,40 @@
+@startuml UC005_A3_Delete_Gallery_Image
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC005 - Gallery: Alternative Flow A3 - Delete Gallery Image
+
+actor Administrator
+boundary "resources/views/admin/galleries/index.blade.php" as AdminGalleryView
+control "app/Http/Controllers/Admin/GalleryController.php" as AdminGalleryController
+entity "app/Models/Gallery.php" as GalleryModel
+database "galleries" as GalleryDB
+
+Administrator -> AdminGalleryView: DELETE /admin/galleries/{id} (with confirmation)
+
+alt Administrator Confirms
+    AdminGalleryView -> AdminGalleryController: destroy(Gallery $gallery)
+    AdminGalleryController -> GalleryModel: Route model binding: $gallery
+    GalleryModel -> GalleryDB: SELECT * FROM galleries WHERE id = ?
+    FloorDB --> GalleryModel: Return gallery record
+    
+    AdminGalleryController -> AdminGalleryController: unlink(public_path('images/gallery/' . $gallery->image_path))
+    
+    AdminGalleryController -> GalleryModel: $gallery->delete()
+    GalleryModel -> GalleryDB: DELETE FROM galleries WHERE id = ?
+    GalleryDB --> GalleryModel: Record deleted
+    
+    AdminGalleryController --> AdminGalleryView: redirect()->route('admin.galleries.index')->with('success')
+    AdminGalleryView -> AdminGalleryController: GET /admin/galleries (refresh list)
+    AdminGalleryController -> GalleryModel: ordered()->get()
+    GalleryModel -> GalleryDB: SELECT * FROM galleries ORDER BY sort_order
+    AdminGalleryController --> AdminGalleryView: view('admin.galleries.index', compact('galleries'))
+    AdminGalleryView --> Administrator: Display updated gallery list
+else Administrator Cancels
+    AdminGalleryView --> Administrator: Return to gallery list (no changes)
+end
+
+@enduml

@@ -1,0 +1,40 @@
+@startuml UC004_E1_Panorama_Service_Error
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC004 - Panorama: Exception Flow E1 - Panorama Service Error
+
+actor "Student or Guest" as Guest
+boundary "resources/views/admin/pano/view.blade.php" as PanoramaView
+control "app/Http/Controllers/PanoramaController.php" as PanoramaController
+entity "app/Models/Panorama.php" as PanoramaModel
+database "panoramas" as PanoramaDB
+control "app/Exceptions/Handler.php" as ErrorHandler
+
+Guest -> PanoramaView: GET /pano/{pano}
+PanoramaView -> PanoramaController: view(Panorama $pano)
+PanoramaController -> PanoramaModel: Route model binding: $pano
+PanoramaModel -> PanoramaDB: SELECT * FROM panoramas WHERE id = ?
+
+alt Database Connection Error
+    PanoramaDB -> PanoramaController: **Exception: DatabaseConnectionException**
+else Database Query Error
+    PanoramaDB -> PanoramaController: **Exception: QueryException**
+else Panorama Files Missing
+    PanoramaController -> PanoramaController: file_exists() returns false
+    PanoramaController -> PanoramaController: **Exception: abort(404, 'Panorama files not found')**
+else Panorama Viewer Service Error
+    PanoramaController -> PanoramaController: **Exception: RuntimeException**
+end
+
+PanoramaController -> ErrorHandler: ExceptionHandler::render()
+ErrorHandler -> ErrorHandler: Log::error($exception)
+ErrorHandler --> PanoramaController: Response(500 or 404, "Panorama unavailable")
+
+PanoramaController --> PanoramaView: HTTP Error Response
+PanoramaView -> Guest: Display: "Panorama unavailable. Please try again later."
+
+@enduml

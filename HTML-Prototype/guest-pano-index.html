@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>360° Panoramas - LibNav</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f3f4f6; }
+        .header { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 2rem; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .nav { background: #1f2937; padding: 1rem; display: flex; justify-content: center; gap: 2rem; }
+        .nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; }
+        .nav a:hover { background: #374151; }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+        .panoramas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .pano-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .pano-card:hover { transform: translateY(-5px); box-shadow: 0 8px 12px rgba(0,0,0,0.15); }
+        .pano-preview { width: 100%; height: 250px; background: #e5e7eb; display: flex; align-items: center; justify-content: center; color: #6b7280; position: relative; }
+        .pano-icon { font-size: 4rem; opacity: 0.5; }
+        .pano-content { padding: 1.5rem; }
+        .pano-content h3 { color: #1f2937; margin-bottom: 0.5rem; font-size: 1.5rem; }
+        .pano-content p { color: #6b7280; margin-bottom: 1rem; }
+        .pano-floor { display: inline-block; padding: 0.25rem 0.75rem; background: #dbeafe; color: #1e40af; border-radius: 12px; font-size: 0.875rem; margin-bottom: 0.5rem; }
+        .btn { display: inline-block; padding: 0.75rem 1.5rem; background: #3b82f6; color: white; text-decoration: none; border-radius: 6px; }
+        .btn:hover { background: #2563eb; }
+        .footer { background: #1f2937; color: white; text-align: center; padding: 2rem; margin-top: 4rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>360° Panoramas</h1>
+        <p>Experience immersive 360-degree views of library spaces</p>
+    </div>
+    
+    <div class="nav">
+        <a href="guest-dashboard.html">Home</a>
+        <a href="guest-maps-index.html">Maps</a>
+        <a href="guest-floors-index.html">Floors</a>
+        <a href="guest-galleries-index.html">Gallery</a>
+        <a href="guest-pano-index.html">Panoramas</a>
+        <a href="guest-contact-index.html">Contact</a>
+    </div>
+    
+    <div class="container">
+        <div class="panoramas-grid">
+            <div class="pano-card">
+                <div class="pano-preview">
+                    <div class="pano-icon">🌐</div>
+                </div>
+                <div class="pano-content">
+                    <span class="pano-floor">Ground Floor</span>
+                    <h3>Main Library Entrance</h3>
+                    <p>360-degree view of the main entrance and lobby area</p>
+                    <a href="#" class="btn">View Panorama</a>
+                </div>
+            </div>
+            <div class="pano-card">
+                <div class="pano-preview">
+                    <div class="pano-icon">🌐</div>
+                </div>
+                <div class="pano-content">
+                    <span class="pano-floor">First Floor</span>
+                    <h3>Reading Room</h3>
+                    <p>Panoramic view of the reading area and study spaces</p>
+                    <a href="#" class="btn">View Panorama</a>
+                </div>
+            </div>
+            <div class="pano-card">
+                <div class="pano-preview">
+                    <div class="pano-icon">🌐</div>
+                </div>
+                <div class="pano-content">
+                    <span class="pano-floor">Second Floor</span>
+                    <h3>Study Area</h3>
+                    <p>360 view of study spaces and computer labs</p>
+                    <a href="#" class="btn">View Panorama</a>
+                </div>
+            </div>
+            <div class="pano-card">
+                <div class="pano-preview">
+                    <div class="pano-icon">🌐</div>
+                </div>
+                <div class="pano-content">
+                    <span class="pano-floor">Third Floor</span>
+                    <h3>Reference Section</h3>
+                    <p>Panoramic view of reference materials and archives</p>
+                    <a href="#" class="btn">View Panorama</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2024 UMPSA Library. All rights reserved.</p>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,35 @@
+@startuml UC003_A1_Invalid_Directory_Input
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC003 - Floor Directory: Alternative Flow A1 - Invalid Directory Input
+
+actor Administrator
+boundary "resources/views/admin/floors/create.blade.php" as AdminFloorView
+control "app/Http/Controllers/Admin/FloorController.php" as AdminFloorController
+entity "app/Models/Floor.php" as FloorModel
+database "floors" as FloorDB
+
+Administrator -> AdminFloorView: POST /admin/floors (invalid data)
+AdminFloorView -> AdminFloorController: store(Request $request)
+
+AdminFloorController -> AdminFloorController: $request->validate([...])
+
+alt Missing Required Fields
+    AdminFloorController -> AdminFloorController: Validation fails: name required
+else Invalid Image Format
+    AdminFloorController -> AdminFloorController: Validation fails: image must be jpeg/png/jpg/gif
+else Invalid Image Size
+    AdminFloorController -> AdminFloorController: Validation fails: image max size 2048KB
+else Invalid Data Type
+    AdminFloorController -> AdminFloorController: Validation fails: sort_order must be integer
+end
+
+AdminFloorController --> AdminFloorView: ValidationException with field errors
+AdminFloorView -> Administrator: Display form with error messages
+Administrator -> AdminFloorView: Resubmit form with corrected data
+
+@enduml

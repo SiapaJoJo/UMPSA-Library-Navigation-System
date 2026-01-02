@@ -1,0 +1,57 @@
+@startuml
+title UC004 - Panorama Module - Package Diagram
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam roundcorner 5
+
+package "resources" {
+    package "views" {
+        package "admin" {
+            package "pano" {
+                rectangle "index.blade.php" as AdminIndex
+                rectangle "view.blade.php" as AdminView
+            }
+        }
+        package "guest" {
+            package "pano" {
+                rectangle "panoramas.blade.php" as GuestPanoramas
+            }
+        }
+    }
+}
+
+package "routes" {
+    rectangle "web.php" as WebRoutes
+}
+
+package "app" {
+    package "Http" {
+        package "Controllers" {
+            rectangle "PanoramaController" as PanoramaController
+        }
+    }
+    package "Models" {
+        rectangle "Panorama" as PanoramaModel
+    }
+    package "Services" {
+        rectangle "PanoramaService" as PanoramaService
+    }
+}
+
+package "database" {
+    package "migrations" {
+        rectangle "create_panoramas_table" as PanoramasMigration
+    }
+}
+
+' Relationships
+AdminIndex --> WebRoutes
+AdminView --> WebRoutes
+GuestPanoramas --> WebRoutes
+WebRoutes --> PanoramaController
+PanoramaController --> PanoramaModel
+PanoramaController --> PanoramaService
+PanoramaModel --> PanoramasMigration
+
+@enduml

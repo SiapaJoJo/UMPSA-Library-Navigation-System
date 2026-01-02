@@ -1,0 +1,46 @@
+@startuml UC006_A2_Mark_Message_As_Reviewed
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC006 - Contact & Feedback: Alternative Flow A2 - Mark Message as Reviewed
+
+actor Administrator
+boundary "resources/views/admin/contact/show.blade.php" as AdminContactShow
+control "app/Http/Controllers/Admin/ContactMessageController.php" as AdminContactController
+entity "app/Models/ContactMessage.php" as ContactMessageModel
+database "contact_messages" as ContactDB
+
+Administrator -> AdminContactShow: GET /admin/contact-messages/{id}
+AdminContactShow -> AdminContactController: show(ContactMessage $contactMessage)
+AdminContactController -> ContactMessageModel: Route model binding: $contactMessage
+ContactMessageModel -> ContactDB: SELECT * FROM contact_messages WHERE id = ?
+AdminContactController --> AdminContactShow: view('admin.contact.show', compact('contactMessage'))
+AdminContactShow --> Administrator: Display message details with status options
+
+alt Mark as Read
+    Administrator -> AdminContactShow: POST /admin/contact-messages/{id}/mark-read
+    AdminContactShow -> AdminContactController: markAsRead(ContactMessage $contactMessage)
+    AdminContactController -> ContactMessageModel: $contactMessage->markAsRead()
+    ContactMessageModel -> ContactDB: UPDATE contact_messages SET status = 'read', read_at = ?
+    AdminContactController --> AdminContactShow: back()->with('success', 'Message marked as read!')
+else Update Status via Form
+    Administrator -> AdminContactShow: PUT /admin/contact-messages/{id} (status, admin_notes)
+    AdminContactShow -> AdminContactController: update(Request $request, ContactMessage $contactMessage)
+    AdminContactController -> ContactMessageModel: $contactMessage->update($request->only(['status', 'admin_notes']))
+    
+    alt Status is Read
+        AdminContactController -> ContactMessageModel: $contactMessage->markAsRead()
+        ContactMessageModel -> ContactDB: UPDATE contact_messages SET status = 'read', read_at = ?
+    else Status is Replied
+        AdminContactController -> ContactMessageModel: $contactMessage->markAsReplied()
+        ContactMessageModel -> ContactDB: UPDATE contact_messages SET status = 'replied', replied_at = ?
+    end
+    
+    AdminContactController --> AdminContactShow: redirect()->route('admin.contact-messages.index')->with('success')
+    AdminContactShow -> Administrator: HTTP 302 Redirect to /admin/contact-messages
+end
+
+@enduml

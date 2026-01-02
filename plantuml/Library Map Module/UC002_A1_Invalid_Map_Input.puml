@@ -1,0 +1,33 @@
+@startuml UC002_A1_Invalid_Map_Input
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC002 - Library Map Management: Alternative Flow A1 - Invalid Map Input
+
+actor Administrator
+boundary "resources/views/admin/maps/create.blade.php" as MapView
+control "app/Http/Controllers/Admin/LibraryMapController.php" as MapController
+entity "app/Models/LibraryMap.php" as LibraryMapModel
+database "library_maps" as MapDB
+
+Administrator -> MapView: POST /admin/maps (invalid data)
+MapView -> MapController: store(Request $request)
+
+MapController -> MapController: $request->validate([...])
+
+alt Missing Required Fields
+    MapController -> MapController: Validation fails: name required
+else Invalid URL Format
+    MapController -> MapController: Validation fails: mappedin_url must be valid URL
+else Invalid Data Type
+    MapController -> MapController: Validation fails: sort_order must be integer
+end
+
+MapController --> MapView: ValidationException with field errors
+MapView -> Administrator: Display form with error messages
+Administrator -> MapView: Resubmit form with corrected data
+
+@enduml

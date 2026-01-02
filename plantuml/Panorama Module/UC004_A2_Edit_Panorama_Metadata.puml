@@ -1,0 +1,42 @@
+@startuml UC004_A2_Edit_Panorama_Metadata
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC004 - Panorama: Alternative Flow A2 - Edit Panorama Metadata
+
+actor Administrator
+boundary "resources/views/admin/pano/index.blade.php" as AdminPanoramaView
+control "app/Http/Controllers/PanoramaController.php" as PanoramaController
+entity "app/Models/Panorama.php" as PanoramaModel
+database "panoramas" as PanoramaDB
+
+Administrator -> AdminPanoramaView: POST /admin/pano/{pano}/update (updated metadata)
+AdminPanoramaView -> PanoramaController: update(Request $request, Panorama $pano)
+
+PanoramaController -> PanoramaModel: Route model binding: $pano
+PanoramaModel -> PanoramaDB: SELECT * FROM panoramas WHERE id = ?
+PanoramaDB --> PanoramaModel: Return panorama record
+
+PanoramaController -> PanoramaController: $request->validate([...])
+
+alt Validation Passes
+    alt New Display Image Uploaded
+        PanoramaController -> PanoramaController: Delete old display image
+        PanoramaController -> PanoramaController: $displayImage->move(public_path('panos/' . $pano->folder), $imageName)
+    end
+    
+    PanoramaController -> PanoramaModel: $pano->update($updateData)
+    PanoramaModel -> PanoramaDB: UPDATE panoramas SET ... WHERE id = ?
+    PanoramaDB --> PanoramaModel: Record updated
+    
+    PanoramaController --> AdminPanoramaView: back()->with('success', 'Panorama updated!')
+    AdminPanoramaView -> Administrator: Display success message
+else Validation Fails
+    PanoramaController --> AdminPanoramaView: ValidationException with errors
+    AdminPanoramaView -> Administrator: Display validation errors
+end
+
+@enduml

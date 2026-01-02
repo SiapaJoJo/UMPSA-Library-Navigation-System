@@ -1,0 +1,35 @@
+@startuml UC007_A2_No_Matching_Data_Found
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC007 - AI ChatBox: Alternative Flow A2 - No Matching Data Found
+
+actor "Student or Guest" as Guest
+boundary "resources/views/layouts/guest.blade.php" as ChatView
+control "app/Http/Controllers/ChatController.php" as ChatController
+control "External AI API\n(Groq/OpenAI)" as AIAPI
+
+Guest -> ChatView: Type question about non-existent location\n(e.g., "Where is Room 999?")
+ChatView -> ChatView: sendMessage()
+ChatView -> ChatController: POST /chat\n(message: "Where is Room 999?", history)
+
+ChatController -> ChatController: Build messages array
+ChatController -> AIAPI: POST /chat/completions\n(model, messages, ...)
+
+AIAPI -> AIAPI: Process query with AI model
+AIAPI -> AIAPI: Analyze query against library knowledge
+AIAPI -> AIAPI: Determine location does not exist\n- Room 999 not in system\n- No matching facility found
+
+AIAPI --> ChatController: Return response\n"I couldn't find that location.\nTry checking the Floor Directory or Map."
+
+ChatController --> ChatView: JSON response\n{ reply: "I couldn't find that location..." }
+
+ChatView -> ChatView: Display AI response
+ChatView --> Guest: Show message: "I couldn't find that location.\nTry checking the Floor Directory or Map."
+
+Guest -> Guest: Navigate to Floor Directory or Map
+
+@enduml

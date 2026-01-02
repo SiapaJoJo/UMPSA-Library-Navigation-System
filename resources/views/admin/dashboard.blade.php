@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('header')
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
             {{ __('UMPSA Library - Admin Dashboard') }}
         </h2>
 @endsection
@@ -76,10 +76,10 @@
             <!-- Content Management Overview -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
                 <!-- Recent Contact Messages -->
-                <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-semibold text-gray-900">Recent Messages</h3>
-                        <a href="{{ route('admin.contact-messages.index') }}" class="text-blue-600 hover:text-blue-800 text-sm font-medium">View All</a>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Recent Messages</h3>
+                        <a href="{{ route('admin.contact-messages.index') }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium">View All</a>
                     </div>
                     <div class="space-y-3">
                         @php
@@ -87,17 +87,17 @@
                         @endphp
                         @if($recentMessages->count() > 0)
                             @foreach($recentMessages as $message)
-                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                                     <div class="flex-1">
-                                        <p class="text-sm font-medium text-gray-900">{{ $message->name }}</p>
-                                        <p class="text-xs text-gray-500">{{ Str::limit($message->subject, 40) }}</p>
+                                        <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $message->name }}</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ Str::limit($message->subject, 40) }}</p>
                                     </div>
                                     <div class="flex items-center space-x-2">
                                         <span class="px-2 py-1 text-xs font-semibold rounded-full 
-                                            @if($message->status === 'new') bg-red-100 text-red-800
-                                            @elseif($message->status === 'read') bg-yellow-100 text-yellow-800
-                                            @elseif($message->status === 'replied') bg-green-100 text-green-800
-                                            @else bg-gray-100 text-gray-800 @endif">
+                                            @if($message->status === 'new') bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300
+                                            @elseif($message->status === 'read') bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300
+                                            @elseif($message->status === 'replied') bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300
+                                            @else bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 @endif">
                                             {{ ucfirst($message->status) }}
                                         </span>
                                         <span class="text-xs text-gray-400">{{ $message->created_at->diffForHumans() }}</span>
@@ -105,22 +105,22 @@
                                 </div>
                             @endforeach
                         @else
-                            <p class="text-gray-500 text-center py-4">No messages yet</p>
+                            <p class="text-gray-500 dark:text-gray-400 text-center py-4">No messages yet</p>
                         @endif
                     </div>
                 </div>
 
                 <!-- Content Statistics Chart -->
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Content Overview</h3>
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Content Overview</h3>
                     <div class="space-y-4">
                         <!-- Library Maps Progress -->
                         <div>
                             <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-600">Library Maps</span>
-                                <span class="text-gray-900 font-medium">{{ \App\Models\LibraryMap::count() }}</span>
+                                <span class="text-gray-600 dark:text-gray-300">Library Maps</span>
+                                <span class="text-gray-900 dark:text-white font-medium">{{ \App\Models\LibraryMap::count() }}</span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                                 <div class="bg-blue-600 h-2 rounded-full" style="width: {{ min(100, (\App\Models\LibraryMap::count() / 10) * 100) }}%"></div>
                             </div>
                         </div>
@@ -128,10 +128,10 @@
                         <!-- Panoramas Progress -->
                         <div>
                             <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-600">Virtual Tours</span>
-                                <span class="text-gray-900 font-medium">{{ \App\Models\Panorama::count() }}</span>
+                                <span class="text-gray-600 dark:text-gray-300">Virtual Tours</span>
+                                <span class="text-gray-900 dark:text-white font-medium">{{ \App\Models\Panorama::count() }}</span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                                 <div class="bg-purple-600 h-2 rounded-full" style="width: {{ min(100, (\App\Models\Panorama::count() / 15) * 100) }}%"></div>
                             </div>
                         </div>
@@ -139,10 +139,10 @@
                         <!-- Floors Progress -->
                         <div>
                             <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-600">Floor Directory</span>
-                                <span class="text-gray-900 font-medium">{{ \App\Models\Floor::count() }}</span>
+                                <span class="text-gray-600 dark:text-gray-300">Floor Directory</span>
+                                <span class="text-gray-900 dark:text-white font-medium">{{ \App\Models\Floor::count() }}</span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                                 <div class="bg-green-600 h-2 rounded-full" style="width: {{ min(100, (\App\Models\Floor::count() / 8) * 100) }}%"></div>
                             </div>
                         </div>
@@ -150,10 +150,10 @@
                         <!-- Gallery Progress -->
                         <div>
                             <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-600">Gallery Images</span>
-                                <span class="text-gray-900 font-medium">{{ \App\Models\Gallery::count() }}</span>
+                                <span class="text-gray-600 dark:text-gray-300">Gallery Images</span>
+                                <span class="text-gray-900 dark:text-white font-medium">{{ \App\Models\Gallery::count() }}</span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                                 <div class="bg-pink-600 h-2 rounded-full" style="width: {{ min(100, (\App\Models\Gallery::count() / 20) * 100) }}%"></div>
                                 </div>
                                 </div>
@@ -162,50 +162,50 @@
                     </div>
 
                     <!-- Quick Actions -->
-            <div class="bg-white rounded-lg shadow-lg p-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-6">Quick Actions</h3>
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">Quick Actions</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <a href="{{ route('admin.maps.create') }}" class="group bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200 hover:shadow-md transition-all duration-200">
+                    <a href="{{ route('admin.maps.create') }}" class="group bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 p-4 rounded-lg border border-blue-200 dark:border-blue-700 hover:shadow-md transition-all duration-200">
                                 <div class="text-center">
                             <div class="p-3 rounded-full bg-blue-500 text-white w-12 h-12 mx-auto mb-3 flex items-center justify-center group-hover:scale-110 transition-transform">
                                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                         </svg>
                                     </div>
-                            <h4 class="font-medium text-gray-900 group-hover:text-blue-600">Add Map</h4>
+                            <h4 class="font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">Add Map</h4>
                                 </div>
                             </a>
 
-                    <a href="{{ route('admin.pano.index') }}" class="group bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg border border-purple-200 hover:shadow-md transition-all duration-200">
+                    <a href="{{ route('admin.pano.index') }}" class="group bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 p-4 rounded-lg border border-purple-200 dark:border-purple-700 hover:shadow-md transition-all duration-200">
                                 <div class="text-center">
                             <div class="p-3 rounded-full bg-purple-500 text-white w-12 h-12 mx-auto mb-3 flex items-center justify-center group-hover:scale-110 transition-transform">
                                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                                         </svg>
                                     </div>
-                            <h4 class="font-medium text-gray-900 group-hover:text-purple-600">Manage Tours</h4>
+                            <h4 class="font-medium text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400">Manage Tours</h4>
                                 </div>
                             </a>
 
-                    <a href="{{ route('admin.floors.index') }}" class="group bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg border border-green-200 hover:shadow-md transition-all duration-200">
+                    <a href="{{ route('admin.floors.index') }}" class="group bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 p-4 rounded-lg border border-green-200 dark:border-green-700 hover:shadow-md transition-all duration-200">
                                 <div class="text-center">
                             <div class="p-3 rounded-full bg-green-500 text-white w-12 h-12 mx-auto mb-3 flex items-center justify-center group-hover:scale-110 transition-transform">
                                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                                         </svg>
                                     </div>
-                            <h4 class="font-medium text-gray-900 group-hover:text-green-600">Manage Floors</h4>
+                            <h4 class="font-medium text-gray-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400">Manage Floors</h4>
                                 </div>
                             </a>
 
-                    <a href="{{ route('admin.galleries.index') }}" class="group bg-gradient-to-r from-pink-50 to-pink-100 p-4 rounded-lg border border-pink-200 hover:shadow-md transition-all duration-200">
+                    <a href="{{ route('admin.galleries.index') }}" class="group bg-gradient-to-r from-pink-50 to-pink-100 dark:from-pink-900/20 dark:to-pink-800/20 p-4 rounded-lg border border-pink-200 dark:border-pink-700 hover:shadow-md transition-all duration-200">
                                 <div class="text-center">
                             <div class="p-3 rounded-full bg-pink-500 text-white w-12 h-12 mx-auto mb-3 flex items-center justify-center group-hover:scale-110 transition-transform">
                                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                         </svg>
                                     </div>
-                            <h4 class="font-medium text-gray-900 group-hover:text-pink-600">Manage Gallery</h4>
+                            <h4 class="font-medium text-gray-900 dark:text-white group-hover:text-pink-600 dark:group-hover:text-pink-400">Manage Gallery</h4>
                                 </div>
                             </a>
                         </div>

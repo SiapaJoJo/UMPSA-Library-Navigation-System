@@ -1,0 +1,52 @@
+@startuml
+title UC001 - Admin Login Module - Package Diagram
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam roundcorner 5
+
+package "resources" {
+    package "views" {
+        package "auth" {
+            rectangle "login.blade.php"
+        }
+    }
+}
+
+package "routes" {
+    rectangle "web.php"
+}
+
+package "app" {
+    package "Http" {
+        package "Controllers" {
+            package "Auth" {
+                rectangle "AuthenticatedSessionController"
+            }
+        }
+        package "Middleware" {
+            rectangle "Authenticate"
+            rectangle "RedirectIfAuthenticated"
+        }
+    }
+    package "Models" {
+        rectangle "User"
+    }
+}
+
+package "database" {
+    package "migrations" {
+        rectangle "create_users_table"
+    }
+}
+
+' Relationships
+"login.blade.php" --> "web.php"
+"web.php" --> "AuthenticatedSessionController"
+"AuthenticatedSessionController" --> "User"
+"User" --> "create_users_table"
+"AuthenticatedSessionController" --> "Authenticate"
+"AuthenticatedSessionController" --> "RedirectIfAuthenticated"
+
+@enduml
+

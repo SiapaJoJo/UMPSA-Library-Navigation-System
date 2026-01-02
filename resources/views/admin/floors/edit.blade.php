@@ -2,8 +2,8 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <div>
-                <h2 class="text-2xl font-bold text-gray-900">Edit Floor</h2>
-                <p class="text-gray-600 mt-1">Update floor information and settings</p>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Edit Floor</h2>
+                <p class="text-gray-600 dark:text-gray-300 mt-1">Update floor information and settings</p>
             </div>
             <div class="flex space-x-3">
                 <a href="{{ route('admin.floors.index') }}" 
@@ -19,7 +19,7 @@
 
     <div class="py-8">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden">
+            <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 dark:border-gray-700 overflow-hidden">
                 <!-- Header -->
                 <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-6">
                     <div class="flex items-center">
@@ -40,7 +40,7 @@
                     @method('PUT')
 
                     @if(session('success'))
-                        <div class="mb-8 bg-gradient-to-r from-green-50 to-green-100 border border-green-200 text-green-800 px-6 py-4 rounded-xl flex items-center">
+                        <div class="mb-8 bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 border border-green-200 dark:border-green-700 text-green-800 dark:text-green-300 px-6 py-4 rounded-xl flex items-center">
                             <svg class="w-5 h-5 mr-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
@@ -53,7 +53,7 @@
                         <div class="space-y-6">
                             <!-- Floor Name -->
                             <div class="space-y-2">
-                                <label for="name" class="block text-sm font-semibold text-gray-700">Floor Name *</label>
+                                <label for="name" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Floor Name *</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -65,7 +65,7 @@
                                            name="name" 
                                            value="{{ old('name', $floor->name) }}"
                                            required
-                                           class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('name') border-red-300 focus:ring-red-500 @enderror"
+                                           class="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('name') border-red-300 focus:ring-red-500 @enderror"
                                            placeholder="Enter floor name">
                                 </div>
                                 @error('name')
@@ -80,7 +80,7 @@
 
                             <!-- Level -->
                             <div class="space-y-2">
-                                <label for="level" class="block text-sm font-semibold text-gray-700">Level</label>
+                                <label for="level" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Level</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -91,7 +91,7 @@
                                            id="level" 
                                            name="level" 
                                            value="{{ old('level', $floor->level) }}"
-                                           class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('level') border-red-300 focus:ring-red-500 @enderror"
+                                           class="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('level') border-red-300 focus:ring-red-500 @enderror"
                                            placeholder="e.g., Ground Floor, Level 1">
                                 </div>
                                 @error('level')
@@ -106,7 +106,7 @@
 
                             <!-- Sort Order -->
                             <div class="space-y-2">
-                                <label for="sort_order" class="block text-sm font-semibold text-gray-700">Sort Order</label>
+                                <label for="sort_order" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Sort Order</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -118,7 +118,7 @@
                                            name="sort_order" 
                                            value="{{ old('sort_order', $floor->sort_order ?? 0) }}"
                                            min="0"
-                                           class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('sort_order') border-red-300 focus:ring-red-500 @enderror"
+                                           class="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('sort_order') border-red-300 focus:ring-red-500 @enderror"
                                            placeholder="0">
                                 </div>
                                 @error('sort_order')
@@ -133,15 +133,15 @@
 
                             <!-- Status Toggle -->
                             <div class="space-y-2">
-                                <label class="block text-sm font-semibold text-gray-700">Status</label>
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Status</label>
                                 <div class="flex items-center space-x-4">
                                     <label class="flex items-center">
                                         <input type="checkbox" 
                                                name="is_active" 
                                                value="1" 
                                                {{ old('is_active', $floor->is_active) ? 'checked' : '' }}
-                                               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
-                                        <span class="ml-2 text-sm text-gray-700">Active</span>
+                                               class="w-4 h-4 text-blue-600 bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 rounded focus:ring-blue-500 focus:ring-2">
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Active</span>
                                     </label>
                                 </div>
                             </div>
@@ -151,11 +151,11 @@
                         <div class="space-y-6">
                             <!-- Description -->
                             <div class="space-y-2">
-                                <label for="description" class="block text-sm font-semibold text-gray-700">Description</label>
+                                <label for="description" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Description</label>
                                 <textarea id="description" 
                                           name="description" 
                                           rows="6"
-                                          class="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none @error('description') border-red-300 focus:ring-red-500 @enderror"
+                                          class="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none @error('description') border-red-300 focus:ring-red-500 @enderror"
                                           placeholder="Enter floor description...">{{ old('description', $floor->description) }}</textarea>
                                 @error('description')
                                     <p class="text-sm text-red-600 flex items-center">
@@ -170,11 +170,11 @@
                             <!-- Current Image -->
                             @if($floor->image)
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700">Current Image</label>
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Current Image</label>
                                     <div class="relative">
                                         <img src="{{ asset('images/floors/' . $floor->image) }}" 
                                              alt="{{ $floor->name }}" 
-                                             class="w-full h-48 object-cover rounded-xl border border-gray-200">
+                                             class="w-full h-48 object-cover rounded-xl border border-gray-200 dark:border-gray-700">
                                         <div class="absolute top-2 right-2">
                                             <span class="px-2 py-1 bg-black/50 text-white text-xs rounded-full">Current</span>
                                         </div>
@@ -184,7 +184,7 @@
 
                             <!-- New Image Upload -->
                             <div class="space-y-2">
-                                <label for="image" class="block text-sm font-semibold text-gray-700">
+                                <label for="image" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                     {{ $floor->image ? 'Replace Image' : 'Upload Image' }}
                                 </label>
                                 <div class="relative">
@@ -192,9 +192,9 @@
                                            id="image" 
                                            name="image" 
                                            accept="image/*"
-                                           class="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('image') border-red-300 focus:ring-red-500 @enderror">
+                                           class="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 @error('image') border-red-300 focus:ring-red-500 @enderror">
                                 </div>
-                                <p class="text-xs text-gray-500">Supported formats: JPEG, PNG, JPG, GIF. Max size: 2MB</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Supported formats: JPEG, PNG, JPG, GIF. Max size: 2MB</p>
                                 @error('image')
                                     <p class="text-sm text-red-600 flex items-center">
                                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -209,7 +209,7 @@
 
                     <!-- Facilities Section -->
                     <div class="mt-8 pt-8 border-t border-gray-200">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
                             <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
@@ -228,13 +228,13 @@
                                         <input type="text" 
                                                name="facilities[]" 
                                                value="{{ $facility }}"
-                                               class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                               class="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                                                placeholder="Enter facility name">
                                     </div>
                                     @if($index > 0)
                                         <button type="button" 
                                                 onclick="removeFacility(this)"
-                                                class="p-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg transition-colors duration-200">
+                                                class="p-2 text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors duration-200">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                             </svg>
@@ -245,7 +245,7 @@
                         </div>
                         <button type="button" 
                                 onclick="addFacility()"
-                                class="mt-4 inline-flex items-center px-4 py-2 bg-green-100 text-green-700 text-sm font-medium rounded-lg hover:bg-green-200 transition-colors duration-200">
+                                class="mt-4 inline-flex items-center px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-sm font-medium rounded-lg hover:bg-green-200 dark:hover:bg-green-900/50 transition-colors duration-200">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                             </svg>
@@ -254,9 +254,9 @@
                     </div>
 
                     <!-- Form Actions -->
-                    <div class="mt-8 pt-8 border-t border-gray-200 flex justify-end space-x-4">
+                    <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 flex justify-end space-x-4">
                         <a href="{{ route('admin.floors.index') }}" 
-                           class="px-6 py-3 bg-gray-100 text-gray-700 text-sm font-semibold rounded-xl hover:bg-gray-200 transition-all duration-200">
+                           class="px-6 py-3 bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-200 text-sm font-semibold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-500 transition-all duration-200">
                             Cancel
                         </a>
                         <button type="submit" 

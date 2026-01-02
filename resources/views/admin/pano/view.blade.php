@@ -1,62 +1,68 @@
 @if(request()->has('guest') || !auth()->check())
 <x-guest-layout>
-    <!-- Page Header -->
-    <div class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white overflow-hidden">
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 bg-black/10"></div>
-        <div class="absolute inset-0">
-            <div class="absolute top-0 left-0 w-full h-full">
-                <div class="absolute top-10 left-10 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl"></div>
-                <div class="absolute bottom-10 right-10 w-96 h-96 bg-blue-300/20 rounded-full blur-3xl"></div>
-            </div>
-                </div>
+    <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
+        <!-- Animated Background Grid -->
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
         
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <!-- Back to Virtual Tours Link -->
-            <div class="mb-4">
-                <a href="{{ route('guest.panoramas') }}" 
-                   class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm text-white text-sm font-medium rounded-lg hover:bg-white/30 transition-all duration-200">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                    </svg>
-                    Back to Virtual Tours
-                </a>
-            </div>
-            
-            <div class="text-center">
-                <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">{{ $pano->name }}</h1>
-                <p class="text-blue-100 text-lg">Virtual Library Tour</p>
-            </div>
-        </div>
-    </div>
+        <!-- Floating Orbs -->
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
 
-    <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {{-- Card container --}}
-        <div class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border border-white/20">
+        <!-- Hero Section -->
+        <section class="relative w-full py-16 md:py-24 overflow-hidden">
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Back to Virtual Tours Link -->
+                <div class="mb-6 md:mb-8">
+                    <a href="{{ route('guest.panoramas') }}" 
+                       class="group inline-flex items-center px-6 py-3 bg-white/80 backdrop-blur-xl text-gray-700 text-sm font-bold rounded-2xl hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-gray-200/50">
+                        <svg class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Back to Virtual Tours
+                    </a>
+                </div>
+                
+                <div class="text-center">
+                    <div class="inline-block mb-6">
+                        <span class="text-sm font-semibold text-purple-600 uppercase tracking-wider bg-purple-50 px-4 py-2 rounded-full">Virtual Tour</span>
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-extrabold mb-4 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
+                        {{ $pano->name }}
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-600">Virtual Library Tour</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+            {{-- Card container --}}
+            <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-gray-200/50">
             <!-- Card Header -->
-            <div class="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4 border-b border-gray-200">
+            <div class="bg-gradient-to-r from-purple-50/80 via-indigo-50/80 to-blue-50/80 backdrop-blur-sm px-6 md:px-8 py-5 md:py-6 border-b border-gray-200/50">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
-                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mr-3">
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="w-14 h-14 bg-gradient-to-br from-purple-500 via-indigo-500 to-blue-500 rounded-2xl flex items-center justify-center mr-4 shadow-lg">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                             </svg>
                         </div>
-                        <h2 class="text-xl font-bold text-gray-900">360° Panorama Viewer</h2>
+                        <div>
+                            <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900">360° Panorama Viewer</h2>
+                            <p class="text-sm text-gray-500 mt-1">Pano2VR</p>
+                        </div>
                     </div>
-                    <div class="text-sm text-gray-500">Pano2VR</div>
                 </div>
             </div>
 
             {{-- Panorama iframe --}}
             <div id="panorama-container" class="relative w-full h-[600px] overflow-hidden">
                 <!-- Floating Fullscreen Button -->
-                <div class="absolute bottom-4 right-4 z-10">
+                <div class="absolute bottom-6 right-6 z-10">
                     <button id="fullscreen-btn" 
                             onclick="toggleFullscreen()"
-                            class="inline-flex items-center px-4 py-2 bg-black/70 backdrop-blur-sm text-white text-sm font-medium rounded-lg hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-200 hover:scale-105 shadow-lg">
-                        <svg id="fullscreen-icon" class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            class="group inline-flex items-center px-5 py-3 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 backdrop-blur-xl text-white text-sm font-bold rounded-2xl hover:from-purple-700 hover:via-indigo-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-300 hover:scale-110 shadow-2xl hover:shadow-purple-500/50 border border-white/20">
+                        <svg id="fullscreen-icon" class="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
                         </svg>
                         Fullscreen
@@ -72,11 +78,13 @@
                     Exit Fullscreen
                 </button>
                 <!-- Loading Overlay -->
-                <div id="loading-overlay" class="absolute inset-0 bg-gray-100 flex items-center justify-center z-50">
-                    <div class="text-center text-gray-600">
-                        <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                        <p class="text-lg font-medium">Loading Panorama...</p>
-                        <p class="text-sm text-gray-500 mt-2">{{ $pano->name }}</p>
+                <div id="loading-overlay" class="absolute inset-0 bg-gradient-to-br from-gray-50 to-blue-50 flex items-center justify-center z-50 backdrop-blur-sm">
+                    <div class="text-center">
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-full mb-6 shadow-xl">
+                            <div class="animate-spin rounded-full h-16 w-16 border-4 border-purple-200 border-t-purple-600"></div>
+                        </div>
+                        <p class="text-xl font-bold text-gray-900 mb-2">Loading Panorama...</p>
+                        <p class="text-base text-gray-600">{{ $pano->name }}</p>
                     </div>
                 </div>
 
@@ -92,9 +100,9 @@
             </div>
 
             <!-- Card Footer -->
-            <div class="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-3 border-t border-gray-200">
-                <div class="flex items-center justify-center text-sm text-gray-500">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="bg-gradient-to-r from-gray-50/80 to-blue-50/80 backdrop-blur-sm px-6 md:px-8 py-4 md:py-5 border-t border-gray-200/50">
+                <div class="flex items-center justify-center text-sm md:text-base text-gray-600 font-medium">
+                    <svg class="w-5 h-5 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path>
                     </svg>
                     <span>Drag to navigate • Press F for fullscreen</span>
@@ -104,6 +112,19 @@
     </div>
 
     <style>
+        @keyframes gradient {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .animate-gradient {
+            animation: gradient 8s ease infinite;
+        }
+        
         /* Fullscreen styles for mobile */
         .fullscreen-container {
             position: fixed !important;

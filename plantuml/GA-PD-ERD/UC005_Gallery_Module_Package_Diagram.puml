@@ -1,0 +1,66 @@
+@startuml
+title UC005 - Gallery Module - Package Diagram
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam roundcorner 5
+
+package "resources" {
+    package "views" {
+        package "admin" {
+            package "galleries" {
+                rectangle "index.blade.php" as AdminIndex
+                rectangle "create.blade.php" as AdminCreate
+                rectangle "edit.blade.php" as AdminEdit
+            }
+        }
+        package "guest" {
+            package "galleries" {
+                rectangle "index.blade.php" as GuestIndex
+                rectangle "show.blade.php" as GuestShow
+                rectangle "category.blade.php" as GuestCategory
+            }
+        }
+    }
+}
+
+package "routes" {
+    rectangle "web.php" as WebRoutes
+}
+
+package "app" {
+    package "Http" {
+        package "Controllers" {
+            package "Admin" {
+                rectangle "GalleryController" as AdminGalleryController
+            }
+            package "Guest" {
+                rectangle "GalleryController" as GuestGalleryController
+            }
+        }
+    }
+    package "Models" {
+        rectangle "Gallery" as GalleryModel
+    }
+}
+
+package "database" {
+    package "migrations" {
+        rectangle "create_galleries_table" as GalleriesMigration
+    }
+}
+
+' Relationships
+AdminIndex --> WebRoutes
+AdminCreate --> WebRoutes
+AdminEdit --> WebRoutes
+GuestIndex --> WebRoutes
+GuestShow --> WebRoutes
+GuestCategory --> WebRoutes
+WebRoutes --> AdminGalleryController
+WebRoutes --> GuestGalleryController
+AdminGalleryController --> GalleryModel
+GuestGalleryController --> GalleryModel
+GalleryModel --> GalleriesMigration
+
+@enduml
