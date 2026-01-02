@@ -1,0 +1,60 @@
+@startuml
+title UC006 - Contact & Feedback Module - Package Diagram
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam roundcorner 5
+
+package "resources" {
+    package "views" {
+        package "admin" {
+            package "contact" {
+                rectangle "index.blade.php" as AdminIndex
+                rectangle "show.blade.php" as AdminShow
+            }
+        }
+        package "guest" {
+            package "contact" {
+                rectangle "index.blade.php" as GuestIndex
+            }
+        }
+    }
+}
+
+package "routes" {
+    rectangle "web.php" as WebRoutes
+}
+
+package "app" {
+    package "Http" {
+        package "Controllers" {
+            package "Admin" {
+                rectangle "ContactMessageController" as ContactMessageController
+            }
+            package "Guest" {
+                rectangle "ContactController" as ContactController
+            }
+        }
+    }
+    package "Models" {
+        rectangle "ContactMessage" as ContactMessageModel
+    }
+}
+
+package "database" {
+    package "migrations" {
+        rectangle "create_contact_messages_table" as ContactMigration
+    }
+}
+
+' Relationships
+AdminIndex --> WebRoutes
+AdminShow --> WebRoutes
+GuestIndex --> WebRoutes
+WebRoutes --> ContactMessageController
+WebRoutes --> ContactController
+ContactMessageController --> ContactMessageModel
+ContactController --> ContactMessageModel
+ContactMessageModel --> ContactMigration
+
+@enduml

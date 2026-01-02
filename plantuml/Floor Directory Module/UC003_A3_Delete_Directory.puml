@@ -1,0 +1,39 @@
+@startuml UC003_A3_Delete_Directory
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC003 - Floor Directory: Alternative Flow A3 - Delete Directory
+
+actor Administrator
+boundary "resources/views/admin/floors/index.blade.php" as AdminFloorView
+control "app/Http/Controllers/Admin/FloorController.php" as AdminFloorController
+entity "app/Models/Floor.php" as FloorModel
+database "floors" as FloorDB
+
+Administrator -> AdminFloorView: DELETE /admin/floors/{id} (with confirmation)
+
+alt Administrator Confirms
+    AdminFloorView -> AdminFloorController: destroy(Floor $floor)
+    AdminFloorController -> FloorModel: Route model binding: $floor
+    FloorModel -> FloorDB: SELECT * FROM floors WHERE id = ?
+    FloorDB --> FloorModel: Return floor record
+    
+    AdminFloorController -> AdminFloorController: Delete image if exists
+    AdminFloorController -> FloorModel: $floor->delete()
+    FloorModel -> FloorDB: DELETE FROM floors WHERE id = ?
+    FloorDB --> FloorModel: Record deleted
+    
+    AdminFloorController --> AdminFloorView: redirect()->route('admin.floors.index')->with('success')
+    AdminFloorView -> AdminFloorController: GET /admin/floors (refresh list)
+    AdminFloorController -> FloorModel: ordered()->get()
+    FloorModel -> FloorDB: SELECT * FROM floors ORDER BY sort_order
+    MapController --> AdminFloorView: view('admin.floors.index', compact('floors'))
+    AdminFloorView --> Administrator: Display updated floor list
+else Administrator Cancels
+    AdminFloorView --> Administrator: Return to floor list (no changes)
+end
+
+@enduml

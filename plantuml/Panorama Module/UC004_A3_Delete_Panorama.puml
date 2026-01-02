@@ -1,0 +1,40 @@
+@startuml UC004_A3_Delete_Panorama
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC004 - Panorama: Alternative Flow A3 - Delete Panorama
+
+actor Administrator
+boundary "resources/views/admin/pano/index.blade.php" as AdminPanoramaView
+control "app/Http/Controllers/PanoramaController.php" as PanoramaController
+entity "app/Models/Panorama.php" as PanoramaModel
+database "panoramas" as PanoramaDB
+
+Administrator -> AdminPanoramaView: DELETE /admin/pano/{pano} (with confirmation)
+
+alt Administrator Confirms
+    AdminPanoramaView -> PanoramaController: destroy(Panorama $pano)
+    PanoramaController -> PanoramaModel: Route model binding: $pano
+    PanoramaModel -> PanoramaDB: SELECT * FROM panoramas WHERE id = ?
+    PanoramaDB --> PanoramaModel: Return panorama record
+    
+    PanoramaController -> PanoramaController: deleteDirectory(public_path('panos/' . $pano->folder))
+    
+    PanoramaController -> PanoramaModel: $pano->delete()
+    PanoramaModel -> PanoramaDB: DELETE FROM panoramas WHERE id = ?
+    PanoramaDB --> PanoramaModel: Record deleted
+    
+    PanoramaController --> AdminPanoramaView: back()->with('success', 'Panorama deleted!')
+    AdminPanoramaView -> PanoramaController: GET /admin/pano (refresh list)
+    PanoramaController -> PanoramaModel: all()
+    PanoramaModel -> PanoramaDB: SELECT * FROM panoramas
+    PanoramaController --> AdminPanoramaView: view('admin.pano.index', compact('panoramas'))
+    AdminPanoramaView --> Administrator: Display updated panorama list
+else Administrator Cancels
+    AdminPanoramaView --> Administrator: Return to panorama list (no changes)
+end
+
+@enduml

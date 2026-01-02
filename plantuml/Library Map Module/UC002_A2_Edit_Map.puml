@@ -1,0 +1,47 @@
+@startuml UC002_A2_Edit_Map
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC002 - Library Map Management: Alternative Flow A2 - Edit Map
+
+actor Administrator
+boundary "resources/views/admin/maps/edit.blade.php" as MapView
+control "app/Http/Controllers/Admin/LibraryMapController.php" as MapController
+entity "app/Models/LibraryMap.php" as LibraryMapModel
+database "library_maps" as MapDB
+
+Administrator -> MapView: GET /admin/maps/{id}/edit
+MapView -> MapController: edit(LibraryMap $map)
+MapController -> LibraryMapModel: Route model binding: $map
+LibraryMapModel -> MapDB: SELECT * FROM library_maps WHERE id = ?
+MapDB --> LibraryMapModel: Return map record
+LibraryMapModel --> MapController: LibraryMap object
+MapController --> MapView: view('admin.maps.edit', compact('map'))
+MapView --> Administrator: Display edit form with map data
+
+Administrator -> MapView: PUT /admin/maps/{id} (updated data)
+MapView -> MapController: update(Request $request, LibraryMap $map)
+
+MapController -> MapController: $request->validate([...])
+
+alt Validation Passes
+    alt Set as Default
+        MapController -> LibraryMapModel: where('is_default', true)->where('id', '!=', $map->id)->update(['is_default' => false])
+        LibraryMapModel -> MapDB: UPDATE library_maps SET is_default = 0
+    end
+    
+    MapController -> LibraryMapModel: $map->update($validated)
+    LibraryMapModel -> MapDB: UPDATE library_maps SET ... WHERE id = ?
+    MapDB --> LibraryMapModel: Record updated
+    
+    MapController --> MapView: redirect()->route('admin.maps.index')->with('success')
+    MapView -> Administrator: HTTP 302 Redirect to /admin/maps
+else Validation Fails
+    MapController --> MapView: ValidationException with errors
+    MapView -> Administrator: Display validation errors
+end
+
+@enduml

@@ -1,0 +1,61 @@
+@startuml UC004_Basic_Flow_View_And_Upload
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC004 - Panorama: Basic Flow - View and Upload
+
+actor "Student or Guest" as Guest
+actor Administrator
+boundary "resources/views/admin/pano/view.blade.php" as PanoramaView
+boundary "resources/views/admin/pano/index.blade.php" as AdminPanoramaView
+control "app/Http/Controllers/PanoramaController.php" as PanoramaController
+entity "app/Models/Panorama.php" as PanoramaModel
+database "panoramas" as PanoramaDB
+
+== Guest View Flow ==
+
+Guest -> PanoramaView: GET /pano/{pano}
+PanoramaView -> PanoramaController: view(Panorama $pano)
+PanoramaController -> PanoramaModel: Route model binding: $pano
+PanoramaModel -> PanoramaDB: SELECT * FROM panoramas WHERE id = ?
+PanoramaDB --> PanoramaModel: Return panorama record
+
+alt Panorama Files Exist
+    PanoramaController -> PanoramaController: Determine subfolder (/output or root)
+    PanoramaController --> PanoramaView: view('admin.pano.view', compact('pano', 'subfolder'))
+    PanoramaView --> Guest: Display panorama viewer with 360-degree content
+else Panorama Files Not Found
+    PanoramaController -> PanoramaController: abort(404, 'Panorama files not found')
+end
+
+== Admin Upload Flow ==
+
+Administrator -> AdminPanoramaView: POST /admin/pano (panorama data + ZIP file)
+AdminPanoramaView -> PanoramaController: store(Request $request)
+
+PanoramaController -> PanoramaController: $request->validate([...])
+
+alt Validation Passes
+    PanoramaController -> PanoramaController: $folder = time()
+    PanoramaController -> PanoramaController: mkdir(public_path('panos/' . $folder))
+    PanoramaController -> PanoramaController: $zip->extractTo($path)
+    
+    alt Display Image Uploaded
+        PanoramaController -> PanoramaController: $displayImage->move(public_path('panos/' . $folder), $imageName)
+    end
+    
+    PanoramaController -> PanoramaModel: create([name, description, floor, display_image, folder])
+    PanoramaModel -> PanoramaDB: INSERT INTO panoramas VALUES (...)
+    PanoramaDB --> PanoramaModel: Return created record
+    
+    PanoramaController --> AdminPanoramaView: back()->with('success', 'Panorama added!')
+    AdminPanoramaView -> Administrator: Display success message
+else Validation Fails
+    PanoramaController --> AdminPanoramaView: ValidationException with errors
+    AdminPanoramaView -> Administrator: Display validation errors
+end
+
+@enduml

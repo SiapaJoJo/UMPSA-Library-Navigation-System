@@ -1,0 +1,45 @@
+@startuml
+title UC007 - AI ChatBox Module - Package Diagram
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam roundcorner 5
+
+package "resources" {
+    package "views" {
+        package "layouts" {
+            rectangle "guest.blade.php"
+        }
+    }
+}
+
+package "routes" {
+    rectangle "web.php"
+}
+
+package "app" {
+    package "Http" {
+        package "Controllers" {
+            rectangle "ChatController"
+        }
+    }
+}
+
+package "config" {
+    rectangle "services.php"
+}
+
+component "External AI API" {
+    rectangle "Groq API"
+    rectangle "OpenAI API"
+}
+
+' Relationships
+"guest.blade.php" --> "web.php"
+"web.php" --> "ChatController"
+"ChatController" --> "services.php"
+"ChatController" --> "Groq API"
+"ChatController" --> "OpenAI API"
+
+@enduml
+

@@ -1,0 +1,38 @@
+@startuml UC002_E1_System_Error
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC002 - Library Map Management: Exception Flow E1 - System Error
+
+actor Administrator
+boundary "resources/views/admin/maps/*.blade.php" as MapView
+control "app/Http/Controllers/Admin/LibraryMapController.php" as MapController
+entity "app/Models/LibraryMap.php" as LibraryMapModel
+database "library_maps" as MapDB
+control "app/Exceptions/Handler.php" as ErrorHandler
+
+Administrator -> MapView: HTTP Request (POST/PUT/DELETE /admin/maps)
+MapView -> MapController: store/update/destroy method
+
+MapController -> LibraryMapModel: Database operation
+LibraryMapModel -> MapDB: SQL Query
+
+alt Database Connection Error
+    MapDB -> MapController: **Exception: DatabaseConnectionException**
+else Database Query Error
+    MapDB -> MapController: **Exception: QueryException**
+else System Error
+    MapController -> MapController: **Exception: RuntimeException**
+end
+
+MapController -> ErrorHandler: ExceptionHandler::render()
+ErrorHandler -> ErrorHandler: Log::error($exception)
+ErrorHandler --> MapController: Response(500, "System error occurred")
+
+MapController --> MapView: HTTP 500 Error Response
+MapView -> Administrator: Display: "System error occurred. Please try again later."
+
+@enduml

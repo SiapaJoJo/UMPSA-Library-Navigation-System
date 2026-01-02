@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - LibNav</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f3f4f6; }
+        .header { background: #1f2937; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: bold; }
+        .nav { display: flex; gap: 1rem; }
+        .nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; }
+        .nav a:hover { background: #374151; }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .card h3 { color: #1f2937; margin-bottom: 0.5rem; }
+        .card p { color: #6b7280; font-size: 0.9rem; }
+        .btn { display: inline-block; padding: 0.75rem 1.5rem; background: #3b82f6; color: white; text-decoration: none; border-radius: 6px; margin-top: 1rem; }
+        .btn:hover { background: #2563eb; }
+        .stats { display: flex; gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: white; padding: 1.5rem; border-radius: 8px; flex: 1; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .stat-number { font-size: 2rem; font-weight: bold; color: #3b82f6; }
+        .stat-label { color: #6b7280; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">LibNav Admin</div>
+        <div class="nav">
+            <a href="admin-dashboard.html">Dashboard</a>
+            <a href="admin-maps-index.html">Maps</a>
+            <a href="admin-floors-index.html">Floors</a>
+            <a href="admin-galleries-index.html">Galleries</a>
+            <a href="admin-pano-index.html">Panoramas</a>
+            <a href="admin-contact-index.html">Messages</a>
+            <a href="#">Logout</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h1 style="margin-bottom: 2rem; color: #1f2937;">Dashboard</h1>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Total Maps</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Floors</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">45</div>
+                <div class="stat-label">Panoramas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">23</div>
+                <div class="stat-label">Gallery Images</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">15</div>
+                <div class="stat-label">New Messages</div>
+            </div>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <h3>Library Maps</h3>
+                <p>Manage interactive library maps and floor plans</p>
+                <a href="admin-maps-index.html" class="btn">Manage Maps</a>
+            </div>
+            <div class="card">
+                <h3>Floor Directory</h3>
+                <p>Manage floor information and facilities</p>
+                <a href="admin-floors-index.html" class="btn">Manage Floors</a>
+            </div>
+            <div class="card">
+                <h3>Panoramas</h3>
+                <p>Upload and manage 360-degree panoramas</p>
+                <a href="admin-pano-index.html" class="btn">Manage Panoramas</a>
+            </div>
+            <div class="card">
+                <h3>Gallery</h3>
+                <p>Manage gallery images and categories</p>
+                <a href="admin-galleries-index.html" class="btn">Manage Gallery</a>
+            </div>
+            <div class="card">
+                <h3>Contact Messages</h3>
+                <p>View and manage user feedback</p>
+                <a href="admin-contact-index.html" class="btn">View Messages</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

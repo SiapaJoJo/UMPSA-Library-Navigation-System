@@ -1,0 +1,34 @@
+@startuml UC007_A1_Ambiguous_Question
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC007 - AI ChatBox: Alternative Flow A1 - Ambiguous Question
+
+actor "Student or Guest" as Guest
+boundary "resources/views/layouts/guest.blade.php" as ChatView
+control "app/Http/Controllers/ChatController.php" as ChatController
+control "External AI API\n(Groq/OpenAI)" as AIAPI
+
+Guest -> ChatView: Type vague question\n(e.g., "Where is it?")
+ChatView -> ChatView: sendMessage()
+ChatView -> ChatController: POST /chat\n(message: "Where is it?", history)
+
+ChatController -> ChatController: Build messages array
+ChatController -> AIAPI: POST /chat/completions\n(model, messages, ...)
+
+AIAPI -> AIAPI: Process query with AI model
+AIAPI -> AIAPI: Detect insufficient context\n- No specific location mentioned\n- Ambiguous reference
+
+AIAPI --> ChatController: Return clarification prompt\n"Please specify which room or facility\nyou are looking for."
+
+ChatController --> ChatView: JSON response\n{ reply: "Please specify which room..." }
+
+ChatView -> ChatView: Display AI clarification response
+ChatView --> Guest: Show clarification prompt
+
+Guest -> ChatView: Resubmit with more specific question
+
+@enduml

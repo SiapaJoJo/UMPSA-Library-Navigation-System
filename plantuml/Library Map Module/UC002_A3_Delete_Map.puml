@@ -1,0 +1,40 @@
+@startuml UC002_A3_Delete_Map
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC002 - Library Map Management: Alternative Flow A3 - Delete Map
+
+actor Administrator
+boundary "resources/views/admin/maps/index.blade.php" as MapView
+control "app/Http/Controllers/Admin/LibraryMapController.php" as MapController
+entity "app/Models/LibraryMap.php" as LibraryMapModel
+database "library_maps" as MapDB
+
+Administrator -> MapView: DELETE /admin/maps/{id} (with confirmation)
+
+alt Administrator Confirms
+    MapView -> MapController: destroy(LibraryMap $map)
+    MapController -> LibraryMapModel: Route model binding: $map
+    LibraryMapModel -> MapDB: SELECT * FROM library_maps WHERE id = ?
+    MapDB --> LibraryMapModel: Return map record
+    LibraryMapModel --> MapController: LibraryMap object
+    
+    MapController -> LibraryMapModel: $map->delete()
+    LibraryMapModel -> MapDB: DELETE FROM library_maps WHERE id = ?
+    MapDB --> LibraryMapModel: Record deleted
+    
+    MapController --> MapView: redirect()->route('admin.maps.index')->with('success')
+    MapView -> MapController: GET /admin/maps (refresh list)
+    MapController -> LibraryMapModel: ordered()->get()
+    LibraryMapModel -> MapDB: SELECT * FROM library_maps ORDER BY sort_order
+    MapDB --> LibraryMapModel: Return map list
+    MapController --> MapView: view('admin.maps.index', compact('maps'))
+    MapView --> Administrator: Display updated map list
+else Administrator Cancels
+    MapView --> Administrator: Return to map list (no changes)
+end
+
+@enduml

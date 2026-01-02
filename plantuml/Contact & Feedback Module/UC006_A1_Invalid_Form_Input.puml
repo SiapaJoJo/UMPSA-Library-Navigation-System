@@ -1,0 +1,35 @@
+@startuml UC006_A1_Invalid_Form_Input
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC006 - Contact & Feedback: Alternative Flow A1 - Invalid Form Input
+
+actor "Student or Guest" as Guest
+boundary "resources/views/guest/contact/index.blade.php" as ContactView
+control "app/Http/Controllers/Guest/ContactController.php" as ContactController
+entity "app/Models/ContactMessage.php" as ContactMessageModel
+database "contact_messages" as ContactDB
+
+Guest -> ContactView: POST /guest/contact (invalid data)
+ContactView -> ContactController: store(Request $request)
+
+ContactController -> ContactController: $request->validate([...])
+
+alt Missing Required Fields
+    ContactController -> ContactController: Validation fails: name required
+else Invalid Email Format
+    ContactController -> ContactController: Validation fails: email must be valid email format
+else Empty Message
+    ContactController -> ContactController: Validation fails: message required
+else Missing Subject
+    ContactController -> ContactController: Validation fails: subject required
+end
+
+ContactController --> ContactView: ValidationException with field errors
+ContactView -> Guest: Display form with error messages and repopulated input
+Guest -> ContactView: Resubmit form with corrected data
+
+@enduml

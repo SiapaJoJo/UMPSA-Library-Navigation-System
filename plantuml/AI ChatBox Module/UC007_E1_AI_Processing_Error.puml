@@ -1,0 +1,52 @@
+@startuml UC007_E1_AI_Processing_Error
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC007 - AI ChatBox: Exception Flow E1 - AI Processing Error
+
+actor "Student or Guest" as Guest
+boundary "resources/views/layouts/guest.blade.php" as ChatView
+control "app/Http/Controllers/ChatController.php" as ChatController
+control "External AI API\n(Groq/OpenAI)" as AIAPI
+control "app/Exceptions/Handler.php" as ErrorHandler
+
+Guest -> ChatView: Type question and submit
+ChatView -> ChatView: sendMessage()
+ChatView -> ChatController: POST /chat\n(message, history)
+
+ChatController -> ChatController: $request->validate([...])
+ChatController -> ChatController: Determine API provider
+ChatController -> ChatController: Build messages array
+
+alt Missing API Key
+    ChatController -> ChatController: config('services.groq.key') returns null
+    ChatController -> ChatController: Log::error('Missing API key')
+    ChatController --> ChatView: JSON response\n{ error: "API key is not configured" }\nHTTP 500
+else API Request Failed
+    ChatController -> AIAPI: POST /chat/completions
+    AIAPI -> AIAPI: API error or network failure
+    AIAPI --> ChatController: HTTP error response\n(status: 429, 500, 503, etc.)
+    
+    ChatController -> ChatController: Log::error('OpenAI request failed')
+    ChatController --> ChatView: JSON response\n{ error: "Chat API request failed",\n  status: 429 }\nHTTP 502
+else Network Error
+    ChatController -> AIAPI: POST /chat/completions
+    AIAPI --> ChatController: **Exception: ConnectionException**
+    
+    ChatController -> ErrorHandler: ExceptionHandler::render()
+    ErrorHandler -> ErrorHandler: Log::error($exception)
+    ErrorHandler --> ChatController: Response(500, "Unexpected error")
+    
+    ChatController --> ChatView: JSON response\n{ error: "Unexpected error while contacting Chat API" }\nHTTP 500
+end
+
+ChatView -> ChatView: Remove typing indicator
+ChatView -> ChatView: Display error message
+ChatView --> Guest: Show: "The chatbox is currently unavailable.\nPlease try again later."
+
+Guest -> Guest: Cannot get AI response
+
+@enduml

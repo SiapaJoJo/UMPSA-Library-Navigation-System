@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - LibNav</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f3f4f6; }
+        .header { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 2rem; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .nav { background: #1f2937; padding: 1rem; display: flex; justify-content: center; gap: 2rem; }
+        .nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; }
+        .nav a:hover { background: #374151; }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+        .categories { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; justify-content: center; }
+        .category-btn { padding: 0.75rem 1.5rem; background: white; border: 2px solid #3b82f6; color: #3b82f6; text-decoration: none; border-radius: 6px; }
+        .category-btn:hover, .category-btn.active { background: #3b82f6; color: white; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+        .gallery-item { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer; }
+        .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 8px 12px rgba(0,0,0,0.15); }
+        .gallery-image { width: 100%; height: 200px; background: #e5e7eb; display: flex; align-items: center; justify-content: center; color: #6b7280; }
+        .gallery-content { padding: 1rem; }
+        .gallery-content h3 { color: #1f2937; margin-bottom: 0.5rem; }
+        .gallery-content p { color: #6b7280; font-size: 0.9rem; }
+        .footer { background: #1f2937; color: white; text-align: center; padding: 2rem; margin-top: 4rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Gallery</h1>
+        <p>Photos of our library facilities, events, and spaces</p>
+    </div>
+    
+    <div class="nav">
+        <a href="guest-dashboard.html">Home</a>
+        <a href="guest-maps-index.html">Maps</a>
+        <a href="guest-floors-index.html">Floors</a>
+        <a href="guest-galleries-index.html">Gallery</a>
+        <a href="guest-pano-index.html">Panoramas</a>
+        <a href="guest-contact-index.html">Contact</a>
+    </div>
+    
+    <div class="container">
+        <div class="categories">
+            <a href="#" class="category-btn active">All</a>
+            <a href="#" class="category-btn">Facilities</a>
+            <a href="#" class="category-btn">Events</a>
+            <a href="#" class="category-btn">Rooms</a>
+        </div>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="gallery-image">Gallery Image</div>
+                <div class="gallery-content">
+                    <h3>Library Entrance</h3>
+                    <p>Facilities</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-image">Gallery Image</div>
+                <div class="gallery-content">
+                    <h3>Reading Area</h3>
+                    <p>Facilities</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-image">Gallery Image</div>
+                <div class="gallery-content">
+                    <h3>Study Room</h3>
+                    <p>Rooms</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-image">Gallery Image</div>
+                <div class="gallery-content">
+                    <h3>Library Event 2024</h3>
+                    <p>Events</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-image">Gallery Image</div>
+                <div class="gallery-content">
+                    <h3>Computer Lab</h3>
+                    <p>Facilities</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-image">Gallery Image</div>
+                <div class="gallery-content">
+                    <h3>Group Study Space</h3>
+                    <p>Rooms</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2024 UMPSA Library. All rights reserved.</p>
+    </div>
+</body>
+</html>
+

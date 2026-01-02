@@ -1,61 +1,161 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# UMPSA Library Navigation System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern Laravel-based library navigation system for Universiti Malaysia Pahang Al-Sultan Abdullah (UMPSA) that integrates an AI Chatbot for assistance, immersive 360° panoramic views using Pano2VR, and interactive mapping powered by Mappedin to help students and visitors navigate the library efficiently.
 
-## About Laravel
+## 🚀 Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Core Functionality
+- **AI-Powered Chatbot**: Interactive chatbot using ChatGPT API to assist users with library navigation and information
+- **360° Virtual Tours**: Immersive panoramic views of library spaces using Pano2VR
+- **Interactive Library Map**: Dynamic mapping system powered by Mappedin for easy navigation
+- **Floor Directory**: Comprehensive directory of facilities available on each floor
+- **Image Gallery**: Visual gallery showcasing library spaces and facilities
+- **Contact System**: Integrated contact form for user inquiries
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Modern UI/UX
+- **Glassmorphism Design**: Modern glassmorphic UI elements with backdrop blur effects
+- **Dark Theme Support**: Full dark mode support for admin panel
+- **Responsive Design**: Fully responsive layout for all device sizes
+- **Animated Backgrounds**: Dynamic gradient backgrounds and floating orbs
+- **Smooth Animations**: Enhanced hover effects and transitions throughout
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Admin Panel
+- **Dashboard**: Comprehensive admin dashboard with recent messages and statistics
+- **Content Management**: Full CRUD operations for panoramas, maps, floors, and galleries
+- **Contact Management**: View and manage user contact messages
+- **Profile Management**: User profile editing and password management
 
-## Learning Laravel
+## 🛠️ Tech Stack
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Backend**: Laravel (PHP Framework)
+- **Frontend**: Blade Templates, Tailwind CSS, Alpine.js
+- **AI Integration**: ChatGPT API
+- **Panoramic Views**: Pano2VR
+- **Mapping**: Mappedin
+- **Database**: MySQL/PostgreSQL
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 📋 Requirements
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP >= 8.1
+- Composer
+- Node.js & NPM
+- MySQL/PostgreSQL
+- Web server (Apache/Nginx)
 
-## Laravel Sponsors
+## 🔧 Installation
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/SiapaJoJo/UMPSA-Library-Navigation-System.git
+   cd UMPSA-Library-Navigation-System
+   ```
 
-### Premium Partners
+2. **Install PHP dependencies**
+   ```bash
+   composer install
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+3. **Install Node dependencies**
+   ```bash
+   npm install
+   ```
 
-## Contributing
+4. **Environment setup**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5. **Configure database**
+   - Update `.env` file with your database credentials
+   - Add ChatGPT API key to `.env`:
+     ```
+     OPENAI_API_KEY=your_api_key_here
+     ```
 
-## Code of Conduct
+6. **Run migrations**
+   ```bash
+   php artisan migrate
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+7. **Seed database (optional)**
+   ```bash
+   php artisan db:seed
+   ```
 
-## Security Vulnerabilities
+8. **Build assets**
+   ```bash
+   npm run build
+   # or for development
+   npm run dev
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+9. **Start the server**
+   ```bash
+   php artisan serve
+   ```
 
-## License
+## 📁 Project Structure
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
+├── app/
+│   ├── Http/Controllers/    # Application controllers
+│   └── Models/              # Eloquent models
+├── database/
+│   ├── migrations/          # Database migrations
+│   └── seeders/            # Database seeders
+├── public/
+│   ├── images/              # Uploaded images
+│   └── panos/              # Panorama files
+├── resources/
+│   ├── views/
+│   │   ├── admin/          # Admin panel views
+│   │   └── guest/          # Guest/public views
+│   └── js/                 # JavaScript files
+└── routes/
+    └── web.php             # Web routes
+```
+
+## 🎨 Key Features
+
+### Guest Features
+- Modern dashboard with animated backgrounds
+- Interactive floor directory with image carousel
+- Virtual tour gallery
+- Library map navigation
+- Image gallery with category filtering
+- Contact form with validation
+- AI chatbot integration
+
+### Admin Features
+- Dark theme support
+- Content management for all resources
+- Contact message management
+- User profile management
+- File upload and management
+
+## 🔗 Links
+
+- **GitHub**: [https://github.com/SiapaJoJo](https://github.com/SiapaJoJo)
+- **Reddit**: [https://www.reddit.com/user/Immediate_Wing2236/](https://www.reddit.com/user/Immediate_Wing2236/)
+- **LinkedIn**: [https://www.linkedin.com/in/muhammad-tajul-afiq-bin-tajul-aris-696517240](https://www.linkedin.com/in/muhammad-tajul-afiq-bin-tajul-aris-696517240)
+
+## 📝 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## 👤 Author
+
+**Muhammad Tajul Afiq Bin Tajul Aris**
+
+- GitHub: [@SiapaJoJo](https://github.com/SiapaJoJo)
+- LinkedIn: [Muhammad Tajul Afiq Bin Tajul Aris](https://www.linkedin.com/in/muhammad-tajul-afiq-bin-tajul-aris-696517240)
+
+## 🙏 Acknowledgments
+
+- Laravel Framework
+- Tailwind CSS
+- Alpine.js
+- Pano2VR
+- Mappedin
+- OpenAI (ChatGPT API)

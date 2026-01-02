@@ -1,0 +1,38 @@
+@startuml UC001_Basic_Flow_Admin_Login
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC001 - Admin Login: Basic Flow
+
+actor Administrator
+boundary "resources/views/auth/login.blade.php" as LoginView
+control "app/Http/Controllers/Auth/AuthenticatedSessionController" as AuthController
+entity "app/Models/User.php" as UserModel
+database "users" as UserDB
+
+Administrator -> LoginView: GET /login
+LoginView --> Administrator: Display login form
+
+Administrator -> LoginView: POST /login (email, password)
+LoginView -> AuthController: store(LoginRequest $request)
+
+AuthController -> UserModel: where('email', $email)->first()
+UserModel -> UserDB: SELECT * FROM users WHERE email = ?
+UserDB --> UserModel: Return user record
+UserModel --> AuthController: User object
+
+AuthController -> AuthController: Hash::check($password, $user->password)
+
+alt Password Valid
+    AuthController -> AuthController: Auth::login($user)
+    AuthController --> LoginView: redirect()->route('admin.dashboard')
+    LoginView -> Administrator: HTTP 302 Redirect to /admin/dashboard
+else Password Invalid
+    AuthController --> LoginView: ValidationException
+    LoginView -> Administrator: Display error message
+end
+
+@enduml

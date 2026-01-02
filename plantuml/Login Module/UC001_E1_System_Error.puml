@@ -1,0 +1,36 @@
+@startuml UC001_E1_System_Error
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC001 - Admin Login: Exception Flow E1 - System Error
+
+actor Administrator
+boundary "resources/views/auth/login.blade.php" as LoginView
+control "app/Http/Controllers/Auth/AuthenticatedSessionController" as AuthController
+entity "app/Models/User.php" as UserModel
+database "users" as UserDB
+control "app/Exceptions/Handler.php" as ErrorHandler
+
+Administrator -> LoginView: POST /login (valid credentials)
+LoginView -> AuthController: store(LoginRequest $request)
+
+AuthController -> UserModel: where('email', $email)->first()
+UserModel -> UserDB: SELECT * FROM users WHERE email = ?
+
+alt Database Error
+    UserDB -> AuthController: **Exception: DatabaseConnectionException**
+else Service Error
+    AuthController -> AuthController: **Exception: RuntimeException**
+end
+
+AuthController -> ErrorHandler: ExceptionHandler::render()
+ErrorHandler -> ErrorHandler: Log::error($exception)
+ErrorHandler --> AuthController: Response(500, "Login service unavailable")
+
+AuthController --> LoginView: HTTP 500 Error Response
+LoginView -> Administrator: Display: "Login service unavailable. Please try again later."
+
+@enduml

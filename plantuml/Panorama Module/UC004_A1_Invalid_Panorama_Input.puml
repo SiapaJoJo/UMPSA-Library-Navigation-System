@@ -1,0 +1,38 @@
+@startuml UC004_A1_Invalid_Panorama_Input
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC004 - Panorama: Alternative Flow A1 - Invalid Panorama Input
+
+actor Administrator
+boundary "resources/views/admin/pano/index.blade.php" as AdminPanoramaView
+control "app/Http/Controllers/PanoramaController.php" as PanoramaController
+entity "app/Models/Panorama.php" as PanoramaModel
+database "panoramas" as PanoramaDB
+
+Administrator -> AdminPanoramaView: POST /admin/pano (invalid data)
+AdminPanoramaView -> PanoramaController: store(Request $request)
+
+PanoramaController -> PanoramaController: $request->validate([...])
+
+alt Missing Required Fields
+    PanoramaController -> PanoramaController: Validation fails: name required
+else Invalid File Type
+    PanoramaController -> PanoramaController: Validation fails: pano_file must be ZIP
+else File Size Exceeds Limit
+    PanoramaController -> PanoramaController: Validation fails: pano_file max size 500000KB
+else Invalid Display Image Format
+    PanoramaController -> PanoramaController: Validation fails: display_image must be jpeg/png/jpg/gif
+else ZIP Extraction Fails
+    PanoramaController -> PanoramaController: $zip->open() fails
+    PanoramaController -> PanoramaController: Return error: "Failed to extract ZIP"
+end
+
+PanoramaController --> AdminPanoramaView: ValidationException OR back()->with('error')
+AdminPanoramaView -> Administrator: Display form with error messages
+Administrator -> AdminPanoramaView: Resubmit form with corrected data
+
+@enduml

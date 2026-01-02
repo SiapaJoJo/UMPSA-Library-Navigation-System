@@ -1,0 +1,59 @@
+@startuml
+title UC002 - Library Map Module - Package Diagram
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam roundcorner 5
+
+package "resources" {
+    package "views" {
+        package "admin" {
+            package "maps" {
+                rectangle "index.blade.php"
+                rectangle "create.blade.php"
+                rectangle "edit.blade.php"
+                rectangle "show.blade.php"
+            }
+        }
+        package "guest" {
+            package "maps" {
+                rectangle "library-map.blade.php"
+            }
+        }
+    }
+}
+
+package "routes" {
+    rectangle "web.php"
+}
+
+package "app" {
+    package "Http" {
+        package "Controllers" {
+            package "Admin" {
+                rectangle "LibraryMapController"
+            }
+        }
+    }
+    package "Models" {
+        rectangle "LibraryMap"
+    }
+}
+
+package "database" {
+    package "migrations" {
+        rectangle "create_library_maps_table"
+    }
+}
+
+' Relationships
+"index.blade.php" --> "web.php"
+"create.blade.php" --> "web.php"
+"edit.blade.php" --> "web.php"
+"library-map.blade.php" --> "web.php"
+"web.php" --> "LibraryMapController"
+"LibraryMapController" --> "LibraryMap"
+"LibraryMap" --> "create_library_maps_table"
+
+@enduml
+

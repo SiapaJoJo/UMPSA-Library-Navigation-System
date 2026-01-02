@@ -1,0 +1,96 @@
+@startuml General_Architecture_Diagram
+!theme plain
+skinparam componentStyle rectangle
+skinparam linetype ortho
+skinparam roundcorner 0
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam backgroundColor white
+skinparam component {
+    BackgroundColor white
+    BorderColor black
+}
+skinparam package {
+    BackgroundColor white
+    BorderColor black
+}
+
+title LibNav System - General Architecture Diagram
+
+package "resources" {
+    package "views" {
+        package "admin" {
+            component [contact]
+            component [floors]
+            component [galleries]
+            component [maps]
+            component [pano]
+        }
+        package "guest" {
+            component [contact]
+            component [floors]
+            component [galleries]
+            component [maps]
+            component [pano]
+        }
+        package "auth" {
+            component [login]
+        }
+        component [layouts]
+    }
+}
+
+package "routes" {
+    component [web.php]
+}
+
+package "app" {
+    package "Http" {
+        package "Controllers" {
+            package "Admin" {
+                component [ContactMessageController]
+                component [FloorController]
+                component [GalleryController]
+                component [LibraryMapController]
+            }
+            package "Guest" {
+                component [ContactController]
+                component [FloorController]
+                component [GalleryController]
+            }
+            package "Auth" {
+                component [AuthenticatedSessionController]
+            }
+            component [ChatController]
+            component [PanoramaController]
+        }
+        component [Middleware]
+    }
+    package "Models" {
+        component [User]
+        component [ContactMessage]
+        component [Floor]
+        component [Gallery]
+        component [LibraryMap]
+        component [Panorama]
+    }
+}
+
+package "database" {
+    package "migrations" {
+        component [create_users_table]
+        component [create_library_maps_table]
+        component [create_floors_table]
+        component [create_panoramas_table]
+        component [create_galleries_table]
+        component [create_contact_messages_table]
+    }
+}
+
+' Relationships
+"resources" --> "routes"
+"routes"::"web.php" --> "app"::"Http"::"Controllers"
+"app"::"Http"::"Controllers" --> "app"::"Models"
+"app"::"Models" --> "database"::"migrations"
+
+@enduml

@@ -1,0 +1,35 @@
+@startuml UC005_A1_Invalid_Image_Input
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC005 - Gallery: Alternative Flow A1 - Invalid Image Input
+
+actor Administrator
+boundary "resources/views/admin/galleries/create.blade.php" as AdminGalleryView
+control "app/Http/Controllers/Admin/GalleryController.php" as AdminGalleryController
+entity "app/Models/Gallery.php" as GalleryModel
+database "galleries" as GalleryDB
+
+Administrator -> AdminGalleryView: POST /admin/galleries (invalid data)
+AdminGalleryView -> AdminGalleryController: store(Request $request)
+
+AdminGalleryController -> AdminGalleryController: $request->validate([...])
+
+alt Missing Required Fields
+    AdminGalleryController -> AdminGalleryController: Validation fails: title required
+else Missing Image File
+    AdminGalleryController -> AdminGalleryController: Validation fails: image required
+else Invalid Image Format
+    AdminGalleryController -> AdminGalleryController: Validation fails: image must be jpeg/png/jpg/gif
+else Image Size Exceeds Limit
+    AdminGalleryController -> AdminGalleryController: Validation fails: image max size 5120KB
+end
+
+AdminGalleryController --> AdminGalleryView: ValidationException with field errors
+AdminGalleryView -> Administrator: Display form with error messages
+Administrator -> AdminGalleryView: Resubmit form with corrected data
+
+@enduml

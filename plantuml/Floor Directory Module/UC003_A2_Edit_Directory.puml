@@ -1,0 +1,46 @@
+@startuml UC003_A2_Edit_Directory
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC003 - Floor Directory: Alternative Flow A2 - Edit Directory
+
+actor Administrator
+boundary "resources/views/admin/floors/edit.blade.php" as AdminFloorView
+control "app/Http/Controllers/Admin/FloorController.php" as AdminFloorController
+entity "app/Models/Floor.php" as FloorModel
+database "floors" as FloorDB
+
+Administrator -> AdminFloorView: GET /admin/floors/{id}/edit
+AdminFloorView -> AdminFloorController: edit(Floor $floor)
+AdminFloorController -> FloorModel: Route model binding: $floor
+FloorModel -> FloorDB: SELECT * FROM floors WHERE id = ?
+FloorDB --> FloorModel: Return floor record
+AdminFloorController --> AdminFloorView: view('admin.floors.edit', compact('floor'))
+AdminFloorView --> Administrator: Display edit form with floor data
+
+Administrator -> AdminFloorView: PUT /admin/floors/{id} (updated data)
+AdminFloorView -> AdminFloorController: update(Request $request, Floor $floor)
+
+AdminFloorController -> AdminFloorController: $request->validate([...])
+
+alt Validation Passes
+    alt New Image Uploaded
+        AdminFloorController -> AdminFloorController: Delete old image
+        AdminFloorController -> AdminFloorController: $image->move(public_path('images/floors'), $imageName)
+    end
+    
+    AdminFloorController -> FloorModel: $floor->update($data)
+    FloorModel -> FloorDB: UPDATE floors SET ... WHERE id = ?
+    FloorDB --> FloorModel: Record updated
+    
+    AdminFloorController --> AdminFloorView: redirect()->route('admin.floors.index')->with('success')
+    AdminFloorView -> Administrator: HTTP 302 Redirect to /admin/floors
+else Validation Fails
+    AdminFloorController --> AdminFloorView: ValidationException with errors
+    AdminFloorView -> Administrator: Display validation errors
+end
+
+@enduml

@@ -1,0 +1,44 @@
+@startuml UC007_Basic_Flow_AI_Query
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC007 - AI ChatBox: Basic Flow - AI Query
+
+actor "Student or Guest" as Guest
+boundary "resources/views/layouts/guest.blade.php" as ChatView
+control "app/Http/Controllers/ChatController.php" as ChatController
+control "External AI API\n(Groq/OpenAI)" as AIAPI
+
+Guest -> ChatView: Click chatbot toggle icon
+ChatView -> ChatView: toggleChatbot()
+ChatView --> Guest: Show chat interface
+
+Guest -> ChatView: Type question and submit
+ChatView -> ChatView: sendMessage()
+ChatView -> ChatView: Add user message to chat UI
+ChatView -> ChatView: Push message to chatHistory array
+
+ChatView -> ChatController: POST /chat\n(message, history)
+ChatController -> ChatController: $request->validate([...])
+
+ChatController -> ChatController: Determine API provider\n(Groq preferred, OpenAI fallback)
+ChatController -> ChatController: Build messages array\n(System prompt, history, current message)
+
+ChatController -> AIAPI: POST /chat/completions\n(model, messages, temperature, max_tokens)
+AIAPI -> AIAPI: Process query with AI model
+AIAPI -> AIAPI: Analyze keywords and context
+AIAPI --> ChatController: Return AI response\n(choices[0].message.content)
+
+ChatController -> ChatController: Extract reply from response
+ChatController --> ChatView: JSON response\n{ reply: "AI answer" }
+
+ChatView -> ChatView: Add AI response to chatHistory
+ChatView -> ChatView: Display AI response in chat UI
+ChatView --> Guest: Show AI answer with relevant information
+
+Guest -> Guest: Continue conversation or close chatbox
+
+@enduml

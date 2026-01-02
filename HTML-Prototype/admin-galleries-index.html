@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Management - Admin - LibNav</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f3f4f6; }
+        .header { background: #1f2937; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: bold; }
+        .nav { display: flex; gap: 1rem; }
+        .nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; }
+        .nav a:hover { background: #374151; }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .page-header h1 { color: #1f2937; }
+        .btn-primary { padding: 0.75rem 1.5rem; background: #3b82f6; color: white; text-decoration: none; border-radius: 6px; }
+        .btn-primary:hover { background: #2563eb; }
+        .table { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #f9fafb; padding: 1rem; text-align: left; font-weight: 600; color: #1f2937; border-bottom: 2px solid #e5e7eb; }
+        td { padding: 1rem; border-bottom: 1px solid #e5e7eb; color: #4b5563; }
+        tr:hover { background: #f9fafb; }
+        .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.875rem; font-weight: 500; }
+        .badge-active { background: #d1fae5; color: #065f46; }
+        .badge-featured { background: #fef3c7; color: #92400e; }
+        .actions { display: flex; gap: 0.5rem; }
+        .btn-sm { padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px; font-size: 0.875rem; }
+        .btn-edit { background: #fbbf24; color: white; }
+        .btn-delete { background: #ef4444; color: white; }
+        .img-preview { width: 100px; height: 75px; object-fit: cover; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">LibNav Admin</div>
+        <div class="nav">
+            <a href="admin-dashboard.html">Dashboard</a>
+            <a href="admin-maps-index.html">Maps</a>
+            <a href="admin-floors-index.html">Floors</a>
+            <a href="admin-galleries-index.html">Galleries</a>
+            <a href="admin-pano-index.html">Panoramas</a>
+            <a href="admin-contact-index.html">Messages</a>
+            <a href="#">Logout</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="page-header">
+            <div>
+                <h1>Gallery Management</h1>
+                <p style="color: #6b7280; margin-top: 0.5rem;">Manage gallery images and categories</p>
+            </div>
+            <a href="#" class="btn-primary">+ Add New Image</a>
+        </div>
+        
+        <div class="table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Featured</th>
+                        <th>Sort Order</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img src="https://via.placeholder.com/100x75" alt="Gallery" class="img-preview"></td>
+                        <td>Library Entrance</td>
+                        <td>Facilities</td>
+                        <td><span class="badge badge-active">Active</span></td>
+                        <td><span class="badge badge-featured">Featured</span></td>
+                        <td>1</td>
+                        <td class="actions">
+                            <a href="#" class="btn-sm btn-edit">Edit</a>
+                            <a href="#" class="btn-sm btn-delete">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="https://via.placeholder.com/100x75" alt="Gallery" class="img-preview"></td>
+                        <td>Reading Area</td>
+                        <td>Facilities</td>
+                        <td><span class="badge badge-active">Active</span></td>
+                        <td>-</td>
+                        <td>2</td>
+                        <td class="actions">
+                            <a href="#" class="btn-sm btn-edit">Edit</a>
+                            <a href="#" class="btn-sm btn-delete">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="https://via.placeholder.com/100x75" alt="Gallery" class="img-preview"></td>
+                        <td>Study Room</td>
+                        <td>Rooms</td>
+                        <td><span class="badge badge-active">Active</span></td>
+                        <td>-</td>
+                        <td>3</td>
+                        <td class="actions">
+                            <a href="#" class="btn-sm btn-edit">Edit</a>
+                            <a href="#" class="btn-sm btn-delete">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="https://via.placeholder.com/100x75" alt="Gallery" class="img-preview"></td>
+                        <td>Library Event 2024</td>
+                        <td>Events</td>
+                        <td><span class="badge badge-active">Active</span></td>
+                        <td><span class="badge badge-featured">Featured</span></td>
+                        <td>4</td>
+                        <td class="actions">
+                            <a href="#" class="btn-sm btn-edit">Edit</a>
+                            <a href="#" class="btn-sm btn-delete">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+

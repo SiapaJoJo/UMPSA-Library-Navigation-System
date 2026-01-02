@@ -255,16 +255,27 @@
         @isset($header)
             <header class="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 border-b border-gray-200 dark:border-gray-700 transition-colors duration-300">
                 <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
+{{ $header }}
                 </div>
             </header>
         @endisset
+        @hasSection('header')
+            <header class="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 border-b border-gray-200 dark:border-gray-700 transition-colors duration-300">
+                <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+                    @yield('header')
+                </div>
+            </header>
+        @endif
 
         <!-- Page Content -->
         <main class="min-h-screen bg-gray-50 dark:bg-gray-900 fade-in transition-colors duration-300">
             <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
                 <div class="page-content">
                     @yield('content')
+                    {{-- Support rendering when used as a Blade component (<x-admin-layout>) --}}
+                    @isset($slot)
+                        {{ $slot }}
+                    @endisset
                 </div>
             </div>
         </main>
@@ -278,8 +289,8 @@
     
     <!-- Theme Switching JavaScript -->
     <script>
-        // Theme management
-        let currentTheme = localStorage.getItem('admin-theme') || 'light';
+        // Theme management - Default to dark theme
+        let currentTheme = localStorage.getItem('admin-theme') || 'dark';
         
         // Apply theme on page load
         function applyTheme(theme) {

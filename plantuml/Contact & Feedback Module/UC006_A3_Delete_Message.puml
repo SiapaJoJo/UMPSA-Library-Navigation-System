@@ -1,0 +1,37 @@
+@startuml UC006_A3_Delete_Message
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC006 - Contact & Feedback: Alternative Flow A3 - Delete Message
+
+actor Administrator
+boundary "resources/views/admin/contact/index.blade.php" as AdminContactView
+control "app/Http/Controllers/Admin/ContactMessageController.php" as AdminContactController
+entity "app/Models/ContactMessage.php" as ContactMessageModel
+database "contact_messages" as ContactDB
+
+Administrator -> AdminContactView: DELETE /admin/contact-messages/{id} (with confirmation)
+
+alt Administrator Confirms
+    AdminContactView -> AdminContactController: destroy(ContactMessage $contactMessage)
+    AdminContactController -> ContactMessageModel: Route model binding: $contactMessage
+    ContactMessageModel -> ContactDB: SELECT * FROM contact_messages WHERE id = ?
+    
+    AdminContactController -> ContactMessageModel: $contactMessage->delete()
+    ContactMessageModel -> ContactDB: DELETE FROM contact_messages WHERE id = ?
+    ContactDB --> ContactMessageModel: Record deleted
+    
+    AdminContactController --> AdminContactView: redirect()->route('admin.contact-messages.index')->with('success')
+    AdminContactView -> AdminContactController: GET /admin/contact-messages (refresh list)
+    AdminContactController -> ContactMessageModel: recent()->get()
+    ContactMessageModel -> ContactDB: SELECT * FROM contact_messages ORDER BY created_at DESC
+    AdminContactController --> AdminContactView: view('admin.contact.index', compact('messages'))
+    AdminContactView --> Administrator: Display updated message list
+else Administrator Cancels
+    AdminContactView --> Administrator: Return to message list (no changes)
+end
+
+@enduml

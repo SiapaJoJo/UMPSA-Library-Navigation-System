@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Maps - LibNav</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f3f4f6; }
+        .header { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 2rem; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .nav { background: #1f2937; padding: 1rem; display: flex; justify-content: center; gap: 2rem; }
+        .nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; }
+        .nav a:hover { background: #374151; }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+        .map-container { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 2rem; }
+        .map-container h2 { color: #1f2937; margin-bottom: 1rem; }
+        .map-placeholder { width: 100%; height: 500px; background: #e5e7eb; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #6b7280; font-size: 1.2rem; }
+        .map-info { margin-top: 1rem; padding: 1rem; background: #f9fafb; border-radius: 8px; }
+        .map-info p { color: #4b5563; margin: 0.5rem 0; }
+        .footer { background: #1f2937; color: white; text-align: center; padding: 2rem; margin-top: 4rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Library Maps</h1>
+        <p>Interactive maps of our library facilities</p>
+    </div>
+    
+    <div class="nav">
+        <a href="guest-dashboard.html">Home</a>
+        <a href="guest-maps-index.html">Maps</a>
+        <a href="guest-floors-index.html">Floors</a>
+        <a href="guest-galleries-index.html">Gallery</a>
+        <a href="guest-pano-index.html">Panoramas</a>
+        <a href="guest-contact-index.html">Contact</a>
+    </div>
+    
+    <div class="container">
+        <div class="map-container">
+            <h2>Main Library Map</h2>
+            <div class="map-placeholder">
+                Interactive Map - MappedIn Integration
+            </div>
+            <div class="map-info">
+                <p><strong>Floor:</strong> Ground Floor</p>
+                <p><strong>Section:</strong> Entrance</p>
+                <p><strong>Description:</strong> Main library entrance and lobby area with information desk and reception</p>
+            </div>
+        </div>
+        
+        <div class="map-container">
+            <h2>First Floor Map</h2>
+            <div class="map-placeholder">
+                Interactive Map - MappedIn Integration
+            </div>
+            <div class="map-info">
+                <p><strong>Floor:</strong> First Floor</p>
+                <p><strong>Section:</strong> Study Area</p>
+                <p><strong>Description:</strong> Study spaces, reading areas, and computer labs</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2024 UMPSA Library. All rights reserved.</p>
+    </div>
+</body>
+</html>
+

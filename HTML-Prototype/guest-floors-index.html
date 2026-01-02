@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floor Directory - LibNav</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f3f4f6; }
+        .header { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 3rem 2rem; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .nav { background: #1f2937; padding: 1rem; display: flex; justify-content: center; gap: 2rem; }
+        .nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; }
+        .nav a:hover { background: #374151; }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+        .floors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .floor-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .floor-card:hover { transform: translateY(-5px); box-shadow: 0 8px 12px rgba(0,0,0,0.15); }
+        .floor-image { width: 100%; height: 200px; background: #e5e7eb; display: flex; align-items: center; justify-content: center; color: #6b7280; }
+        .floor-content { padding: 1.5rem; }
+        .floor-content h3 { color: #1f2937; margin-bottom: 0.5rem; font-size: 1.5rem; }
+        .floor-content p { color: #6b7280; margin-bottom: 1rem; }
+        .floor-level { display: inline-block; padding: 0.25rem 0.75rem; background: #dbeafe; color: #1e40af; border-radius: 12px; font-size: 0.875rem; margin-bottom: 0.5rem; }
+        .btn { display: inline-block; padding: 0.75rem 1.5rem; background: #3b82f6; color: white; text-decoration: none; border-radius: 6px; }
+        .btn:hover { background: #2563eb; }
+        .footer { background: #1f2937; color: white; text-align: center; padding: 2rem; margin-top: 4rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Floor Directory</h1>
+        <p>Explore our library floors and discover all the facilities and resources available on each level</p>
+    </div>
+    
+    <div class="nav">
+        <a href="guest-dashboard.html">Home</a>
+        <a href="guest-maps-index.html">Maps</a>
+        <a href="guest-floors-index.html">Floors</a>
+        <a href="guest-galleries-index.html">Gallery</a>
+        <a href="guest-pano-index.html">Panoramas</a>
+        <a href="guest-contact-index.html">Contact</a>
+    </div>
+    
+    <div class="container">
+        <div class="floors-grid">
+            <div class="floor-card">
+                <div class="floor-image">Floor Plan Image</div>
+                <div class="floor-content">
+                    <span class="floor-level">Level 0</span>
+                    <h3>Ground Floor</h3>
+                    <p>Main entrance, reception, information desk, and lobby area with seating</p>
+                    <a href="#" class="btn">View Details</a>
+                </div>
+            </div>
+            <div class="floor-card">
+                <div class="floor-image">Floor Plan Image</div>
+                <div class="floor-content">
+                    <span class="floor-level">Level 1</span>
+                    <h3>First Floor</h3>
+                    <p>Study areas, reading rooms, computer labs, and group study spaces</p>
+                    <a href="#" class="btn">View Details</a>
+                </div>
+            </div>
+            <div class="floor-card">
+                <div class="floor-image">Floor Plan Image</div>
+                <div class="floor-content">
+                    <span class="floor-level">Level 2</span>
+                    <h3>Second Floor</h3>
+                    <p>Reference section, periodicals, and quiet study zones</p>
+                    <a href="#" class="btn">View Details</a>
+                </div>
+            </div>
+            <div class="floor-card">
+                <div class="floor-image">Floor Plan Image</div>
+                <div class="floor-content">
+                    <span class="floor-level">Level 3</span>
+                    <h3>Third Floor</h3>
+                    <p>Special collections, archives, and research areas</p>
+                    <a href="#" class="btn">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2024 UMPSA Library. All rights reserved.</p>
+    </div>
+</body>
+</html>
+

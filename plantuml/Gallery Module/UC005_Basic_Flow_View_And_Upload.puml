@@ -1,0 +1,56 @@
+@startuml UC005_Basic_Flow_View_And_Upload
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC005 - Gallery: Basic Flow - View and Upload
+
+actor "Student or Guest" as Guest
+actor Administrator
+boundary "resources/views/guest/galleries/show.blade.php" as GuestGalleryShow
+boundary "resources/views/admin/galleries/create.blade.php" as AdminGalleryView
+control "app/Http/Controllers/Guest/GalleryController.php" as GuestGalleryController
+control "app/Http/Controllers/Admin/GalleryController.php" as AdminGalleryController
+entity "app/Models/Gallery.php" as GalleryModel
+database "galleries" as GalleryDB
+
+== Guest View Flow ==
+
+Guest -> GuestGalleryShow: GET /guest/gallery/{gallery}
+GuestGalleryShow -> GuestGalleryController: show(Gallery $gallery)
+GuestGalleryController -> GalleryModel: Route model binding: $gallery
+GalleryModel -> GalleryDB: SELECT * FROM galleries WHERE id = ?
+FloorDB --> GalleryModel: Return gallery record
+
+alt Gallery is Active
+    GuestGalleryController --> GuestGalleryShow: view('guest.galleries.show', compact('gallery'))
+    GuestGalleryShow --> Guest: Display image in preview modal
+else Gallery is Inactive
+    GuestGalleryController -> GuestGalleryController: abort(404)
+end
+
+== Admin Upload Flow ==
+
+Administrator -> AdminGalleryView: POST /admin/galleries (image data)
+AdminGalleryView -> AdminGalleryController: store(Request $request)
+
+AdminGalleryController -> AdminGalleryController: $request->validate([...])
+
+alt Validation Passes
+    AdminGalleryController -> AdminGalleryController: $image->move(public_path('images/gallery'), $imageName)
+    AdminGalleryController -> AdminGalleryController: $data['image_path'] = $imageName
+    
+    AdminGalleryController -> GalleryModel: create($data)
+    GalleryModel -> GalleryDB: INSERT INTO galleries VALUES (...)
+    GalleryDB --> GalleryModel: Return created record
+    
+    AdminGalleryController --> AdminGalleryView: redirect()->route('admin.galleries.index')->with('success')
+    AdminGalleryView -> Administrator: HTTP 302 Redirect to /admin/galleries
+else Validation Fails
+    AdminGalleryController --> AdminGalleryView: ValidationException with errors
+    AdminGalleryView -> Administrator: Display validation errors
+end
+
+@enduml

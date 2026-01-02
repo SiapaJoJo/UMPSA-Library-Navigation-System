@@ -1,0 +1,61 @@
+@startuml UC006_E1_Message_Storage_Error
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+title UC006 - Contact & Feedback: Exception Flow E1 - Message Storage Error
+
+actor "Student or Guest" as Guest
+actor Administrator
+boundary "resources/views/guest/contact/index.blade.php" as ContactView
+boundary "resources/views/admin/contact/index.blade.php" as AdminContactView
+control "app/Http/Controllers/Guest/ContactController.php" as ContactController
+control "app/Http/Controllers/Admin/ContactMessageController.php" as AdminContactController
+entity "app/Models/ContactMessage.php" as ContactMessageModel
+database "contact_messages" as ContactDB
+control "app/Exceptions/Handler.php" as ErrorHandler
+
+== Guest Submission Error ==
+
+Guest -> ContactView: POST /guest/contact (form data)
+ContactView -> ContactController: store(Request $request)
+ContactController -> ContactController: $request->validate([...])
+
+ContactController -> ContactMessageModel: create($request->all())
+ContactMessageModel -> ContactDB: INSERT INTO contact_messages (...)
+
+alt Database Connection Error
+    ContactDB -> ContactController: **Exception: DatabaseConnectionException**
+else Database Query Error
+    ContactDB -> ContactController: **Exception: QueryException**
+end
+
+ContactController -> ErrorHandler: ExceptionHandler::render()
+ErrorHandler -> ErrorHandler: Log::error($exception)
+ErrorHandler --> ContactController: Response(500, "Unable to save message")
+
+ContactController --> ContactView: HTTP 500 Error Response
+ContactView -> Guest: Display: "Unable to save or load message. Please try again later."
+
+== Admin View Error ==
+
+Administrator -> AdminContactView: GET /admin/contact-messages
+AdminContactView -> AdminContactController: index()
+AdminContactController -> ContactMessageModel: recent()->get()
+ContactMessageModel -> ContactDB: SELECT * FROM contact_messages ORDER BY created_at DESC
+
+alt Database Connection Error
+    ContactDB -> AdminContactController: **Exception: DatabaseConnectionException**
+else Database Query Error
+    ContactDB -> AdminContactController: **Exception: QueryException**
+end
+
+AdminContactController -> ErrorHandler: ExceptionHandler::render()
+ErrorHandler --> AdminContactController: Response(500, "Unable to load messages")
+
+AdminContactController --> AdminContactView: HTTP 500 Error Response
+AdminContactView -> Administrator: Display: "Unable to save or load message. Please try again later."
+
+@enduml

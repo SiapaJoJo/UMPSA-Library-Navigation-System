@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - LibNav</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f3f4f6; }
+        .header { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 2rem; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .nav { background: #1f2937; padding: 1rem; display: flex; justify-content: center; gap: 2rem; }
+        .nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; }
+        .nav a:hover { background: #374151; }
+        .container { max-width: 800px; margin: 2rem auto; padding: 0 2rem; }
+        .contact-form { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; color: #1f2937; font-weight: 600; margin-bottom: 0.5rem; }
+        .form-group input, .form-group textarea { width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 1rem; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #3b82f6; }
+        .form-group textarea { min-height: 150px; resize: vertical; }
+        .btn-submit { width: 100%; padding: 0.75rem 1.5rem; background: #3b82f6; color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; }
+        .btn-submit:hover { background: #2563eb; }
+        .info-section { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-top: 2rem; }
+        .info-section h2 { color: #1f2937; margin-bottom: 1rem; }
+        .info-item { margin-bottom: 1rem; }
+        .info-item strong { color: #1f2937; }
+        .footer { background: #1f2937; color: white; text-align: center; padding: 2rem; margin-top: 4rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Contact Us</h1>
+        <p>Have questions or feedback? We'd love to hear from you</p>
+    </div>
+    
+    <div class="nav">
+        <a href="guest-dashboard.html">Home</a>
+        <a href="guest-maps-index.html">Maps</a>
+        <a href="guest-floors-index.html">Floors</a>
+        <a href="guest-galleries-index.html">Gallery</a>
+        <a href="guest-pano-index.html">Panoramas</a>
+        <a href="guest-contact-index.html">Contact</a>
+    </div>
+    
+    <div class="container">
+        <div class="contact-form">
+            <h2 style="color: #1f2937; margin-bottom: 1.5rem;">Send us a Message</h2>
+            <form>
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject *</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Send Message</button>
+            </form>
+        </div>
+        
+        <div class="info-section">
+            <h2>Contact Information</h2>
+            <div class="info-item">
+                <strong>Address:</strong> UMPSA Library, University Campus
+            </div>
+            <div class="info-item">
+                <strong>Email:</strong> library@umpsa.edu.my
+            </div>
+            <div class="info-item">
+                <strong>Phone:</strong> +60 9-XXX XXXX
+            </div>
+            <div class="info-item">
+                <strong>Operating Hours:</strong> Monday - Friday: 8:00 AM - 10:00 PM
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2024 UMPSA Library. All rights reserved.</p>
+    </div>
+</body>
+</html>
+

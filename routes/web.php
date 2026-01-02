@@ -92,8 +92,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     // ========================================
     // Panorama CRUD Operations
     Route::get('/pano', [PanoramaController::class, 'index'])->name('pano.index');           // List panoramas
+    Route::get('/pano/create', [PanoramaController::class, 'create'])->name('pano.create');  // Show create form
     Route::post('/pano', [PanoramaController::class, 'store'])->name('pano.store');         // Upload new panorama
-    Route::post('/pano/{pano}/update', [PanoramaController::class, 'update'])->name('pano.update');     // Rename panorama
+    Route::get('/pano/{pano}/edit', [PanoramaController::class, 'edit'])->name('pano.edit'); // Show edit form
+    Route::post('/pano/{pano}/update', [PanoramaController::class, 'update'])->name('pano.update');     // Update panorama
     Route::post('/pano/{pano}/replace', [PanoramaController::class, 'replace'])->name('pano.replace');  // Replace panorama files
     Route::delete('/pano/{pano}', [PanoramaController::class, 'destroy'])->name('pano.destroy');        // Delete panorama
     
@@ -115,6 +117,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::post('/contact-messages/{contactMessage}/mark-replied', [ContactMessageController::class, 'markAsReplied'])->name('contact-messages.mark-replied');
     Route::post('/contact-messages/{contactMessage}/mark-closed', [ContactMessageController::class, 'markAsClosed'])->name('contact-messages.mark-closed');
 });
+
+// ChatGPT proxy endpoint (web, CSRF-protected)
+use App\Http\Controllers\ChatController;
+Route::post('/chat', ChatController::class)->name('chat.invoke');
 
 // ============================================================================
 // 🔧 SYSTEM ROUTES (Laravel Built-in Features)
