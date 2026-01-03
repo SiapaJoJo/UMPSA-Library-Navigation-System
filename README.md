@@ -1,6 +1,6 @@
 # UMPSA Library Navigation System
 
-A modern Laravel-based library navigation system for Universiti Malaysia Pahang Al-Sultan Abdullah (UMPSA) that integrates an AI Chatbot for assistance, immersive 360° panoramic views using Pano2VR, and interactive mapping powered by Mappedin to help students and visitors navigate the library efficiently.
+A modern Laravel-based library navigation system for Universiti Malaysia Pahang Al-Sultan Abdullah, Pekan (UMPSA) that integrates an AI Chatbot for assistance, immersive 360° panoramic views using Pano2VR, and interactive mapping powered by Mappedin to help students and visitors navigate the library efficiently.
 
 ## 🚀 Features
 
