@@ -58,7 +58,7 @@
                     @endif
 
                     
-                    <div class="bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl overflow-hidden map-container shadow-inner border border-gray-300/50" style="height: 500px; min-height: 400px;">
+                    <div class="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 rounded-3xl overflow-hidden map-container shadow-inner border border-gray-300/50 dark:border-gray-700/50" style="height: 500px; min-height: 400px;">
                         <iframe id="mapFrame" 
                                 src="{{ $defaultMap ? $defaultMap->embed_url : $maps->first()->embed_url }}" 
                                 width="100%" 
@@ -72,12 +72,12 @@
 
                     
                     <div class="mt-8 text-center">
-                        <p class="text-sm text-gray-600 flex items-center justify-center">
+                        <p class="text-sm text-gray-600 dark:text-gray-400 flex items-center justify-center">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                             </svg>
                             Interactive map powered by 
-                            <a href="https://mappedin.com" target="_blank" class="text-blue-600 hover:text-blue-800 font-semibold ml-1 transition-colors">MappedIn</a>
+                            <a href="https://mappedin.com" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold ml-1 transition-colors">MappedIn</a>
                         </p>
                     </div>
                 </div>
@@ -85,30 +85,30 @@
                 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     
-                    <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-8 md:p-10 border border-gray-200/50">
+                    <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl p-8 md:p-10 border border-gray-200/50 dark:border-gray-700/50">
                         <div class="flex items-center mb-8">
                             <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mr-4 shadow-lg">
                                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                             </div>
-                            <h3 class="text-2xl md:text-3xl font-extrabold text-gray-900">Available Maps</h3>
+                            <h3 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-gray-100">Available Maps</h3>
                         </div>
                         <div class="space-y-4">
                             @foreach($maps as $map)
-                                <div class="group flex items-center justify-between p-6 bg-gradient-to-r from-gray-50/80 to-blue-50/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
+                                <div class="group flex items-center justify-between p-6 bg-gradient-to-r from-gray-50/80 to-blue-50/80 dark:from-gray-700/80 dark:to-blue-900/30 backdrop-blur-sm rounded-2xl border border-gray-200/50 dark:border-gray-700/50 hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
                                     <div class="flex-1">
-                                        <h4 class="font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 text-lg">{{ $map->name }}</h4>
+                                        <h4 class="font-bold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 text-lg">{{ $map->name }}</h4>
                                         @if($map->floor || $map->section)
-                                            <p class="text-sm text-gray-600 mt-1">{{ $map->full_name }}</p>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{{ $map->full_name }}</p>
                                         @endif
                                         @if($map->description)
-                                            <p class="text-sm text-gray-500 mt-2 leading-relaxed">{{ $map->description }}</p>
+                                            <p class="text-sm text-gray-500 dark:text-gray-500 mt-2 leading-relaxed">{{ $map->description }}</p>
                                         @endif
                                     </div>
                                     <div class="flex items-center space-x-3 ml-4">
                                         @if($map->is_default)
-                                            <span class="px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-800 border border-blue-200">Default</span>
+                                            <span class="px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/50 dark:to-indigo-900/50 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-700">Default</span>
                                         @endif
                                         <button onclick="switchMap('{{ $map->id }}', '{{ $map->embed_url }}')" 
                                                 class="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-bold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-0.5">
@@ -126,14 +126,14 @@
                 </div>
             @else
                 
-                <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-16 md:p-20 text-center border border-gray-200/50">
-                    <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mb-6">
-                        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl p-16 md:p-20 text-center border border-gray-200/50 dark:border-gray-700/50">
+                    <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 rounded-full mb-6">
+                        <svg class="w-12 h-12 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 4m0 13V4m0 0L9 7"></path>
                         </svg>
                     </div>
-                    <h3 class="text-3xl font-extrabold text-gray-900 mb-4">No Maps Available</h3>
-                    <p class="text-gray-600 text-lg mb-8">Library maps are not available at the moment. Please check back later.</p>
+                    <h3 class="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-4">No Maps Available</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-lg mb-8">Library maps are not available at the moment. Please check back later.</p>
                     <a href="{{ route('guest.dashboard') }}" 
                        class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-2xl hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -186,14 +186,14 @@
             document.getElementById('mapFrame').src = embedUrl;
 
             document.querySelectorAll('.map-selector').forEach(button => {
-                button.classList.remove('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'text-white', 'shadow-xl', 'scale-105');
-                button.classList.add('bg-white/80', 'backdrop-blur-sm', 'text-gray-700', 'border', 'border-gray-200/50');
+                button.classList.remove('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'dark:from-blue-500', 'dark:to-indigo-500', 'text-white', 'shadow-xl', 'scale-105');
+                button.classList.add('bg-white/80', 'dark:bg-gray-800/80', 'backdrop-blur-sm', 'text-gray-700', 'dark:text-gray-300', 'border', 'border-gray-200/50', 'dark:border-gray-700/50');
             });
 
             const selectedButton = document.querySelector(`[data-map-id="${mapId}"]`);
             if (selectedButton) {
-                selectedButton.classList.remove('bg-white/80', 'backdrop-blur-sm', 'text-gray-700', 'border', 'border-gray-200/50');
-                selectedButton.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'text-white', 'shadow-xl', 'scale-105');
+                selectedButton.classList.remove('bg-white/80', 'dark:bg-gray-800/80', 'backdrop-blur-sm', 'text-gray-700', 'dark:text-gray-300', 'border', 'border-gray-200/50', 'dark:border-gray-700/50');
+                selectedButton.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600', 'dark:from-blue-500', 'dark:to-indigo-500', 'text-white', 'shadow-xl', 'scale-105');
             }
         }
     </script>
