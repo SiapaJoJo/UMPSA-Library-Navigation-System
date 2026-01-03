@@ -36,47 +36,9 @@
 
         
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-            {{-- Card container --}}
-            <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-gray-200/50 dark:border-gray-700/50">
-            
-            <div class="bg-gradient-to-r from-purple-50/80 via-indigo-50/80 to-blue-50/80 dark:from-gray-700/80 dark:via-gray-800/80 dark:to-gray-700/80 backdrop-blur-sm px-6 md:px-8 py-5 md:py-6 border-b border-gray-200/50 dark:border-gray-700/50">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <div class="w-14 h-14 bg-gradient-to-br from-purple-500 via-indigo-500 to-blue-500 rounded-2xl flex items-center justify-center mr-4 shadow-lg">
-                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-gray-100">360° Panorama Viewer</h2>
-                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Pano2VR</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-gray-200/50 dark:border-gray-700/50" id="panorama-card">
             {{-- Panorama iframe --}}
             <div id="panorama-container" class="relative w-full h-[600px] overflow-hidden">
-                
-                <div class="absolute bottom-6 right-6 z-10">
-                    <button id="fullscreen-btn" 
-                            onclick="toggleFullscreen()"
-                            class="group inline-flex items-center px-5 py-3 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 backdrop-blur-xl text-white text-sm font-bold rounded-2xl hover:from-purple-700 hover:via-indigo-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-300 hover:scale-110 shadow-2xl hover:shadow-purple-500/50 border border-white/20">
-                        <svg id="fullscreen-icon" class="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
-                        </svg>
-                        Fullscreen
-                    </button>
-                </div>
-                
-                <button id="fullscreen-exit-btn" 
-                        class="fullscreen-exit-btn"
-                        onclick="toggleFullscreen()">
-                    <svg class="w-4 h-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                    Exit Fullscreen
-                </button>
                 
                 <div id="loading-overlay" class="absolute inset-0 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center z-50 backdrop-blur-sm">
                     <div class="text-center">
@@ -100,14 +62,6 @@
             </div>
 
             
-            <div class="bg-gradient-to-r from-gray-50/80 to-blue-50/80 dark:from-gray-700/80 dark:to-gray-800/80 backdrop-blur-sm px-6 md:px-8 py-4 md:py-5 border-t border-gray-200/50 dark:border-gray-700/50">
-                <div class="flex items-center justify-center text-sm md:text-base text-gray-600 dark:text-gray-400 font-medium">
-                    <svg class="w-5 h-5 mr-2 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path>
-                    </svg>
-                    <span>Drag to navigate • Press F for fullscreen</span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -135,6 +89,17 @@
             z-index: 9999 !important;
             background: #000 !important;
             border-radius: 0 !important;
+            padding: 0 !important;
+        }
+        
+        .fullscreen-container #panorama-header,
+        .fullscreen-container #panorama-footer {
+            display: none !important;
+        }
+        
+        .fullscreen-container #panorama-container {
+            height: 100vh !important;
+            border-radius: 0 !important;
         }
         
         .fullscreen-container iframe {
@@ -206,10 +171,8 @@
         }
 
         function toggleFullscreen() {
-            const container = document.querySelector('.bg-white.rounded-2xl.shadow-md.p-4');
+            const container = document.getElementById('panorama-card') || document.querySelector('.bg-white.rounded-2xl.shadow-md.p-4');
             const panoramaContainer = document.getElementById('panorama-container');
-            const fullscreenIcon = document.getElementById('fullscreen-icon');
-            const fullscreenBtn = document.getElementById('fullscreen-btn');
 
             const isInCssFullscreen = container.classList.contains('fullscreen-container');
             const isInNativeFullscreen = document.fullscreenElement !== null;
@@ -224,26 +187,28 @@
 
                     container.classList.add('fullscreen-container');
                     panoramaContainer.style.height = '100vh';
-                    updateFullscreenButton(true);
                 } else {
 
                     if (container.requestFullscreen) {
                         container.requestFullscreen().then(() => {
-                            updateFullscreenButton(true);
+                            container.classList.add('fullscreen-container');
+                            panoramaContainer.style.height = '100vh';
                         }).catch(err => {
                             console.log('Error attempting to enable fullscreen:', err);
                             tryIframeFullscreen();
                         });
                     } else if (container.webkitRequestFullscreen) {
                         container.webkitRequestFullscreen().then(() => {
-                            updateFullscreenButton(true);
+                            container.classList.add('fullscreen-container');
+                            panoramaContainer.style.height = '100vh';
                         }).catch(err => {
                             console.log('Error attempting to enable fullscreen:', err);
                             tryIframeFullscreen();
                         });
                     } else if (container.mozRequestFullScreen) {
                         container.mozRequestFullScreen().then(() => {
-                            updateFullscreenButton(true);
+                            container.classList.add('fullscreen-container');
+                            panoramaContainer.style.height = '100vh';
                         }).catch(err => {
                             console.log('Error attempting to enable fullscreen:', err);
                             tryIframeFullscreen();
@@ -257,21 +222,83 @@
                 if (isInCssFullscreen) {
 
                     container.classList.remove('fullscreen-container');
-                    panoramaContainer.style.height = '600px';
-                    updateFullscreenButton(false);
+                    container.style.position = '';
+                    container.style.top = '';
+                    container.style.left = '';
+                    container.style.width = '';
+                    container.style.height = '';
+                    container.style.zIndex = '';
+                    container.style.background = '';
+                    container.style.borderRadius = '';
+                    container.style.padding = '';
+                    container.style.margin = '';
+                    if (panoramaContainer) {
+                        panoramaContainer.style.height = '600px';
+                    }
+                    
+                    setTimeout(() => {
+                        window.scrollTo(0, 0);
+                    }, 100);
                 } else if (isInNativeFullscreen) {
 
                     if (document.exitFullscreen) {
                         document.exitFullscreen().then(() => {
-                            updateFullscreenButton(false);
+                            container.classList.remove('fullscreen-container');
+                            container.style.position = '';
+                            container.style.top = '';
+                            container.style.left = '';
+                            container.style.width = '';
+                            container.style.height = '';
+                            container.style.zIndex = '';
+                            container.style.background = '';
+                            container.style.borderRadius = '';
+                            container.style.padding = '';
+                            container.style.margin = '';
+                            if (panoramaContainer) {
+                                panoramaContainer.style.height = '600px';
+                            }
                         });
                     } else if (document.webkitExitFullscreen) {
                         document.webkitExitFullscreen().then(() => {
-                            updateFullscreenButton(false);
+                            container.classList.remove('fullscreen-container');
+                            container.style.position = '';
+                            container.style.top = '';
+                            container.style.left = '';
+                            container.style.width = '';
+                            container.style.height = '';
+                            container.style.zIndex = '';
+                            container.style.background = '';
+                            container.style.borderRadius = '';
+                            container.style.padding = '';
+                            container.style.margin = '';
+                            if (panoramaContainer) {
+                                panoramaContainer.style.height = '600px';
+                            }
                         });
                     } else if (document.mozCancelFullScreen) {
                         document.mozCancelFullScreen().then(() => {
-                            updateFullscreenButton(false);
+                            container.classList.remove('fullscreen-container');
+                            container.style.position = '';
+                            container.style.top = '';
+                            container.style.left = '';
+                            container.style.width = '';
+                            container.style.height = '';
+                            container.style.zIndex = '';
+                            container.style.background = '';
+                            container.style.borderRadius = '';
+                            container.style.padding = '';
+                            container.style.margin = '';
+                                if (panoramaContainer) {
+                                    panoramaContainer.style.height = '600px';
+                                }
+                                
+                                setTimeout(() => {
+                                    @if(request()->has('guest') || !auth()->check())
+                                        window.location.href = '{{ route('guest.panoramas') }}';
+                                    @else
+                                        window.location.href = '{{ route('admin.pano.index') }}';
+                                    @endif
+                                }, 100);
                         });
                     }
                 }
@@ -280,9 +307,14 @@
 
         function tryIframeFullscreen() {
             const iframe = document.getElementById('panorama-frame');
+            const container = document.getElementById('panorama-card') || document.querySelector('.bg-white.rounded-2xl.shadow-md.p-4');
+            const panoramaContainer = document.getElementById('panorama-container');
             if (iframe.requestFullscreen) {
                 iframe.requestFullscreen().then(() => {
-                    updateFullscreenButton(true);
+                    if (container) {
+                        container.classList.add('fullscreen-container');
+                        if (panoramaContainer) panoramaContainer.style.height = '100vh';
+                    }
                 }).catch(err => {
                     console.log('Iframe fullscreen also failed:', err);
 
@@ -291,37 +323,6 @@
             }
         }
 
-        function updateFullscreenButton(isFullscreen) {
-            const fullscreenIcon = document.getElementById('fullscreen-icon');
-            const fullscreenBtn = document.getElementById('fullscreen-btn');
-            const exitBtn = document.getElementById('fullscreen-exit-btn');
-            
-            console.log('Updating fullscreen button:', isFullscreen);
-            
-            if (isFullscreen) {
-
-                if (exitBtn) exitBtn.style.display = 'block';
-                if (fullscreenBtn) fullscreenBtn.style.display = 'none';
-
-                if (fullscreenIcon) {
-                    fullscreenIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M9 15v4.5M9 15h4.5M9 15l5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25"></path>';
-                }
-                if (fullscreenBtn) {
-                    fullscreenBtn.innerHTML = '<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M9 15v4.5M9 15h4.5M9 15l5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25"></path></svg>Exit Fullscreen';
-                }
-            } else {
-
-                if (fullscreenBtn) fullscreenBtn.style.display = 'inline-flex';
-                if (exitBtn) exitBtn.style.display = 'none';
-
-                if (fullscreenIcon) {
-                    fullscreenIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>';
-                }
-                if (fullscreenBtn) {
-                    fullscreenBtn.innerHTML = '<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>Fullscreen';
-                }
-            }
-        }
 
         document.addEventListener('keydown', function(e) {
             if (e.key === 'f' || e.key === 'F') {
@@ -329,8 +330,8 @@
                 toggleFullscreen();
             } else if (e.key === 'Escape') {
 
-                const container = document.querySelector('.bg-white.rounded-2xl.shadow-md.p-4');
-                const isInCssFullscreen = container.classList.contains('fullscreen-container');
+                const container = document.getElementById('panorama-card') || document.querySelector('.bg-white.rounded-2xl.shadow-md.p-4');
+                const isInCssFullscreen = container && container.classList.contains('fullscreen-container');
                 const isInNativeFullscreen = document.fullscreenElement !== null;
                 
                 if (isInCssFullscreen || isInNativeFullscreen) {
@@ -342,13 +343,104 @@
 
         setTimeout(hideLoadingOverlay, 3000);
 
+        document.addEventListener('fullscreenchange', function() {
+            const container = document.getElementById('panorama-card') || document.querySelector('.bg-white.rounded-2xl.shadow-md.p-4');
+            const panoramaContainer = document.getElementById('panorama-container');
+            if (document.fullscreenElement) {
+                if (container) {
+                    container.classList.add('fullscreen-container');
+                    if (panoramaContainer) panoramaContainer.style.height = '100vh';
+                }
+            } else {
+                if (container) {
+                    container.classList.remove('fullscreen-container');
+                    container.style.position = '';
+                    container.style.top = '';
+                    container.style.left = '';
+                    container.style.width = '';
+                    container.style.height = '';
+                    container.style.zIndex = '';
+                    container.style.background = '';
+                    container.style.borderRadius = '';
+                    container.style.padding = '';
+                    container.style.margin = '';
+                    if (panoramaContainer) {
+                        panoramaContainer.style.height = '600px';
+                    }
+                }
+                
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                }, 100);
+            }
+        });
+
+        document.addEventListener('webkitfullscreenchange', function() {
+            const container = document.getElementById('panorama-card') || document.querySelector('.bg-white.rounded-2xl.shadow-md.p-4');
+            const panoramaContainer = document.getElementById('panorama-container');
+            if (document.webkitFullscreenElement) {
+                if (container) {
+                    container.classList.add('fullscreen-container');
+                    if (panoramaContainer) panoramaContainer.style.height = '100vh';
+                }
+            } else {
+                if (container) {
+                    container.classList.remove('fullscreen-container');
+                    container.style.position = '';
+                    container.style.top = '';
+                    container.style.left = '';
+                    container.style.width = '';
+                    container.style.height = '';
+                    container.style.zIndex = '';
+                    container.style.background = '';
+                    container.style.borderRadius = '';
+                    container.style.padding = '';
+                    container.style.margin = '';
+                    if (panoramaContainer) {
+                        panoramaContainer.style.height = '600px';
+                    }
+                }
+                
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                }, 100);
+            }
+        });
+
+        document.addEventListener('mozfullscreenchange', function() {
+            const container = document.getElementById('panorama-card') || document.querySelector('.bg-white.rounded-2xl.shadow-md.p-4');
+            const panoramaContainer = document.getElementById('panorama-container');
+            if (document.mozFullScreenElement) {
+                if (container) {
+                    container.classList.add('fullscreen-container');
+                    if (panoramaContainer) panoramaContainer.style.height = '100vh';
+                }
+            } else {
+                if (container) {
+                    container.classList.remove('fullscreen-container');
+                    container.style.position = '';
+                    container.style.top = '';
+                    container.style.left = '';
+                    container.style.width = '';
+                    container.style.height = '';
+                    container.style.zIndex = '';
+                    container.style.background = '';
+                    container.style.borderRadius = '';
+                    container.style.padding = '';
+                    container.style.margin = '';
+                    if (panoramaContainer) {
+                        panoramaContainer.style.height = '600px';
+                    }
+                }
+            }
+        });
+
         function initializeButtonState() {
-            const container = document.querySelector('.bg-white.rounded-2xl.shadow-md.p-4');
-            const isInCssFullscreen = container.classList.contains('fullscreen-container');
+            const container = document.getElementById('panorama-card') || document.querySelector('.bg-white.rounded-2xl.shadow-md.p-4');
+            const isInCssFullscreen = container && container.classList.contains('fullscreen-container');
             const isInNativeFullscreen = document.fullscreenElement !== null;
             
             console.log('Initializing button state - CSS:', isInCssFullscreen, 'Native:', isInNativeFullscreen);
-            updateFullscreenButton(isInCssFullscreen || isInNativeFullscreen);
         }
 
         document.addEventListener('DOMContentLoaded', initializeButtonState);
@@ -369,8 +461,8 @@
             const swipeThreshold = 50;
             const swipeDistance = touchStartY - touchEndY;
 
-            const container = document.querySelector('.bg-white.rounded-2xl.shadow-md.p-4');
-            const isInCssFullscreen = container.classList.contains('fullscreen-container');
+            const container = document.getElementById('panorama-card') || document.querySelector('.bg-white.rounded-2xl.shadow-md.p-4');
+            const isInCssFullscreen = container && container.classList.contains('fullscreen-container');
             const isInNativeFullscreen = document.fullscreenElement !== null;
             
             if (swipeDistance > swipeThreshold && (isInCssFullscreen || isInNativeFullscreen)) {
@@ -395,14 +487,6 @@
                     </svg>
                     Back to Virtual Tours
                 </a>
-                <button id="fullscreen-btn" 
-                        onclick="toggleFullscreen()"
-                        class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white text-sm font-semibold rounded-xl hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-                    <svg id="fullscreen-icon" class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
-                    </svg>
-                    Fullscreen
-                </button>
             </div>
         </div>
     </x-slot>
@@ -410,44 +494,9 @@
     <div class="py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {{-- Card container --}}
-            <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 dark:border-gray-700 overflow-hidden">
-                
-                <div class="bg-gradient-to-r from-purple-50/80 via-indigo-50/80 to-blue-50/80 dark:from-gray-700/80 dark:via-gray-800/80 dark:to-gray-700/80 backdrop-blur-sm px-6 md:px-8 py-5 md:py-6 border-b border-gray-200/50 dark:border-gray-700/50">
-                    <div class="flex items-center">
-                        <div class="w-14 h-14 bg-gradient-to-br from-purple-500 via-indigo-500 to-blue-500 rounded-2xl flex items-center justify-center mr-4 shadow-lg">
-                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-gray-100">360° Panorama Viewer</h2>
-                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Pano2VR</p>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 dark:border-gray-700 overflow-hidden" id="panorama-card">
                 {{-- Panorama iframe --}}
                 <div id="panorama-container" class="relative w-full h-[600px] overflow-hidden">
-                    
-                    <div class="absolute bottom-6 right-6 z-10">
-                        <button id="fullscreen-btn-floating" 
-                                onclick="toggleFullscreen()"
-                                class="group inline-flex items-center px-5 py-3 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 backdrop-blur-xl text-white text-sm font-bold rounded-2xl hover:from-purple-700 hover:via-indigo-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 transition-all duration-300 hover:scale-110 shadow-2xl hover:shadow-purple-500/50 border border-white/20">
-                            <svg id="fullscreen-icon-floating" class="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
-                            </svg>
-                            Fullscreen
-                        </button>
-                    </div>
-                    
-                    <button id="fullscreen-exit-btn" 
-                            class="fullscreen-exit-btn"
-                            onclick="toggleFullscreen()">
-                        <svg class="w-4 h-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                        Exit Fullscreen
-                    </button>
                     
                     <div id="loading-overlay" class="absolute inset-0 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center z-50 backdrop-blur-sm">
                         <div class="text-center">
@@ -469,21 +518,18 @@
                             onload="hideLoadingOverlay()">
                     </iframe>
                 </div>
-
-                
-                <div class="bg-gradient-to-r from-gray-50/80 to-blue-50/80 dark:from-gray-700/80 dark:via-gray-800/80 backdrop-blur-sm px-6 md:px-8 py-4 md:py-5 border-t border-gray-200/50 dark:border-gray-700/50">
-                    <div class="flex items-center justify-center text-sm md:text-base text-gray-600 dark:text-gray-400 font-medium">
-                        <svg class="w-5 h-5 mr-2 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path>
-                        </svg>
-                        <span>Drag to navigate • Press F for fullscreen</span>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 
     <style>
+        
+        #panorama-card {
+            position: relative;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+        }
         
         .fullscreen-container {
             position: fixed !important;
@@ -493,6 +539,18 @@
             height: 100vh !important;
             z-index: 9999 !important;
             background: #000 !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        
+        .fullscreen-container #panorama-header,
+        .fullscreen-container #panorama-footer {
+            display: none !important;
+        }
+        
+        .fullscreen-container #panorama-container {
+            height: 100vh !important;
             border-radius: 0 !important;
         }
         
@@ -565,7 +623,7 @@
         }
 
         function toggleFullscreen() {
-            const container = document.querySelector('.bg-white\\/80.rounded-2xl, .bg-white.rounded-2xl.shadow-md.p-4');
+            const container = document.getElementById('panorama-card') || document.querySelector('.bg-white\\/80.rounded-2xl, .bg-white.rounded-2xl.shadow-md.p-4');
             const panoramaContainer = document.getElementById('panorama-container');
             const fullscreenIcon = document.getElementById('fullscreen-icon');
             const fullscreenBtn = document.getElementById('fullscreen-btn');
@@ -586,27 +644,29 @@
                     if (container) {
                         container.classList.add('fullscreen-container');
                         panoramaContainer.style.height = '100vh';
-                        updateFullscreenButton(true);
                     }
                 } else {
 
                     if (container && container.requestFullscreen) {
                         container.requestFullscreen().then(() => {
-                            updateFullscreenButton(true);
+                            container.classList.add('fullscreen-container');
+                            if (panoramaContainer) panoramaContainer.style.height = '100vh';
                         }).catch(err => {
                             console.log('Error attempting to enable fullscreen:', err);
                             tryIframeFullscreen();
                         });
                     } else if (container && container.webkitRequestFullscreen) {
                         container.webkitRequestFullscreen().then(() => {
-                            updateFullscreenButton(true);
+                            container.classList.add('fullscreen-container');
+                            if (panoramaContainer) panoramaContainer.style.height = '100vh';
                         }).catch(err => {
                             console.log('Error attempting to enable fullscreen:', err);
                             tryIframeFullscreen();
                         });
                     } else if (container && container.mozRequestFullScreen) {
                         container.mozRequestFullScreen().then(() => {
-                            updateFullscreenButton(true);
+                            container.classList.add('fullscreen-container');
+                            if (panoramaContainer) panoramaContainer.style.height = '100vh';
                         }).catch(err => {
                             console.log('Error attempting to enable fullscreen:', err);
                             tryIframeFullscreen();
@@ -620,21 +680,69 @@
                 if (isInCssFullscreen && container) {
 
                     container.classList.remove('fullscreen-container');
-                    panoramaContainer.style.height = '600px';
-                    updateFullscreenButton(false);
+                    container.style.position = '';
+                    container.style.top = '';
+                    container.style.left = '';
+                    container.style.width = '';
+                    container.style.height = '';
+                    container.style.zIndex = '';
+                    container.style.background = '';
+                    container.style.borderRadius = '';
+                    container.style.padding = '';
+                    container.style.margin = '';
+                    if (panoramaContainer) {
+                        panoramaContainer.style.height = '600px';
+                    }
+                    
+                    setTimeout(() => {
+                        window.scrollTo(0, 0);
+                    }, 100);
                 } else if (isInNativeFullscreen) {
 
                     if (document.exitFullscreen) {
                         document.exitFullscreen().then(() => {
-                            updateFullscreenButton(false);
+                            if (container) {
+                                container.classList.remove('fullscreen-container');
+                                if (panoramaContainer) panoramaContainer.style.height = '600px';
+                            }
+                            
+                            setTimeout(() => {
+                                @if(request()->has('guest') || !auth()->check())
+                                    window.location.href = '{{ route('guest.panoramas') }}';
+                                @else
+                                    window.location.href = '{{ route('admin.pano.index') }}';
+                                @endif
+                            }, 100);
                         });
                     } else if (document.webkitExitFullscreen) {
                         document.webkitExitFullscreen().then(() => {
-                            updateFullscreenButton(false);
+                            if (container) {
+                                container.classList.remove('fullscreen-container');
+                                if (panoramaContainer) panoramaContainer.style.height = '600px';
+                            }
+                            
+                            setTimeout(() => {
+                                @if(request()->has('guest') || !auth()->check())
+                                    window.location.href = '{{ route('guest.panoramas') }}';
+                                @else
+                                    window.location.href = '{{ route('admin.pano.index') }}';
+                                @endif
+                            }, 100);
                         });
                     } else if (document.mozCancelFullScreen) {
                         document.mozCancelFullScreen().then(() => {
-                            updateFullscreenButton(false);
+                            if (container) {
+                                container.classList.remove('fullscreen-container');
+                                if (panoramaContainer) panoramaContainer.style.height = '600px';
+                            }
+                            
+                            setTimeout(() => {
+                                @if(request()->has('guest') || !auth()->check())
+                                    window.location.href = '{{ route('guest.panoramas') }}';
+                                @else
+                                    window.location.href = '{{ route('admin.pano.index') }}';
+                                @endif
+                            }, 100);
                         });
                     }
                 }
@@ -645,48 +753,11 @@
             const iframe = document.getElementById('panorama-frame');
             if (iframe.requestFullscreen) {
                 iframe.requestFullscreen().then(() => {
-                    updateFullscreenButton(true);
                 }).catch(err => {
                     console.log('Iframe fullscreen also failed:', err);
 
                     alert('Fullscreen not supported on this device. Try rotating your device or using a different browser.');
                 });
-            }
-        }
-
-        function updateFullscreenButton(isFullscreen) {
-            const fullscreenIcon = document.getElementById('fullscreen-icon');
-            const fullscreenBtn = document.getElementById('fullscreen-btn');
-            const fullscreenIconFloating = document.getElementById('fullscreen-icon-floating');
-            const fullscreenBtnFloating = document.getElementById('fullscreen-btn-floating');
-            const exitBtn = document.getElementById('fullscreen-exit-btn');
-            
-            console.log('Updating fullscreen button:', isFullscreen);
-            
-            if (isFullscreen) {
-
-                if (exitBtn) exitBtn.style.display = 'block';
-                if (fullscreenBtn) fullscreenBtn.style.display = 'none';
-                if (fullscreenBtnFloating) fullscreenBtnFloating.style.display = 'none';
-
-                if (fullscreenIcon) {
-                    fullscreenIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M9 15v4.5M9 15h4.5M9 15l5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25"></path>';
-                }
-                if (fullscreenIconFloating) {
-                    fullscreenIconFloating.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M9 15v4.5M9 15h4.5M9 15l5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25"></path>';
-                }
-            } else {
-
-                if (fullscreenBtn) fullscreenBtn.style.display = 'inline-flex';
-                if (fullscreenBtnFloating) fullscreenBtnFloating.style.display = 'inline-flex';
-                if (exitBtn) exitBtn.style.display = 'none';
-
-                if (fullscreenIcon) {
-                    fullscreenIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>';
-                }
-                if (fullscreenIconFloating) {
-                    fullscreenIconFloating.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>';
-                }
             }
         }
 
@@ -696,7 +767,7 @@
                 toggleFullscreen();
             } else if (e.key === 'Escape') {
 
-                const container = document.querySelector('.bg-white\\/80.rounded-2xl, .bg-white.rounded-2xl.shadow-md.p-4');
+                const container = document.getElementById('panorama-card') || document.querySelector('.bg-white\\/80.rounded-2xl, .bg-white.rounded-2xl.shadow-md.p-4');
                 const isInCssFullscreen = container && container.classList.contains('fullscreen-container');
                 const isInNativeFullscreen = document.fullscreenElement !== null;
                 
@@ -709,13 +780,68 @@
 
         setTimeout(hideLoadingOverlay, 3000);
 
+        document.addEventListener('fullscreenchange', function() {
+            const container = document.getElementById('panorama-card') || document.querySelector('.bg-white\\/80.rounded-2xl, .bg-white.rounded-2xl.shadow-md.p-4');
+            const panoramaContainer = document.getElementById('panorama-container');
+            if (document.fullscreenElement) {
+                if (container) {
+                    container.classList.add('fullscreen-container');
+                    if (panoramaContainer) panoramaContainer.style.height = '100vh';
+                }
+            } else {
+                if (container) {
+                    container.classList.remove('fullscreen-container');
+                    if (panoramaContainer) panoramaContainer.style.height = '600px';
+                }
+                
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                }, 100);
+            }
+        });
+
+        document.addEventListener('webkitfullscreenchange', function() {
+            const container = document.getElementById('panorama-card') || document.querySelector('.bg-white\\/80.rounded-2xl, .bg-white.rounded-2xl.shadow-md.p-4');
+            const panoramaContainer = document.getElementById('panorama-container');
+            if (document.webkitFullscreenElement) {
+                if (container) {
+                    container.classList.add('fullscreen-container');
+                    if (panoramaContainer) panoramaContainer.style.height = '100vh';
+                }
+            } else {
+                if (container) {
+                    container.classList.remove('fullscreen-container');
+                    if (panoramaContainer) panoramaContainer.style.height = '600px';
+                }
+                
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                }, 100);
+            }
+        });
+
+        document.addEventListener('mozfullscreenchange', function() {
+            const container = document.getElementById('panorama-card') || document.querySelector('.bg-white\\/80.rounded-2xl, .bg-white.rounded-2xl.shadow-md.p-4');
+            const panoramaContainer = document.getElementById('panorama-container');
+            if (document.mozFullScreenElement) {
+                if (container) {
+                    container.classList.add('fullscreen-container');
+                    if (panoramaContainer) panoramaContainer.style.height = '100vh';
+                }
+            } else {
+                if (container) {
+                    container.classList.remove('fullscreen-container');
+                    if (panoramaContainer) panoramaContainer.style.height = '600px';
+                }
+            }
+        });
+
         function initializeButtonState() {
-            const container = document.querySelector('.bg-white\\/80.rounded-2xl, .bg-white.rounded-2xl.shadow-md.p-4');
+            const container = document.getElementById('panorama-card') || document.querySelector('.bg-white\\/80.rounded-2xl, .bg-white.rounded-2xl.shadow-md.p-4');
             const isInCssFullscreen = container && container.classList.contains('fullscreen-container');
             const isInNativeFullscreen = document.fullscreenElement !== null;
             
             console.log('Initializing button state - CSS:', isInCssFullscreen, 'Native:', isInNativeFullscreen);
-            updateFullscreenButton(isInCssFullscreen || isInNativeFullscreen);
         }
 
         document.addEventListener('DOMContentLoaded', initializeButtonState);
@@ -736,7 +862,7 @@
             const swipeThreshold = 50;
             const swipeDistance = touchStartY - touchEndY;
 
-            const container = document.querySelector('.bg-white\\/80.rounded-2xl, .bg-white.rounded-2xl.shadow-md.p-4');
+            const container = document.getElementById('panorama-card') || document.querySelector('.bg-white\\/80.rounded-2xl, .bg-white.rounded-2xl.shadow-md.p-4');
             const isInCssFullscreen = container && container.classList.contains('fullscreen-container');
             const isInNativeFullscreen = document.fullscreenElement !== null;
             

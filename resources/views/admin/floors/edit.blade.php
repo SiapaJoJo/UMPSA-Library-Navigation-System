@@ -5,13 +5,13 @@
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Edit Floor</h2>
                 <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">Update floor information and settings</p>
             </div>
-            <a href="{{ route('admin.floors.index') }}" 
+                <a href="{{ route('admin.floors.index') }}" 
                class="inline-flex items-center px-4 py-2.5 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition-all duration-300 shadow-md hover:shadow-lg">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                </svg>
-                Back to Floors
-            </a>
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Back to Floors
+                </a>
         </div>
     </x-slot>
 
@@ -21,10 +21,10 @@
                 <div class="p-6 md:p-8">
                     @if(session('success'))
                         <div class="mb-6 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-l-4 border-green-500 dark:border-green-400 p-4 rounded-xl shadow-lg">
-                            <div class="flex items-center">
+                    <div class="flex items-center">
                                 <svg class="w-5 h-5 mr-3 text-green-500 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
                                 <p class="text-sm font-medium text-green-800 dark:text-green-300">{{ session('success') }}</p>
                             </div>
                         </div>
@@ -37,42 +37,42 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="name" class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Floor Name <span class="text-red-500">*</span></label>
-                                <input type="text" 
-                                       id="name" 
-                                       name="name" 
-                                       value="{{ old('name', $floor->name) }}"
-                                       required
+                                    <input type="text" 
+                                           id="name" 
+                                           name="name" 
+                                           value="{{ old('name', $floor->name) }}"
+                                           required
                                        class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 focus:border-transparent transition-all duration-200 @error('name') border-red-500 @enderror">
                                 @error('name')
                                     <p class="mt-2 text-sm font-medium text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
-                            
+
                             <div>
                                 <label for="level" class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Level</label>
-                                <input type="text" 
-                                       id="level" 
-                                       name="level" 
-                                       value="{{ old('level', $floor->level) }}"
+                                    <input type="text" 
+                                           id="level" 
+                                           name="level" 
+                                           value="{{ old('level', $floor->level) }}"
                                        placeholder="e.g., Ground Floor, 1st Floor, 2nd Floor"
                                        class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 focus:border-transparent transition-all duration-200 @error('level') border-red-500 @enderror">
                                 @error('level')
                                     <p class="mt-2 text-sm font-medium text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
-                        </div>
-                        
+                            </div>
+
                         <div>
                             <label for="description" class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Description</label>
-                            <textarea id="description" 
-                                      name="description" 
+                                <textarea id="description" 
+                                          name="description" 
                                       rows="4"
                                       class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 focus:border-transparent transition-all duration-200 resize-none @error('description') border-red-500 @enderror">{{ old('description', $floor->description) }}</textarea>
-                            @error('description')
+                                @error('description')
                                 <p class="mt-2 text-sm font-medium text-red-600 dark:text-red-400">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        
+                                @enderror
+                            </div>
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             @if($floor->image)
                                 <div>
@@ -84,57 +84,57 @@
                                     </div>
                                 </div>
                             @endif
-                            
+
                             <div>
                                 <label for="image" class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">{{ $floor->image ? 'Replace Image' : 'Upload Image' }}</label>
-                                <input type="file" 
-                                       id="image" 
-                                       name="image" 
-                                       accept="image/*"
+                                    <input type="file" 
+                                           id="image" 
+                                           name="image" 
+                                           accept="image/*"
                                        class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100 dark:file:bg-green-900/30 dark:file:text-green-300 focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 focus:border-transparent transition-all duration-200 @error('image') border-red-500 @enderror">
                                 <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Supported formats: JPEG, PNG, JPG, GIF. Max size: 2MB</p>
                                 @error('image')
                                     <p class="mt-2 text-sm font-medium text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
-                            </div>
                         </div>
-                        
+                    </div>
+
                         <div>
                             <label for="facilities" class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Facilities</label>
                             <div id="facilities-container" class="space-y-2">
-                                @php
-                                    $facilities = old('facilities', $floor->facilities ?? []);
-                                    if (empty($facilities)) {
-                                        $facilities = [''];
-                                    }
-                                @endphp
-                                @foreach($facilities as $index => $facility)
+                            @php
+                                $facilities = old('facilities', $floor->facilities ?? []);
+                                if (empty($facilities)) {
+                                    $facilities = [''];
+                                }
+                            @endphp
+                            @foreach($facilities as $index => $facility)
                                     <div class="flex space-x-2">
                                         <input type="text" 
                                                name="facilities[]" 
                                                value="{{ $facility }}"
                                                placeholder="Enter facility name"
                                                class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 focus:border-transparent transition-all duration-200">
-                                        @if($index > 0)
-                                            <button type="button" 
-                                                    onclick="removeFacility(this)"
+                                    @if($index > 0)
+                                        <button type="button" 
+                                                onclick="removeFacility(this)"
                                                     class="px-4 py-3 bg-gradient-to-r from-red-500 to-rose-500 text-white text-sm font-semibold rounded-xl hover:from-red-600 hover:to-rose-600 transition-all duration-200 shadow-md hover:shadow-lg">
                                                 Remove
-                                            </button>
-                                        @endif
-                                    </div>
-                                @endforeach
-                            </div>
-                            <button type="button" 
-                                    onclick="addFacility()"
+                                        </button>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+                        <button type="button" 
+                                onclick="addFacility()"
                                     class="mt-3 px-4 py-2.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm font-semibold rounded-xl hover:from-green-600 hover:to-emerald-600 transition-all duration-200 shadow-md hover:shadow-lg">
                                 <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                </svg>
-                                Add Facility
-                            </button>
-                        </div>
-                        
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            Add Facility
+                        </button>
+                    </div>
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="sort_order" class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Sort Order</label>
@@ -165,19 +165,19 @@
                         </div>
                         
                         <div class="flex justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
-                            <a href="{{ route('admin.floors.index') }}" 
+                        <a href="{{ route('admin.floors.index') }}" 
                                class="inline-flex items-center px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold rounded-xl hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 shadow-md hover:shadow-lg">
-                                Cancel
-                            </a>
-                            <button type="submit" 
+                            Cancel
+                        </a>
+                        <button type="submit" 
                                     class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 via-emerald-700 to-teal-600 text-white font-semibold rounded-xl hover:from-green-700 hover:via-emerald-800 hover:to-teal-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                Update Floor
-                            </button>
-                        </div>
-                    </form>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Update Floor
+                        </button>
+                    </div>
+                </form>
                 </div>
             </div>
         </div>
@@ -189,8 +189,8 @@
             const div = document.createElement('div');
             div.className = 'flex space-x-2';
             div.innerHTML = `
-                <input type="text" 
-                       name="facilities[]" 
+                    <input type="text" 
+                           name="facilities[]" 
                        placeholder="Enter facility name"
                        class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 focus:border-transparent transition-all duration-200">
                 <button type="button" 

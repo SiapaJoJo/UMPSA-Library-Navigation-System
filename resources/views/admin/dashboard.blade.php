@@ -4,8 +4,8 @@
     <div class="flex items-center justify-between">
         <div>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
-                {{ __('UMPSA Library - Admin Dashboard') }}
-            </h2>
+            {{ __('UMPSA Library - Admin Dashboard') }}
+        </h2>
             <div class="mt-3 flex flex-wrap items-center gap-4 text-sm">
                 <div class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
                     <span class="text-lg">👋</span>
@@ -146,9 +146,9 @@
                         </div>
                         <div class="p-4 bg-white/20 backdrop-blur-sm rounded-2xl group-hover:rotate-12 transition-transform duration-300 shadow-lg">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
-                            </svg>
-                        </div>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                                    </svg>
+                                </div>
                     </div>
                 </div>
 
@@ -180,9 +180,9 @@
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                             </svg>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
                 <div class="group relative bg-gradient-to-br from-pink-500 via-rose-600 to-red-600 p-6 rounded-2xl shadow-xl text-white transform transition-all duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden">
                     <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -195,11 +195,11 @@
                         <div class="p-4 bg-white/20 backdrop-blur-sm rounded-2xl group-hover:rotate-12 transition-transform duration-300 shadow-lg">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
+                                    </svg>
+                                </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                 <div class="lg:col-span-2 space-y-6">
@@ -209,8 +209,8 @@
                                 <span class="text-2xl">📋</span> 
                                 <span>Recent Activities</span>
                             </h3>
-                        </div>
-                        <div class="space-y-3">
+                    </div>
+                    <div class="space-y-3">
                             @forelse($activities as $activity)
                                 <a href="{{ $activity['url'] ?? '#' }}" class="block">
                                     <div class="flex items-start gap-4 p-4 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100/50 dark:from-gray-700/50 dark:to-gray-800/50 hover:from-blue-50 hover:to-indigo-50 dark:hover:from-blue-900/20 dark:hover:to-indigo-900/20 border border-gray-200/50 dark:border-gray-600/50 hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300 group cursor-pointer">
@@ -233,7 +233,7 @@
                                 </div>
                             @endforelse
                         </div>
-                    </div>
+                                    </div>
 
                     <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-gray-200/50 dark:border-gray-700/50 transform transition-all duration-300 hover:shadow-2xl">
                         <div class="flex items-center justify-between mb-6">
@@ -260,7 +260,7 @@
                             <span class="text-2xl">📈</span> 
                             <span>Engagement Insights</span>
                         </h3>
-                        <div class="space-y-4">
+                    <div class="space-y-4">
                             <div class="p-4 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-800 hover:shadow-lg transition-shadow duration-300">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center gap-3">
@@ -288,7 +288,7 @@
                                         <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Gallery This Week</span>
                                     </div>
                                     <span class="text-sm font-bold text-pink-600 dark:text-pink-400">{{ $galleriesThisWeek }} new</span>
-                                </div>
+                        </div>
                             </div>
                             <div class="p-4 rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800 hover:shadow-lg transition-shadow duration-300">
                                 <div class="flex items-center justify-between">
@@ -381,7 +381,7 @@
                                         <span class="text-sm font-bold text-gray-900 dark:text-white">{{ round($mapsProgress) }}%</span>
                                     </div>
                                 </div>
-                                <div>
+                        <div>
                                     <p class="text-sm font-semibold text-gray-900 dark:text-white">Library Maps</p>
                                     <p class="text-xs text-gray-500 dark:text-gray-400">{{ $activeMapsCount }}/{{ $mapsCount }} active</p>
                                 </div>
@@ -399,9 +399,9 @@
                                     </svg>
                                     <div class="absolute inset-0 flex items-center justify-center">
                                         <span class="text-sm font-bold text-gray-900 dark:text-white">{{ round($panoramasProgress) }}%</span>
-                                    </div>
-                                </div>
-                                <div>
+                            </div>
+                        </div>
+                        <div>
                                     <p class="text-sm font-semibold text-gray-900 dark:text-white">Virtual Tours</p>
                                     <p class="text-xs text-gray-500 dark:text-gray-400">{{ $panoramasCount }} active</p>
                                 </div>
@@ -425,11 +425,11 @@
                                     <p class="text-sm font-semibold text-gray-900 dark:text-white">Gallery Coverage</p>
                                     <p class="text-xs text-gray-500 dark:text-gray-400">{{ $activeGalleriesCount }}/{{ $galleriesCount }} active</p>
                                 </div>
+                                </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-gray-200/50 dark:border-gray-700/50 transform transition-all duration-300 hover:shadow-2xl">
@@ -529,12 +529,12 @@
                                     Virtual Tours are most accessed
                                 @endif
                             </p>
-                        </div>
+                                    </div>
                         <div class="p-4 rounded-xl bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-white/50 dark:border-gray-700/50 hover:shadow-lg transition-shadow duration-300">
                             <div class="flex items-center gap-3 mb-2">
                                 <span class="text-2xl">📊</span>
                                 <span class="text-sm font-semibold text-gray-900 dark:text-white">This Week's Growth</span>
-                            </div>
+                                </div>
                             <p class="text-xs text-gray-600 dark:text-gray-400">
                                 {{ $mapsThisWeek + $panoramasThisWeek + $floorsThisWeek + $galleriesThisWeek }} new items added
                             </p>
