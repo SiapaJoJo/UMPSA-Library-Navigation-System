@@ -20,18 +20,16 @@ class CleanupOldPanoramas extends Command
             $this->info('No storage directory found. Nothing to clean up.');
             return;
         }
-        
-        // Get all panorama folders from database
+
         $panoramas = Panorama::pluck('folder')->toArray();
-        
-        // Get all folders in storage
+
         $storageFolders = array_diff(scandir($storagePath), ['.', '..']);
         
         $deletedCount = 0;
         
         foreach ($storageFolders as $folder) {
             if (is_dir($storagePath . '/' . $folder)) {
-                // Check if this folder is not in the database (orphaned)
+
                 if (!in_array($folder, $panoramas)) {
                     $this->info("Deleting orphaned folder: {$folder}");
                     $this->deleteDirectory($storagePath . '/' . $folder);

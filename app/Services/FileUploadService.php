@@ -8,9 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class FileUploadService implements FileUploadInterface
 {
-    /**
-     * Upload a file and return the file path
-     */
+    
     public function uploadFile($file, string $directory): string
     {
         if (!$file instanceof UploadedFile) {
@@ -23,9 +21,7 @@ class FileUploadService implements FileUploadInterface
         return $fileName;
     }
     
-    /**
-     * Delete a file
-     */
+    
     public function deleteFile(string $filePath): bool
     {
         $fullPath = public_path($filePath);
@@ -37,9 +33,7 @@ class FileUploadService implements FileUploadInterface
         return false;
     }
     
-    /**
-     * Get the full URL for a file
-     */
+    
     public function getFileUrl(string $filePath): string
     {
         return asset($filePath);

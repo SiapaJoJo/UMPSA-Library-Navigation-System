@@ -11,11 +11,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        // Disable CSRF protection globally
+
         $middleware->web(remove: [
             \Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+
     })->create();

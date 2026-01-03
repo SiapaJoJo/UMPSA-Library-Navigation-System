@@ -1,24 +1,24 @@
 <x-guest-layout>
-    <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
-        <!-- Animated Background Grid -->
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+    <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
         
-        <!-- Floating Orbs -->
-        <div class="absolute top-0 left-1/4 w-96 h-96 bg-green-400/20 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+        
+        
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-green-400/20 dark:bg-green-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-400/20 dark:bg-indigo-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
 
-        <!-- Hero Section -->
+        
         <section class="relative w-full py-24 md:py-32 overflow-hidden">
             <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center">
                     <div class="inline-block mb-6">
-                        <span class="text-sm font-semibold text-green-600 uppercase tracking-wider bg-green-50 px-4 py-2 rounded-full">Floor Details</span>
+                        <span class="text-sm font-semibold text-green-600 dark:text-green-400 uppercase tracking-wider bg-green-50 dark:bg-green-900/30 px-4 py-2 rounded-full">Floor Details</span>
                     </div>
-                    <h1 class="text-6xl md:text-8xl font-extrabold mb-6 bg-gradient-to-r from-green-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
+                    <h1 class="text-6xl md:text-8xl font-extrabold mb-6 bg-gradient-to-r from-green-600 via-blue-600 to-indigo-600 dark:from-green-400 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
                         {{ $floor->name }}
                     </h1>
                     @if($floor->level)
-                        <div class="inline-flex items-center px-6 py-3 bg-white/80 backdrop-blur-xl rounded-full text-gray-800 font-bold shadow-xl border border-gray-200/50">
+                        <div class="inline-flex items-center px-6 py-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-full text-gray-800 dark:text-gray-200 font-bold shadow-xl border border-gray-200/50 dark:border-gray-700/50">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
                             </svg>
@@ -29,13 +29,13 @@
             </div>
         </section>
 
-        <!-- Main Content -->
+        
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-                <!-- Floor Plan Image -->
+                
                 <div>
                     @if($floor->image)
-                        <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-gray-200/50">
+                        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-gray-200/50 dark:border-gray-700/50">
                             <img src="{{ asset('images/floors/' . $floor->image) }}" 
                                  alt="{{ $floor->name }} Floor Plan" 
                                  class="w-full h-auto">
@@ -53,7 +53,7 @@
                     @endif
                 </div>
 
-                <!-- Floor Information -->
+                
                 <div class="space-y-6">
                     @if($floor->description)
                         <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-8 md:p-10 border border-gray-200/50">
@@ -94,7 +94,7 @@
                         </div>
                     @endif
 
-                    <!-- Navigation -->
+                    
                     <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-8 md:p-10 border border-gray-200/50">
                         <div class="flex items-center mb-6">
                             <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center mr-4 shadow-lg">

@@ -1,38 +1,38 @@
 <x-guest-layout>
-    <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
-        <!-- Animated Background Grid -->
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+    <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
         
-        <!-- Floating Orbs -->
-        <div class="absolute top-0 left-1/4 w-96 h-96 bg-pink-400/20 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+        
+        
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-pink-400/20 dark:bg-pink-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-400/20 dark:bg-indigo-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
 
-        <!-- Hero Section -->
+        
         <section class="relative w-full py-24 md:py-32 overflow-hidden">
             <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center">
                     <div class="inline-block mb-6">
-                        <span class="text-sm font-semibold text-pink-600 uppercase tracking-wider bg-pink-50 px-4 py-2 rounded-full">Gallery</span>
+                        <span class="text-sm font-semibold text-pink-600 dark:text-pink-400 uppercase tracking-wider bg-pink-50 dark:bg-pink-900/30 px-4 py-2 rounded-full">Gallery</span>
                     </div>
-                    <h1 class="text-6xl md:text-8xl font-extrabold mb-6 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
+                    <h1 class="text-6xl md:text-8xl font-extrabold mb-6 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 dark:from-pink-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
                         Library Gallery
                     </h1>
-                    <p class="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                    <p class="text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
                         Explore our library through beautiful images showcasing our facilities, spaces, and community.
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- Main Content -->
+        
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
             @if($galleries->count() > 0)
-                <!-- Category Filter -->
+                
                 @if($categories->count() > 0)
                     <div class="mb-12">
                         <div class="flex flex-wrap justify-center gap-4">
                             <a href="{{ route('guest.gallery.index') }}" 
-                               class="group px-6 py-3 rounded-2xl text-sm font-bold transition-all duration-300 {{ request()->routeIs('guest.gallery.index') ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-xl scale-105' : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-pink-50 hover:text-pink-700 border border-gray-200/50 hover:scale-105 hover:shadow-lg' }}">
+                               class="group px-6 py-3 rounded-2xl text-sm font-bold transition-all duration-300 {{ request()->routeIs('guest.gallery.index') ? 'bg-gradient-to-r from-pink-600 to-purple-600 dark:from-pink-500 dark:to-purple-500 text-white shadow-xl scale-105' : 'bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm text-gray-700 dark:text-gray-300 hover:bg-pink-50 dark:hover:bg-pink-900/30 hover:text-pink-700 dark:hover:text-pink-400 border border-gray-200/50 dark:border-gray-700/50 hover:scale-105 hover:shadow-lg' }}">
                                 <svg class="w-4 h-4 mr-2 inline group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
                                 </svg>
@@ -51,10 +51,10 @@
                     </div>
                 @endif
 
-                <!-- Gallery Grid -->
+                
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
                     @foreach($galleries as $gallery)
-                        <div class="group relative bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 border border-gray-200/50 transform hover:-translate-y-4 hover:scale-[1.02]">
+                        <div class="group relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 border border-gray-200/50 dark:border-gray-700/50 transform hover:-translate-y-4 hover:scale-[1.02]">
                             <div class="relative overflow-hidden">
                                 <img src="{{ $gallery->image_url }}" 
                                      alt="{{ $gallery->alt_text ?: $gallery->title }}" 
@@ -86,7 +86,7 @@
                             </div>
                             
                             <div class="p-6 md:p-8">
-                                <h3 class="text-xl md:text-2xl font-extrabold text-gray-900 mb-4 group-hover:text-pink-600 transition-colors duration-300">{{ $gallery->title }}</h3>
+                                <h3 class="text-xl md:text-2xl font-extrabold text-gray-900 dark:text-gray-100 mb-4 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors duration-300">{{ $gallery->title }}</h3>
                                 
                                 @if($gallery->category)
                                     <div class="mb-4">
@@ -100,7 +100,7 @@
                                 @endif
                                 
                                 @if($gallery->description)
-                                    <p class="text-sm md:text-base text-gray-600 leading-relaxed line-clamp-2">{{ Str::limit($gallery->description, 100) }}</p>
+                                    <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed line-clamp-2">{{ Str::limit($gallery->description, 100) }}</p>
                                 @endif
                             </div>
                         </div>
@@ -113,8 +113,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">No images available</h3>
-                    <p class="text-gray-600 text-lg md:text-xl mb-10 max-w-2xl mx-auto">Gallery images are not available at the moment.</p>
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-4">No images available</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-lg md:text-xl mb-10 max-w-2xl mx-auto">Gallery images are not available at the moment.</p>
                     <a href="{{ route('guest.dashboard') }}" 
                        class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-2xl hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

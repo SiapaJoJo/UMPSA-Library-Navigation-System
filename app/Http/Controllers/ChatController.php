@@ -12,10 +12,9 @@ class ChatController extends Controller
     {
         $validated = $request->validate([
             'message' => 'required|string|max:2000',
-            'history' => 'array', // optional prior messages
+            'history' => 'array',
         ]);
 
-        // Prefer GROQ if configured; fallback to OpenAI
         $useGroq = (bool) config('services.groq.key');
         $apiKey = $useGroq ? config('services.groq.key') : config('services.openai.key');
         $baseUrl = $useGroq ? 'https://api.groq.com/openai/v1' : 'https://api.openai.com/v1';

@@ -14,16 +14,26 @@ A modern Laravel-based library navigation system for Universiti Malaysia Pahang 
 
 ### Modern UI/UX
 - **Glassmorphism Design**: Modern glassmorphic UI elements with backdrop blur effects
-- **Dark Theme Support**: Full dark mode support for admin panel
+- **Dark Theme Support**: Full dark mode support for both admin panel and guest views
 - **Responsive Design**: Fully responsive layout for all device sizes
 - **Animated Backgrounds**: Dynamic gradient backgrounds and floating orbs
 - **Smooth Animations**: Enhanced hover effects and transitions throughout
 
 ### Admin Panel
-- **Dashboard**: Comprehensive admin dashboard with recent messages and statistics
+- **Modern Dashboard**: Comprehensive admin dashboard with real-time statistics, activity timeline, engagement insights, smart alerts, progress rings, and content growth charts
 - **Content Management**: Full CRUD operations for panoramas, maps, floors, and galleries
-- **Contact Management**: View and manage user contact messages
+- **Contact Management**: View and manage user contact messages with status tracking
 - **Profile Management**: User profile editing and password management
+- **Theme Toggle**: Switch between light and dark themes with persistent preferences
+
+### Guest Features
+- **Modern Dashboard**: Animated hero section with library overview
+- **Interactive Floor Directory**: Image carousel with swipe and keyboard navigation
+- **Virtual Tour Gallery**: Browse and experience 360° panoramas
+- **Library Map Navigation**: Interactive maps with floor selection
+- **Image Gallery**: Category-filtered gallery with detailed views
+- **Contact Form**: Validated contact form with modern styling
+- **AI Chatbot**: Integrated chatbot for real-time assistance
 
 ## 🛠️ Tech Stack
 
@@ -32,6 +42,7 @@ A modern Laravel-based library navigation system for Universiti Malaysia Pahang 
 - **AI Integration**: ChatGPT API
 - **Panoramic Views**: Pano2VR
 - **Mapping**: Mappedin
+- **Charts**: Chart.js
 - **Database**: MySQL/PostgreSQL
 
 ## 📋 Requirements
@@ -110,7 +121,8 @@ A modern Laravel-based library navigation system for Universiti Malaysia Pahang 
 ├── resources/
 │   ├── views/
 │   │   ├── admin/          # Admin panel views
-│   │   └── guest/          # Guest/public views
+│   │   ├── guest/          # Guest/public views
+│   │   └── layouts/        # Layout templates
 │   └── js/                 # JavaScript files
 └── routes/
     └── web.php             # Web routes
@@ -121,18 +133,22 @@ A modern Laravel-based library navigation system for Universiti Malaysia Pahang 
 ### Guest Features
 - Modern dashboard with animated backgrounds
 - Interactive floor directory with image carousel
-- Virtual tour gallery
-- Library map navigation
+- Virtual tour gallery with fullscreen support
+- Library map navigation with floor selection
 - Image gallery with category filtering
 - Contact form with validation
-- AI chatbot integration
+- AI chatbot integration with dark theme support
+- Theme toggle (light/dark mode)
 
 ### Admin Features
-- Dark theme support
+- Modern glassmorphism design throughout
+- Dark theme support with persistent preferences
+- Real-time dashboard with database-driven statistics
 - Content management for all resources
-- Contact message management
+- Contact message management with status tracking
 - User profile management
 - File upload and management
+- Dynamic logo switching based on theme
 
 ## 🔗 Links
 
@@ -159,3 +175,4 @@ This project is open-sourced software licensed under the [MIT license](https://o
 - Pano2VR
 - Mappedin
 - OpenAI (ChatGPT API)
+- Chart.js

@@ -7,9 +7,7 @@ use App\Models\Floor;
 
 class FloorSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    
     public function run(): void
     {
         $floors = [

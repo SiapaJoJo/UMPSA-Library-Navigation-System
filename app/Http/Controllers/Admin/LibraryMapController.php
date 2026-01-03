@@ -33,7 +33,6 @@ class LibraryMapController extends Controller
             'sort_order' => 'integer|min:0',
         ]);
 
-        // If this is set as default, unset other defaults
         if ($validated['is_default'] ?? false) {
             LibraryMap::where('is_default', true)->update(['is_default' => false]);
         }
@@ -66,7 +65,6 @@ class LibraryMapController extends Controller
             'sort_order' => 'integer|min:0',
         ]);
 
-        // If this is set as default, unset other defaults
         if ($validated['is_default'] ?? false) {
             LibraryMap::where('is_default', true)->where('id', '!=', $map->id)->update(['is_default' => false]);
         }
@@ -85,10 +83,9 @@ class LibraryMapController extends Controller
 
     public function setDefault(LibraryMap $map)
     {
-        // Unset current default
+
         LibraryMap::where('is_default', true)->update(['is_default' => false]);
-        
-        // Set new default
+
         $map->update(['is_default' => true]);
 
         return redirect()->route('admin.maps.index')->with('success', 'Default map updated successfully!');

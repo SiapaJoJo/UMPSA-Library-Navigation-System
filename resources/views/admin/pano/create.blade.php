@@ -3,11 +3,11 @@
 @section('header')
     <div class="flex justify-between items-center">
         <div>
-            <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Add New Virtual Tour</h2>
-            <p class="mt-2 text-gray-600 dark:text-gray-300">Upload a new 360° panoramic tour</p>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Add New Virtual Tour</h2>
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">Upload a new 360° panoramic tour</p>
         </div>
         <a href="{{ route('admin.pano.index') }}" 
-           class="inline-flex items-center px-4 py-2 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200">
+           class="inline-flex items-center px-4 py-2.5 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition-all duration-300 shadow-md hover:shadow-lg">
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
@@ -17,110 +17,110 @@
 @endsection
 
 @section('content')
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-        @if(session('error'))
-        <div class="mb-6 bg-red-50 dark:bg-red-900/20 border-l-4 border-red-400 dark:border-red-500 p-4 rounded-lg">
-            <div class="flex">
-                <div class="flex-shrink-0">
-                    <svg class="h-5 w-5 text-red-400 dark:text-red-500" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                    </svg>
-                </div>
-                <div class="ml-3">
-                    <p class="text-sm text-red-700 dark:text-red-300">{{ session('error') }}</p>
-                </div>
-            </div>
-        </div>
-        @endif
-
-        <form action="{{ route('admin.pano.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
-            @csrf
-            
-            <!-- Basic Information -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Panorama Name *</label>
-                    <input type="text" 
-                           name="name" 
-                           value="{{ old('name') }}"
-                           placeholder="Enter panorama name" 
-                           required
-                           class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors @error('name') border-red-500 @enderror">
-                    @error('name')
-                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Floor</label>
-                    <input type="text" 
-                           name="floor" 
-                           value="{{ old('floor') }}"
-                           placeholder="e.g., Ground Floor, 1st Floor, 2nd Floor"
-                           class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors @error('floor') border-red-500 @enderror">
-                    @error('floor')
-                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                    @enderror
+    <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 transform transition-all duration-300 hover:shadow-2xl overflow-hidden">
+        <div class="p-6 md:p-8">
+            @if(session('error'))
+            <div class="mb-6 bg-gradient-to-r from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border-l-4 border-red-500 dark:border-red-400 p-4 rounded-xl shadow-lg">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-red-500 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-red-800 dark:text-red-300">{{ session('error') }}</p>
+                    </div>
                 </div>
             </div>
+            @endif
 
-            <!-- Description -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
-                <textarea name="description" 
-                          rows="4"
-                          placeholder="Enter a description of this panorama..."
-                          class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors @error('description') border-red-500 @enderror">{{ old('description') }}</textarea>
-                @error('description')
-                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- File Uploads -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Panorama ZIP File *</label>
-                    <div class="relative">
-                        <input type="file" 
-                               name="pano_file" 
-                               accept=".zip" 
+            <form action="{{ route('admin.pano.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                @csrf
+                
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Panorama Name <span class="text-red-500">*</span></label>
+                        <input type="text" 
+                               name="name" 
+                               value="{{ old('name') }}"
+                               placeholder="Enter panorama name" 
                                required
-                               class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors @error('pano_file') border-red-500 @enderror">
+                               class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 focus:border-transparent transition-all duration-200 @error('name') border-red-500 @enderror">
+                        @error('name')
+                            <p class="mt-2 text-sm font-medium text-red-600 dark:text-red-400">{{ $message }}</p>
+                        @enderror
                     </div>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Upload the Pano2VR exported ZIP file</p>
-                    @error('pano_file')
-                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Display Image</label>
-                    <div class="relative">
-                        <input type="file" 
-                               name="display_image" 
-                               accept="image/*"
-                               class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors @error('display_image') border-red-500 @enderror">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Floor</label>
+                        <input type="text" 
+                               name="floor" 
+                               value="{{ old('floor') }}"
+                               placeholder="e.g., Ground Floor, 1st Floor, 2nd Floor"
+                               class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 focus:border-transparent transition-all duration-200 @error('floor') border-red-500 @enderror">
+                        @error('floor')
+                            <p class="mt-2 text-sm font-medium text-red-600 dark:text-red-400">{{ $message }}</p>
+                        @enderror
                     </div>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Optional preview image (JPEG, PNG, JPG, GIF)</p>
-                    @error('display_image')
-                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                    @enderror
                 </div>
-            </div>
 
-            <div class="flex justify-end space-x-3">
-                <a href="{{ route('admin.pano.index') }}" 
-                   class="inline-flex items-center px-6 py-3 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 font-medium rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200">
-                    Cancel
-                </a>
-                <button type="submit" 
-                        class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-medium rounded-lg hover:from-purple-700 hover:to-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                    </svg>
-                    Upload Panorama
-                </button>
-            </div>
-        </form>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Description</label>
+                    <textarea name="description" 
+                              rows="4"
+                              placeholder="Enter a description of this panorama..."
+                              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 focus:border-transparent transition-all duration-200 resize-none @error('description') border-red-500 @enderror">{{ old('description') }}</textarea>
+                    @error('description')
+                        <p class="mt-2 text-sm font-medium text-red-600 dark:text-red-400">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Panorama ZIP File <span class="text-red-500">*</span></label>
+                        <div class="relative">
+                            <input type="file" 
+                                   name="pano_file" 
+                                   accept=".zip" 
+                                   required
+                                   class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 dark:file:bg-purple-900/30 dark:file:text-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 focus:border-transparent transition-all duration-200 @error('pano_file') border-red-500 @enderror">
+                        </div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Upload the Pano2VR exported ZIP file</p>
+                        @error('pano_file')
+                            <p class="mt-2 text-sm font-medium text-red-600 dark:text-red-400">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Display Image</label>
+                        <div class="relative">
+                            <input type="file" 
+                                   name="display_image" 
+                                   accept="image/*"
+                                   class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 dark:file:bg-purple-900/30 dark:file:text-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 focus:border-transparent transition-all duration-200 @error('display_image') border-red-500 @enderror">
+                        </div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Optional preview image (JPEG, PNG, JPG, GIF)</p>
+                        @error('display_image')
+                            <p class="mt-2 text-sm font-medium text-red-600 dark:text-red-400">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <a href="{{ route('admin.pano.index') }}" 
+                       class="inline-flex items-center px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold rounded-xl hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 shadow-md hover:shadow-lg">
+                        Cancel
+                    </a>
+                    <button type="submit" 
+                            class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 via-purple-700 to-pink-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:via-purple-800 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        Upload Panorama
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 @endsection
-
-

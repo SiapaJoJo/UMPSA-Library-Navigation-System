@@ -1,18 +1,16 @@
-// Smooth Navigation and Page Transitions
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Add smooth transitions to all navigation links
+
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            // Add loading state
+
             this.classList.add('loading');
-            
-            // Add ripple effect
+
             createRippleEffect(e, this);
         });
     });
 
-    // Add smooth transitions to all buttons
     const buttons = document.querySelectorAll('button, .btn-smooth');
     buttons.forEach(button => {
         button.addEventListener('click', function(e) {
@@ -20,25 +18,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add stagger animation to cards and lists
     const cards = document.querySelectorAll('.card-smooth, .bg-white\\/80');
     cards.forEach((card, index) => {
         card.classList.add('stagger-item');
         card.style.animationDelay = `${index * 0.1}s`;
     });
 
-    // Add smooth hover effects to images
     const images = document.querySelectorAll('img');
     images.forEach(img => {
         img.classList.add('image-smooth');
     });
 
-    // Add smooth transitions to form inputs
     const inputs = document.querySelectorAll('input, textarea, select');
     inputs.forEach(input => {
         input.classList.add('input-smooth');
-        
-        // Add focus animations
+
         input.addEventListener('focus', function() {
             this.parentElement.classList.add('scale-in');
         });
@@ -48,13 +42,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add page transition effects
     const pageContent = document.querySelector('.page-content');
     if (pageContent) {
         pageContent.classList.add('fade-in');
     }
 
-    // Add smooth scroll to anchor links
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
     anchorLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -71,7 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add loading states to forms
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
         form.addEventListener('submit', function() {
@@ -79,8 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (submitButton) {
                 submitButton.classList.add('loading', 'pulse-smooth');
                 submitButton.disabled = true;
-                
-                // Re-enable after 3 seconds (fallback)
+
                 setTimeout(() => {
                     submitButton.classList.remove('loading', 'pulse-smooth');
                     submitButton.disabled = false;
@@ -89,7 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add smooth transitions to modals
     const modals = document.querySelectorAll('[x-data*="modal"]');
     modals.forEach(modal => {
         modal.addEventListener('show', function() {
@@ -101,7 +90,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add intersection observer for scroll animations
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -115,13 +103,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
 
-    // Observe all cards and sections
     const animatedElements = document.querySelectorAll('.card-smooth, .bg-white\\/80, section, .stagger-item');
     animatedElements.forEach(el => {
         observer.observe(el);
     });
 
-    // Add smooth transitions to dropdown menus
     const dropdowns = document.querySelectorAll('[x-data*="open"]');
     dropdowns.forEach(dropdown => {
         dropdown.addEventListener('show', function() {
@@ -133,9 +119,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add keyboard navigation support
     document.addEventListener('keydown', function(e) {
-        // ESC key to close modals and dropdowns
+
         if (e.key === 'Escape') {
             const openModals = document.querySelectorAll('[x-show="true"]');
             openModals.forEach(modal => {
@@ -146,19 +131,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Add smooth transitions to table rows
     const tableRows = document.querySelectorAll('tbody tr');
     tableRows.forEach((row, index) => {
         row.classList.add('stagger-item');
         row.style.animationDelay = `${index * 0.05}s`;
     });
 
-    // Add smooth transitions to success/error messages
     const messages = document.querySelectorAll('.alert, .message, [role="alert"]');
     messages.forEach(message => {
         message.classList.add('fade-in');
-        
-        // Auto-hide after 5 seconds
+
         setTimeout(() => {
             message.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
             message.style.opacity = '0';
@@ -171,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Ripple effect function
 function createRippleEffect(event, element) {
     const ripple = document.createElement('span');
     const rect = element.getBoundingClientRect();
@@ -193,7 +174,6 @@ function createRippleEffect(event, element) {
     }, 600);
 }
 
-// Add CSS for ripple effect
 const rippleCSS = `
 .ripple {
     position: absolute;
@@ -212,17 +192,14 @@ const rippleCSS = `
 }
 `;
 
-// Inject ripple CSS
 const style = document.createElement('style');
 style.textContent = rippleCSS;
 document.head.appendChild(style);
 
-// Page transition handler
 window.addEventListener('beforeunload', function() {
     document.body.classList.add('page-exit');
 });
 
-// Add smooth transitions to Alpine.js components
 document.addEventListener('alpine:init', () => {
     Alpine.directive('transition', (el, { expression }, { effect, cleanup }) => {
         const duration = 300;
@@ -233,7 +210,6 @@ document.addEventListener('alpine:init', () => {
     });
 });
 
-// Add smooth transitions to dynamic content
 function addSmoothTransitions() {
     const newElements = document.querySelectorAll('.new-content');
     newElements.forEach((element, index) => {
@@ -242,7 +218,6 @@ function addSmoothTransitions() {
     });
 }
 
-// Export functions for global use
 window.smoothNavigation = {
     addSmoothTransitions,
     createRippleEffect

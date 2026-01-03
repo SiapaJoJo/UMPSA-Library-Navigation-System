@@ -34,8 +34,7 @@ class GalleryController extends Controller
         ]);
 
         $data = $request->all();
-        
-        // Handle image upload
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName();
@@ -43,7 +42,7 @@ class GalleryController extends Controller
             $data['image_path'] = $imageName;
         }
 
-        unset($data['image']); // Remove the image field as we use image_path
+        unset($data['image']);
 
         Gallery::create($data);
 
@@ -74,10 +73,9 @@ class GalleryController extends Controller
         ]);
 
         $data = $request->all();
-        
-        // Handle image upload
+
         if ($request->hasFile('image')) {
-            // Delete old image
+
             if ($gallery->image_path && file_exists(public_path('images/gallery/' . $gallery->image_path))) {
                 unlink(public_path('images/gallery/' . $gallery->image_path));
             }
@@ -88,7 +86,7 @@ class GalleryController extends Controller
             $data['image_path'] = $imageName;
         }
 
-        unset($data['image']); // Remove the image field as we use image_path
+        unset($data['image']);
 
         $gallery->update($data);
 
@@ -97,7 +95,7 @@ class GalleryController extends Controller
 
     public function destroy(Gallery $gallery)
     {
-        // Delete image if exists
+
         if ($gallery->image_path && file_exists(public_path('images/gallery/' . $gallery->image_path))) {
             unlink(public_path('images/gallery/' . $gallery->image_path));
         }
