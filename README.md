@@ -5,7 +5,7 @@ A modern Laravel-based library navigation system for Universiti Malaysia Pahang 
 ## 🚀 Features
 
 ### Core Functionality
-- **AI-Powered Chatbot**: Interactive chatbot using ChatGPT API to assist users with library navigation and information
+- **AI-Powered Chatbot**: Interactive chatbot using Groq AI (primary) or OpenAI (ChatGPT) API to assist users with library navigation and information
 - **360° Virtual Tours**: Immersive panoramic views of library spaces using Pano2VR
 - **Interactive Library Map**: Dynamic mapping system powered by Mappedin for easy navigation
 - **Floor Directory**: Comprehensive directory of facilities available on each floor
@@ -39,7 +39,7 @@ A modern Laravel-based library navigation system for Universiti Malaysia Pahang 
 
 - **Backend**: Laravel (PHP Framework)
 - **Frontend**: Blade Templates, Tailwind CSS, Alpine.js
-- **AI Integration**: ChatGPT API
+- **AI Integration**: Groq AI (primary) or OpenAI (ChatGPT) API
 - **Panoramic Views**: Pano2VR
 - **Mapping**: Mappedin
 - **Charts**: Chart.js
@@ -77,12 +77,18 @@ A modern Laravel-based library navigation system for Universiti Malaysia Pahang 
    php artisan key:generate
    ```
 
-5. **Configure database**
+5. **Configure database and AI service**
    - Update `.env` file with your database credentials
-   - Add ChatGPT API key to `.env`:
+   - Add AI API key(s) to `.env`:
      ```
-     OPENAI_API_KEY=your_api_key_here
+     # Primary: Groq AI (recommended)
+     GROQ_API_KEY=your_groq_api_key_here
+     GROQ_MODEL=llama-3.1-8b-instant
+     
+     # Fallback: OpenAI (ChatGPT)
+     OPENAI_API_KEY=your_openai_api_key_here
      ```
+     Note: If `GROQ_API_KEY` is set, Groq AI will be used. Otherwise, it falls back to OpenAI.
 
 6. **Run migrations**
    ```bash
@@ -174,5 +180,6 @@ This project is open-sourced software licensed under the [MIT license](https://o
 - Alpine.js
 - Pano2VR
 - Mappedin
-- OpenAI (ChatGPT API)
+- Groq AI (Primary)
+- OpenAI (ChatGPT API - Fallback)
 - Chart.js
