@@ -6,21 +6,21 @@
 
     <title>{{ config('app.name', 'Laravel') }} - Login</title>
 
-    <!-- Fonts -->
+    
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <!-- Scripts -->
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <!-- Background Pattern -->
+        
         <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-40"></div>
         
         <div class="relative sm:mx-auto sm:w-full sm:max-w-md">
             <div class="text-center">
-                <!-- Logo with enhanced styling -->
+                
                 <div class="mx-auto h-16 w-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg mb-4">
                     <img class="h-10 w-10" src="{{ asset('images/logo.png') }}" alt="UMPSA Library">
                 </div>
@@ -31,12 +31,12 @@
 
         <div class="relative mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="bg-white/80 backdrop-blur-sm py-8 px-6 shadow-2xl rounded-2xl border border-white/20">
-                <!-- Session Status -->
+                
                 <x-auth-session-status class="mb-6" :status="session('status')" />
 
                 <form class="space-y-6" method="POST" action="{{ route('login') }}">
 
-                    <!-- Email Address -->
+                    
                     <div>
                         <x-input-label for="email" :value="__('Email Address')" class="text-sm font-medium text-gray-700 mb-2" />
                         <div class="relative">
@@ -58,7 +58,7 @@
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
 
-                    <!-- Password -->
+                    
                     <div>
                         <x-input-label for="password" :value="__('Password')" class="text-sm font-medium text-gray-700 mb-2" />
                         <div class="relative">
@@ -78,7 +78,7 @@
                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     </div>
 
-                    <!-- Remember Me -->
+                    
                     <div class="flex items-center justify-between">
                         <label for="remember_me" class="inline-flex items-center">
                             <input id="remember_me" 
@@ -89,7 +89,7 @@
                         </label>
                     </div>
 
-                    <!-- Login Button -->
+                    
                     <div>
                         <button type="submit" 
                                 class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-xl text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl">
@@ -103,7 +103,7 @@
                     </div>
                 </form>
 
-                <!-- Footer -->
+                
                 <div class="mt-8 text-center">
                     <p class="text-xs text-gray-500">
                         UMPSA Library Navigation System

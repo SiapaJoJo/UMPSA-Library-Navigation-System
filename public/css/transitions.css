@@ -1,6 +1,6 @@
-/* Global Smooth Transitions and Animations */
 
-/* Page Transitions */
+
+
 .page-enter {
     opacity: 0;
     transform: translateY(20px);
@@ -23,7 +23,7 @@
     transition: opacity 0.2s ease-in, transform 0.2s ease-in;
 }
 
-/* Smooth Navigation Transitions */
+
 .nav-link {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -45,7 +45,7 @@
     left: 100%;
 }
 
-/* Button Transitions */
+
 .btn-smooth {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -70,7 +70,7 @@
     height: 300px;
 }
 
-/* Card Hover Effects */
+
 .card-smooth {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -80,7 +80,7 @@
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-/* Form Input Transitions */
+
 .input-smooth {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -90,7 +90,7 @@
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-/* Loading States */
+
 .loading {
     position: relative;
     overflow: hidden;
@@ -116,7 +116,7 @@
     }
 }
 
-/* Fade In Animations */
+
 .fade-in {
     animation: fadeIn 0.6s ease-out;
 }
@@ -132,7 +132,7 @@
     }
 }
 
-/* Slide In Animations */
+
 .slide-in-left {
     animation: slideInLeft 0.6s ease-out;
 }
@@ -163,7 +163,7 @@
     }
 }
 
-/* Scale In Animations */
+
 .scale-in {
     animation: scaleIn 0.4s ease-out;
 }
@@ -179,7 +179,7 @@
     }
 }
 
-/* Stagger Animation for Lists */
+
 .stagger-item {
     opacity: 0;
     transform: translateY(20px);
@@ -200,12 +200,12 @@
     }
 }
 
-/* Smooth Scroll */
+
 html {
     scroll-behavior: smooth;
 }
 
-/* Custom Scrollbar */
+
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -225,7 +225,7 @@ html {
     background: #a8a8a8;
 }
 
-/* Modal Transitions */
+
 .modal-enter {
     opacity: 0;
     transform: scale(0.9);
@@ -248,7 +248,7 @@ html {
     transition: opacity 0.2s ease-in, transform 0.2s ease-in;
 }
 
-/* Backdrop Transitions */
+
 .backdrop-enter {
     opacity: 0;
 }
@@ -267,7 +267,7 @@ html {
     transition: opacity 0.2s ease-in;
 }
 
-/* Image Hover Effects */
+
 .image-smooth {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -277,7 +277,7 @@ html {
     filter: brightness(1.1);
 }
 
-/* Text Animations */
+
 .text-reveal {
     overflow: hidden;
 }
@@ -296,7 +296,7 @@ html {
     }
 }
 
-/* Pulse Animation for Loading */
+
 .pulse-smooth {
     animation: pulseSmooth 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
@@ -310,7 +310,7 @@ html {
     }
 }
 
-/* Bounce Animation */
+
 .bounce-smooth {
     animation: bounceSmooth 1s ease-in-out;
 }
@@ -330,7 +330,7 @@ html {
     }
 }
 
-/* Shake Animation for Errors */
+
 .shake {
     animation: shake 0.5s ease-in-out;
 }
@@ -347,7 +347,7 @@ html {
     }
 }
 
-/* Gradient Animation */
+
 .gradient-animate {
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-size: 400% 400%;
@@ -366,7 +366,7 @@ html {
     }
 }
 
-/* Responsive Transitions */
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

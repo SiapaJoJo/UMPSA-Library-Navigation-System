@@ -20,17 +20,13 @@ class Panorama extends Model
         'updated_at' => 'datetime',
     ];
 
-    /**
-     * Get the panorama view URL
-     */
+    
     public function getViewUrlAttribute(): string
     {
         return route('pano.view', $this);
     }
 
-    /**
-     * Get the display image URL
-     */
+    
     public function getDisplayImageUrlAttribute(): ?string
     {
         if (!$this->display_image) {
@@ -40,17 +36,13 @@ class Panorama extends Model
         return asset('panos/' . $this->folder . '/' . $this->display_image);
     }
 
-    /**
-     * Get the panorama folder path
-     */
+    
     public function getFolderPathAttribute(): string
     {
         return public_path('panos/' . $this->folder);
     }
 
-    /**
-     * Check if panorama files exist
-     */
+    
     public function hasValidFiles(): bool
     {
         $mainPath = $this->folder_path . '/index.html';
@@ -59,9 +51,7 @@ class Panorama extends Model
         return file_exists($mainPath) || file_exists($outputPath);
     }
 
-    /**
-     * Get the correct subfolder for panorama files
-     */
+    
     public function getSubfolderAttribute(): string
     {
         $outputPath = $this->folder_path . '/output/index.html';
@@ -73,17 +63,13 @@ class Panorama extends Model
         return '';
     }
 
-    /**
-     * Scope for active panoramas (with valid files)
-     */
+    
     public function scopeActive($query)
     {
         return $query->whereHas('files');
     }
 
-    /**
-     * Scope for ordering by creation date
-     */
+    
     public function scopeOrdered($query)
     {
         return $query->orderBy('created_at', 'desc');

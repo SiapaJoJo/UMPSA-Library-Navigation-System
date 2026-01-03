@@ -23,19 +23,16 @@ class Floor extends Model
         'sort_order' => 'integer'
     ];
 
-    // Scope for active floors
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
     }
 
-    // Scope for ordered floors
     public function scopeOrdered($query)
     {
         return $query->orderBy('sort_order')->orderBy('level');
     }
 
-    // Accessor for facilities display
     protected function facilitiesList(): Attribute
     {
         return Attribute::make(

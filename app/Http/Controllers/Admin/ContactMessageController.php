@@ -16,7 +16,7 @@ class ContactMessageController extends Controller
 
     public function show(ContactMessage $contactMessage)
     {
-        // Mark as read if it's new
+
         if ($contactMessage->status === 'new') {
             $contactMessage->markAsRead();
         }
@@ -33,7 +33,6 @@ class ContactMessageController extends Controller
 
         $contactMessage->update($request->only(['status', 'admin_notes']));
 
-        // Update timestamps based on status
         if ($request->status === 'read' && !$contactMessage->read_at) {
             $contactMessage->markAsRead();
         } elseif ($request->status === 'replied' && !$contactMessage->replied_at) {

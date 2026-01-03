@@ -8,21 +8,16 @@ use ZipArchive;
 
 class PanoramaService
 {
-    /**
-     * Create a new panorama
-     */
+    
     public function createPanorama(array $data, UploadedFile $panoFile, ?UploadedFile $displayImage = null): Panorama
     {
         $folder = time();
         $path = public_path('panos/' . $folder);
-        
-        // Create directory
+
         mkdir($path, 0777, true);
-        
-        // Extract panorama files
+
         $this->extractPanoramaFiles($panoFile, $path);
-        
-        // Handle display image
+
         $displayImagePath = null;
         if ($displayImage) {
             $displayImagePath = $this->uploadDisplayImage($displayImage, $path);
@@ -37,9 +32,7 @@ class PanoramaService
         ]);
     }
     
-    /**
-     * Update panorama details
-     */
+    
     public function updatePanorama(Panorama $panorama, array $data, ?UploadedFile $displayImage = null): Panorama
     {
         $updateData = [
@@ -47,8 +40,7 @@ class PanoramaService
             'description' => $data['description'] ?? null,
             'floor' => $data['floor'] ?? null,
         ];
-        
-        // Handle display image update
+
         if ($displayImage) {
             $this->deleteDisplayImage($panorama);
             $updateData['display_image'] = $this->uploadDisplayImage($displayImage, public_path('panos/' . $panorama->folder));
@@ -59,32 +51,25 @@ class PanoramaService
         return $panorama;
     }
     
-    /**
-     * Replace panorama files
-     */
+    
     public function replacePanoramaFiles(Panorama $panorama, UploadedFile $panoFile): Panorama
     {
         $path = public_path('panos/' . $panorama->folder);
-        
-        // Clear old files
+
         $this->deleteDirectory($path);
         mkdir($path, 0777, true);
-        
-        // Extract new files
+
         $this->extractPanoramaFiles($panoFile, $path);
         
         return $panorama;
     }
     
-    /**
-     * Delete panorama and its files
-     */
+    
     public function deletePanorama(Panorama $panorama): bool
     {
-        // Delete panorama files
+
         $this->deleteDirectory(public_path('panos/' . $panorama->folder));
-        
-        // Delete from storage (legacy cleanup)
+
         $storagePath = storage_path('app/public/pano2vr/' . $panorama->folder);
         if (file_exists($storagePath)) {
             $this->deleteDirectory($storagePath);
@@ -93,9 +78,7 @@ class PanoramaService
         return $panorama->delete();
     }
     
-    /**
-     * Extract panorama files from ZIP
-     */
+    
     private function extractPanoramaFiles(UploadedFile $file, string $path): void
     {
         $zip = new ZipArchive;
@@ -107,9 +90,7 @@ class PanoramaService
         $zip->close();
     }
     
-    /**
-     * Upload display image
-     */
+    
     private function uploadDisplayImage(UploadedFile $image, string $path): string
     {
         $imageName = time() . '_' . $image->getClientOriginalName();
@@ -117,9 +98,7 @@ class PanoramaService
         return $imageName;
     }
     
-    /**
-     * Delete display image
-     */
+    
     private function deleteDisplayImage(Panorama $panorama): void
     {
         if ($panorama->display_image) {
@@ -130,9 +109,7 @@ class PanoramaService
         }
     }
     
-    /**
-     * Delete directory recursively
-     */
+    
     private function deleteDirectory(string $dir): bool
     {
         if (!file_exists($dir)) return true;

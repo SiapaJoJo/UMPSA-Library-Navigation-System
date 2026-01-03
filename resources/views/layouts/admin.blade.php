@@ -6,39 +6,32 @@
 
     <title>{{ config('app.name', 'Laravel') }} - Admin Panel</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
 
-    <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
-    <!-- Smooth Transitions CSS -->
     <link rel="stylesheet" href="{{ asset('css/transitions.css') }}">
     
     
-    <!-- Additional Meta Tags -->
     <meta name="description" content="UMPSA Library Admin Panel - Manage library resources and panoramas">
     <meta name="theme-color" content="#1f2937">
     
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('images/logo.png') }}">
+    
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
 </head>
 <body class="font-sans antialiased bg-gray-50 dark:bg-gray-900 transition-colors duration-300" x-data="{ open: false, mobileMenuOpen: false }" id="theme-body">
     <div class="min-h-screen">
-        <!-- Admin Navigation -->
-        <nav class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm backdrop-blur-sm transition-colors duration-300">
+        <nav class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm backdrop-blur-sm transition-colors duration-300 relative z-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-16">
-                    <!-- Logo and Brand -->
                     <div class="flex items-center">
                         <div class="flex-shrink-0 flex items-center space-x-3">
-                            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg ring-1 ring-blue-100">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                </svg>
-                            </div>
+                            <img id="admin-logo" src="{{ asset('images/LogoDark.png') }}" alt="UMPSA Library" class="h-10 w-auto">
                             <div>
                                 <h1 class="text-xl font-bold text-gray-900 dark:text-white transition-colors duration-300">UMPSA Library</h1>
                                 <p class="text-xs text-gray-500 dark:text-gray-400 font-medium transition-colors duration-300">Admin Panel</p>
@@ -46,7 +39,6 @@
                         </div>
                     </div>
 
-                    <!-- Desktop Navigation Links -->
                     <div class="hidden md:flex items-center space-x-1">
                         <a href="{{ route('admin.dashboard') }}" 
                            class="flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 {{ request()->routeIs('admin.dashboard') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700' : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800' }}">
@@ -93,43 +85,45 @@
                         </a>
                     </div>
 
-                    <!-- User Dropdown -->
-                    <div class="flex items-center space-x-2">
-                        <!-- User Avatar -->
-                        <div class="relative" x-data="{ open: false }">
-                            <button @click="open = !open" 
+                    <div class="flex items-center space-x-2 relative z-50">
+                        <div class="relative z-50" x-data="{ userDropdownOpen: false }">
+                            <button @click.stop="userDropdownOpen = !userDropdownOpen" 
                                     class="flex items-center text-sm rounded-lg px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200">
-                                <div class="h-8 w-8 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center shadow-sm ring-1 ring-blue-100">
-                                    <span class="text-sm font-bold text-white">{{ substr(auth()->user()->name ?? 'A', 0, 1) }}</span>
+                                <div class="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center shadow-sm ring-1 ring-gray-300 dark:ring-gray-600 transition-colors duration-300">
+                                    <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
                                 </div>
                                 <span class="ml-2 text-sm font-medium hidden lg:block">{{ auth()->user()->name ?? 'Admin' }}</span>
                                 <svg class="ml-1 h-4 w-4 transition-transform duration-200" 
-                                     :class="{ 'rotate-180': open }" 
+                                     :class="{ 'rotate-180': userDropdownOpen }" 
                                      fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                 </svg>
                             </button>
 
-                            <div x-show="open" 
-                                 @click.away="open = false"
+                            <div x-show="userDropdownOpen" 
+                                 @click.away="userDropdownOpen = false"
+                                 @click.stop
+                                 x-cloak
                                  x-transition:enter="transition ease-out duration-200"
                                  x-transition:enter-start="transform opacity-0 scale-95 translate-y-[-10px]"
                                  x-transition:enter-end="transform opacity-100 scale-100 translate-y-0"
                                  x-transition:leave="transition ease-in duration-150"
                                  x-transition:leave-start="transform opacity-100 scale-100 translate-y-0"
                                  x-transition:leave-end="transform opacity-0 scale-95 translate-y-[-10px]"
-                                 class="origin-top-right absolute right-0 mt-3 w-56 rounded-xl shadow-2xl py-2 bg-white dark:bg-gray-800 ring-1 ring-gray-200 dark:ring-gray-700 focus:outline-none z-50 transition-colors duration-300"
-                                 style="display: none;">
+                                 class="origin-top-right absolute right-0 mt-3 w-56 rounded-xl shadow-2xl py-2 bg-white dark:bg-gray-800 ring-1 ring-gray-200 dark:ring-gray-700 focus:outline-none transition-colors duration-300"
+                                 style="z-index: 99999 !important;"
+                                 x-ref="dropdown">
                                 
-                                <!-- User Info Header -->
                                 <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
                                     <p class="text-sm font-medium text-gray-900 dark:text-white">{{ auth()->user()->name ?? 'Admin User' }}</p>
                                     <p class="text-xs text-gray-500 dark:text-gray-400">{{ auth()->user()->email ?? 'admin@example.com' }}</p>
                                 </div>
                                 
-                                <!-- Menu Items -->
                                 <div class="py-1">
                                     <a href="{{ route('profile.edit') }}" 
+                                       @click="userDropdownOpen = false"
                                        class="flex items-center px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200">
                                         <svg class="w-5 h-5 mr-3 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
@@ -137,8 +131,7 @@
                                         <span>Profile Settings</span>
                                     </a>
                                     
-                                    <!-- Theme Toggle -->
-                                    <button onclick="toggleTheme()" 
+                                    <button @click.stop="toggleTheme(); userDropdownOpen = false" 
                                             class="flex items-center w-full px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
                                         <svg id="theme-icon" class="w-5 h-5 mr-3 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
@@ -146,7 +139,7 @@
                                         <span id="theme-text">Dark Mode</span>
                                     </button>
                                     
-                                    <form method="POST" action="{{ route('logout') }}">
+                                    <form method="POST" action="{{ route('logout') }}" @click.stop>
                                         <button type="submit" 
                                                 class="flex items-center w-full px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-700 dark:hover:text-red-300 transition-colors duration-200">
                                             <svg class="w-5 h-5 mr-3 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -159,7 +152,6 @@
                             </div>
                         </div>
 
-                        <!-- Mobile menu button -->
                         <button @click="mobileMenuOpen = !mobileMenuOpen" 
                                 class="md:hidden text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 inline-flex items-center justify-center p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200">
                             <span class="sr-only">Open main menu</span>
@@ -171,7 +163,6 @@
                 </div>
             </div>
 
-            <!-- Mobile menu -->
             <div x-show="mobileMenuOpen" 
                  @click.away="mobileMenuOpen = false"
                  x-transition:enter="transition ease-out duration-300"
@@ -182,11 +173,12 @@
                  x-transition:leave-end="transform opacity-0 scale-95"
                  class="md:hidden">
                 <div class="px-4 pt-2 pb-3 space-y-1 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg transition-colors duration-300">
-                    <!-- User Info -->
                     <div class="px-3 py-3 border-b border-gray-200 dark:border-gray-700 mb-2">
                         <div class="flex items-center">
-                            <div class="h-8 w-8 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mr-3 shadow-sm ring-1 ring-blue-100">
-                                <span class="text-sm font-bold text-white">{{ substr(auth()->user()->name ?? 'A', 0, 1) }}</span>
+                            <div class="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center mr-3 shadow-sm ring-1 ring-gray-300 dark:ring-gray-600 transition-colors duration-300">
+                                <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
                             </div>
                             <div>
                                 <div class="text-sm font-medium text-gray-900 dark:text-white">{{ auth()->user()->name ?? 'Admin User' }}</div>
@@ -195,7 +187,6 @@
                         </div>
                     </div>
                     
-                    <!-- Navigation Links -->
                     <a href="{{ route('admin.dashboard') }}" 
                        @click="mobileMenuOpen = false"
                        class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 block px-3 py-2 rounded-lg text-sm font-medium flex items-center transition-colors duration-200 {{ request()->routeIs('admin.dashboard') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700' : '' }}">
@@ -246,12 +237,10 @@
                         Messages
                     </a>
                     
-                    <!-- User Actions -->
                 </div>
             </div>
         </nav>
 
-        <!-- Page Header -->
         @isset($header)
             <header class="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 border-b border-gray-200 dark:border-gray-700 transition-colors duration-300">
                 <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
@@ -267,7 +256,6 @@
             </header>
         @endif
 
-        <!-- Page Content -->
         <main class="min-h-screen bg-gray-50 dark:bg-gray-900 fade-in transition-colors duration-300">
             <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
                 <div class="page-content">
@@ -281,30 +269,30 @@
         </main>
 </div>
 
-    <!-- Alpine.js for dropdown functionality -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
-    <!-- Smooth Navigation JavaScript -->
     <script src="{{ asset('js/smooth-navigation.js') }}"></script>
     
-    <!-- Theme Switching JavaScript -->
+    
     <script>
-        // Theme management - Default to dark theme
         let currentTheme = localStorage.getItem('admin-theme') || 'dark';
         
-        // Apply theme on page load
+        
         function applyTheme(theme) {
             const body = document.getElementById('theme-body');
             const themeIcon = document.getElementById('theme-icon');
             const themeText = document.getElementById('theme-text');
+            const adminLogo = document.getElementById('admin-logo');
             
-            console.log('Applying theme:', theme); // Debug log
+            console.log('Applying theme:', theme);
             
             if (theme === 'dark') {
                 body.classList.add('dark');
                 body.classList.remove('light');
                 document.documentElement.classList.add('dark');
-                // Update icon to sun (light mode icon)
+                if (adminLogo) {
+                    adminLogo.src = "{{ asset('images/LogoDark.png') }}";
+                }
                 if (themeIcon) {
                     themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
                 }
@@ -315,7 +303,9 @@
                 body.classList.add('light');
                 body.classList.remove('dark');
                 document.documentElement.classList.remove('dark');
-                // Update icon to moon (dark mode icon)
+                if (adminLogo) {
+                    adminLogo.src = "{{ asset('images/LogoLight.png') }}";
+                }
                 if (themeIcon) {
                     themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>';
                 }
@@ -325,22 +315,20 @@
             }
         }
         
-        // Toggle theme function
         function toggleTheme() {
-            console.log('Current theme before toggle:', currentTheme); // Debug log
+            console.log('Current theme before toggle:', currentTheme);
             currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-            console.log('New theme after toggle:', currentTheme); // Debug log
+            console.log('New theme after toggle:', currentTheme);
             localStorage.setItem('admin-theme', currentTheme);
             applyTheme(currentTheme);
         }
         
-        // Initialize theme on page load
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Initializing theme:', currentTheme); // Debug log
+            console.log('Initializing theme:', currentTheme);
             applyTheme(currentTheme);
         });
         
-        // Also apply theme immediately (in case DOMContentLoaded already fired)
+        
         applyTheme(currentTheme);
     </script>
 </body>

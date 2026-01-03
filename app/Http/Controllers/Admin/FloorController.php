@@ -34,8 +34,7 @@ class FloorController extends Controller
         ]);
 
         $data = $request->all();
-        
-        // Handle image upload
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName();
@@ -43,9 +42,8 @@ class FloorController extends Controller
             $data['image'] = $imageName;
         }
 
-        // Ensure facilities is properly formatted
         if (isset($data['facilities']) && is_array($data['facilities'])) {
-            $data['facilities'] = array_filter($data['facilities']); // Remove empty values
+            $data['facilities'] = array_filter($data['facilities']);
         }
 
         Floor::create($data);
@@ -77,10 +75,9 @@ class FloorController extends Controller
         ]);
 
         $data = $request->all();
-        
-        // Handle image upload
+
         if ($request->hasFile('image')) {
-            // Delete old image
+
             if ($floor->image && file_exists(public_path('images/floors/' . $floor->image))) {
                 unlink(public_path('images/floors/' . $floor->image));
             }
@@ -91,9 +88,8 @@ class FloorController extends Controller
             $data['image'] = $imageName;
         }
 
-        // Ensure facilities is properly formatted
         if (isset($data['facilities']) && is_array($data['facilities'])) {
-            $data['facilities'] = array_filter($data['facilities']); // Remove empty values
+            $data['facilities'] = array_filter($data['facilities']);
         }
 
         $floor->update($data);
@@ -103,7 +99,7 @@ class FloorController extends Controller
 
     public function destroy(Floor $floor)
     {
-        // Delete image if exists
+
         if ($floor->image && file_exists(public_path('images/floors/' . $floor->image))) {
             unlink(public_path('images/floors/' . $floor->image));
         }
