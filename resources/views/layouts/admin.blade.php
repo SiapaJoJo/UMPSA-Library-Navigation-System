@@ -275,16 +275,24 @@
     
     
     <script>
-        let currentTheme = localStorage.getItem('admin-theme') || 'dark';
+        // Use unified theme key for consistency across all pages
+        let currentTheme = localStorage.getItem('app-theme') || localStorage.getItem('admin-theme') || localStorage.getItem('guest-theme') || 'dark';
         
+        // Migrate old theme keys to unified key
+        if (localStorage.getItem('admin-theme') && !localStorage.getItem('app-theme')) {
+            currentTheme = localStorage.getItem('admin-theme');
+            localStorage.setItem('app-theme', currentTheme);
+        }
+        if (localStorage.getItem('guest-theme') && !localStorage.getItem('app-theme')) {
+            currentTheme = localStorage.getItem('guest-theme');
+            localStorage.setItem('app-theme', currentTheme);
+        }
         
         function applyTheme(theme) {
             const body = document.getElementById('theme-body');
             const themeIcon = document.getElementById('theme-icon');
             const themeText = document.getElementById('theme-text');
             const adminLogo = document.getElementById('admin-logo');
-            
-            console.log('Applying theme:', theme);
             
             if (theme === 'dark') {
                 body.classList.add('dark');
@@ -316,19 +324,19 @@
         }
         
         function toggleTheme() {
-            console.log('Current theme before toggle:', currentTheme);
             currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-            console.log('New theme after toggle:', currentTheme);
+            localStorage.setItem('app-theme', currentTheme);
+            // Also update old keys for backward compatibility
             localStorage.setItem('admin-theme', currentTheme);
+            localStorage.setItem('guest-theme', currentTheme);
             applyTheme(currentTheme);
         }
         
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Initializing theme:', currentTheme);
             applyTheme(currentTheme);
         });
         
-        
+        // Apply theme immediately
         applyTheme(currentTheme);
     </script>
 </body>
