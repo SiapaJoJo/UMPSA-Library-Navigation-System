@@ -11,7 +11,19 @@ class PanoramaController extends Controller
 
     public function index()
     {
-        $panoramas = Panorama::all();
+        $panoramas = Panorama::all()->sortBy(function($panorama) {
+            $floor = strtolower($panorama->floor ?? '');
+            $order = [
+                'ground floor' => 1,
+                '1st floor' => 2,
+                'first floor' => 2,
+                '2nd floor' => 3,
+                'second floor' => 3,
+                '3rd floor' => 4,
+                'third floor' => 4,
+            ];
+            return $order[$floor] ?? 999;
+        });
         return view('admin.pano.index', compact('panoramas'));
     }
 
@@ -45,9 +57,17 @@ class PanoramaController extends Controller
             $outputIndex = $path . '/output/index.html';
             
             if (!file_exists($mainIndex) && !file_exists($outputIndex)) {
-
-                $this->deleteDirectory($path);
-                return back()->with('error', 'ZIP extracted but index.html not found. Please ensure your Pano2VR export includes index.html in the root or output folder.');
+                $indexPath = $this->findIndexHtml($path);
+                
+                if ($indexPath) {
+                    $nestedFolder = dirname($indexPath);
+                    if ($nestedFolder !== $path) {
+                        $this->flattenDirectory($nestedFolder, $path);
+                    }
+                } else {
+                    $this->deleteDirectory($path);
+                    return back()->with('error', 'ZIP extracted but index.html not found. Please ensure your Pano2VR export includes index.html in the root or output folder.');
+                }
             }
         } else {
             return back()->with('error', 'Failed to extract ZIP. Please check if the file is a valid ZIP archive.');
@@ -93,7 +113,6 @@ class PanoramaController extends Controller
         ];
 
         if ($request->hasFile('display_image')) {
-
             if ($pano->display_image && file_exists(public_path('panos/' . $pano->folder . '/' . $pano->display_image))) {
                 unlink(public_path('panos/' . $pano->folder . '/' . $pano->display_image));
             }
@@ -124,6 +143,25 @@ class PanoramaController extends Controller
         if ($zip->open($request->file('pano_file')->getRealPath()) === TRUE) {
             $zip->extractTo($path);
             $zip->close();
+
+            $mainIndex = $path . '/index.html';
+            $outputIndex = $path . '/output/index.html';
+            
+            if (!file_exists($mainIndex) && !file_exists($outputIndex)) {
+                $indexPath = $this->findIndexHtml($path);
+                
+                if ($indexPath) {
+                    $nestedFolder = dirname($indexPath);
+                    if ($nestedFolder !== $path) {
+                        $this->flattenDirectory($nestedFolder, $path);
+                    }
+                } else {
+                    $this->deleteDirectory($path);
+                    return back()->with('error', 'ZIP extracted but index.html not found. Please ensure your Pano2VR export includes index.html in the root or output folder.');
+                }
+            }
+        } else {
+            return back()->with('error', 'Failed to extract ZIP. Please check if the file is a valid ZIP archive.');
         }
 
         return back()->with('success', 'Panorama files replaced!');
@@ -131,7 +169,6 @@ class PanoramaController extends Controller
 
     public function destroy(Panorama $pano)
     {
-
         $this->deleteDirectory(public_path('panos/' . $pano->folder));
 
         $storagePath = storage_path('app/public/pano2vr/' . $pano->folder);
@@ -146,7 +183,6 @@ class PanoramaController extends Controller
 
     public function view($pano)
     {
-
         if (is_numeric($pano)) {
             $pano = Panorama::find($pano);
         } elseif (!$pano instanceof Panorama) {
@@ -169,7 +205,6 @@ class PanoramaController extends Controller
         if (file_exists($outputPath)) {
             $subfolder = '/output';
         } elseif (!file_exists($mainPath)) {
-
             $files = [];
             if (is_dir($folderPath)) {
                 $files = array_diff(scandir($folderPath), ['.', '..']);
@@ -192,5 +227,89 @@ class PanoramaController extends Controller
         }
 
         return rmdir($dir);
+    }
+
+    private function findIndexHtml($dir, $depth = 0)
+    {
+        if ($depth > 3) {
+            return null;
+        }
+
+        $indexPath = $dir . DIRECTORY_SEPARATOR . 'index.html';
+        if (file_exists($indexPath)) {
+            return $indexPath;
+        }
+
+        if (!is_dir($dir)) {
+            return null;
+        }
+
+        $items = scandir($dir);
+        foreach ($items as $item) {
+            if ($item == '.' || $item == '..') continue;
+            
+            $itemPath = $dir . DIRECTORY_SEPARATOR . $item;
+            if (is_dir($itemPath)) {
+                $found = $this->findIndexHtml($itemPath, $depth + 1);
+                if ($found) {
+                    return $found;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private function flattenDirectory($source, $destination)
+    {
+        if (!is_dir($source)) {
+            return false;
+        }
+
+        $items = scandir($source);
+        foreach ($items as $item) {
+            if ($item == '.' || $item == '..') continue;
+            
+            $sourcePath = $source . DIRECTORY_SEPARATOR . $item;
+            $destPath = $destination . DIRECTORY_SEPARATOR . $item;
+            
+            if (file_exists($destPath)) {
+                continue;
+            }
+            
+            if (is_dir($sourcePath)) {
+                $this->copyDirectory($sourcePath, $destPath);
+                $this->deleteDirectory($sourcePath);
+            } else {
+                copy($sourcePath, $destPath);
+                unlink($sourcePath);
+            }
+        }
+
+        if (is_dir($source)) {
+            @rmdir($source);
+        }
+        return true;
+    }
+
+    private function copyDirectory($source, $destination)
+    {
+        if (!is_dir($destination)) {
+            mkdir($destination, 0777, true);
+        }
+
+        $items = scandir($source);
+        foreach ($items as $item) {
+            if ($item == '.' || $item == '..') continue;
+            
+            $sourcePath = $source . DIRECTORY_SEPARATOR . $item;
+            $destPath = $destination . DIRECTORY_SEPARATOR . $item;
+            
+            if (is_dir($sourcePath)) {
+                $this->copyDirectory($sourcePath, $destPath);
+            } else {
+                copy($sourcePath, $destPath);
+            }
+        }
     }
 }

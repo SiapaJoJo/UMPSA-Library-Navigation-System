@@ -57,6 +57,24 @@
         
         <section class="relative py-24 md:py-32">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-5xl mx-auto">
+                    <div class="relative aspect-video rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-200/50 dark:border-gray-700/50">
+                        <iframe 
+                            class="absolute inset-0 w-full h-full" 
+                            src="https://www.youtube.com/embed/vaiStlkClac" 
+                            title="UMPSA Library Video" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="relative py-24 md:py-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-20">
                     <div class="inline-block mb-6">
                         <span class="text-sm font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider bg-indigo-50 dark:bg-indigo-900/30 px-4 py-2 rounded-full">Features</span>
@@ -189,74 +207,6 @@
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">Inclusive Access</h3>
                         <p class="text-gray-600 dark:text-gray-400 leading-relaxed">User-friendly for all visitors</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        
-        <section class="relative py-24 md:py-32">
-            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-20">
-                    <div class="inline-block mb-6">
-                        <span class="text-sm font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider bg-indigo-50 dark:bg-indigo-900/30 px-4 py-2 rounded-full">Statistics</span>
-                    </div>
-                    <h2 class="text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-gray-100 mb-4">
-                        Library at a Glance
-                    </h2>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-                    <div class="group relative bg-white dark:bg-gray-800 rounded-3xl p-8 md:p-10 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border-2 border-transparent hover:border-blue-200 dark:hover:border-blue-700 overflow-hidden">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 dark:from-blue-500/20 to-transparent rounded-bl-full"></div>
-                        <div class="relative text-center">
-                            <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500">
-                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                </svg>
-                            </div>
-                            <div class="text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-gray-100 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">50,000+</div>
-                            <div class="text-gray-600 dark:text-gray-400 text-lg font-semibold">Digital Resources</div>
-                        </div>
-                    </div>
-
-                    <div class="group relative bg-white dark:bg-gray-800 rounded-3xl p-8 md:p-10 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border-2 border-transparent hover:border-green-200 dark:hover:border-green-700 overflow-hidden">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-500/10 dark:from-green-500/20 to-transparent rounded-bl-full"></div>
-                        <div class="relative text-center">
-                            <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500">
-                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                </svg>
-                            </div>
-                            <div class="text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-gray-100 mb-3 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">10,000+</div>
-                            <div class="text-gray-600 dark:text-gray-400 text-lg font-semibold">Active Users</div>
-                        </div>
-                    </div>
-
-                    <div class="group relative bg-white dark:bg-gray-800 rounded-3xl p-8 md:p-10 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border-2 border-transparent hover:border-purple-200 dark:hover:border-purple-700 overflow-hidden">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-500/10 dark:from-purple-500/20 to-transparent rounded-bl-full"></div>
-                        <div class="relative text-center">
-                            <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500">
-                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                                </svg>
-                            </div>
-                            <div class="text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-gray-100 mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">5</div>
-                            <div class="text-gray-600 dark:text-gray-400 text-lg font-semibold">Floors</div>
-                        </div>
-                    </div>
-
-                    <div class="group relative bg-white dark:bg-gray-800 rounded-3xl p-8 md:p-10 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border-2 border-transparent hover:border-orange-200 dark:hover:border-orange-700 overflow-hidden">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-500/10 dark:from-orange-500/20 to-transparent rounded-bl-full"></div>
-                        <div class="relative text-center">
-                            <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500">
-                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <div class="text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-gray-100 mb-3 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">24/7</div>
-                            <div class="text-gray-600 dark:text-gray-400 text-lg font-semibold">Digital Access</div>
-                        </div>
                     </div>
                 </div>
             </div>
