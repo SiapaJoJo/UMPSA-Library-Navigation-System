@@ -677,8 +677,18 @@
     
     
     <script>
-
-        let currentTheme = localStorage.getItem('guest-theme') || 'light';
+        // Use unified theme key for consistency across all pages
+        let currentTheme = localStorage.getItem('app-theme') || localStorage.getItem('admin-theme') || localStorage.getItem('guest-theme') || 'dark';
+        
+        // Migrate old theme keys to unified key
+        if (localStorage.getItem('admin-theme') && !localStorage.getItem('app-theme')) {
+            currentTheme = localStorage.getItem('admin-theme');
+            localStorage.setItem('app-theme', currentTheme);
+        }
+        if (localStorage.getItem('guest-theme') && !localStorage.getItem('app-theme')) {
+            currentTheme = localStorage.getItem('guest-theme');
+            localStorage.setItem('app-theme', currentTheme);
+        }
 
         function applyTheme(theme) {
             const html = document.getElementById('theme-html');
@@ -731,6 +741,9 @@
 
         function toggleTheme() {
             currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            localStorage.setItem('app-theme', currentTheme);
+            // Also update old keys for backward compatibility
+            localStorage.setItem('admin-theme', currentTheme);
             localStorage.setItem('guest-theme', currentTheme);
             applyTheme(currentTheme);
         }
